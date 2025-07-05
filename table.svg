@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="200">
+  <foreignObject x="0" y="0" width="1000" height="200">
+    <body xmlns="http://www.w3.org/1999/xhtml">
+      <table style="font-size:14px; border-collapse: collapse;">
+        <thead>
+          <tr>
+            <th style="border:1px solid #ccc; padding:4px; background:#eee;">Status</th>
+            <th style="border:1px solid #ccc; padding:4px; background:#eee;">ISO Name</th>
+            <!-- and so on... -->
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="border:1px solid #ccc; padding:4px; background:#406c40; color:white;">OK</td>
+            <td style="border:1px solid #ccc; padding:4px;">Win11_Pro_23H2</td>
+            <!-- data cells -->
+          </tr>
+          <tr>
+            <td style="border:1px solid #ccc; padding:4px; background:#736b39; color:white;">Warning</td>
+            <td style="border:1px solid #ccc; padding:4px;">Win10_Home_22H2</td>
+          </tr>
+          <tr>
+            <td style="border:1px solid #ccc; padding:4px; background:#6e3c3c; color:white;">Fail</td>
+            <td style="border:1px solid #ccc; padding:4px;">Win8_Lite</td>
+          </tr>
+        </tbody>
+      </table>
+    </body>
+  </foreignObject>
+</svg>
