@@ -22,7 +22,7 @@ Browser Benchmarks and Passmark of various Windows 10/11 ISOs
   </thead>
   <tbody>
     <tr>
-      <td><span style="background-color:#406c40; color:white; padding:2px 6px; border-radius:4px;">OK</span></td>
+      <td>$${\color{green}✔ OK}$$</td>
       <td>Win11_Pro_23H2</td>
       <td>Windows 11 Pro</td>
       <td>22631.3527</td>
@@ -38,7 +38,7 @@ Browser Benchmarks and Passmark of various Windows 10/11 ISOs
       <td><a href="#">Ref</a></td>
     </tr>
     <tr>
-      <td><span style="background-color:#736b39; color:white; padding:2px 6px; border-radius:4px;">Warning</span></td>
+      <td>$${\color{yellow}⚠ Warning}$$</td>
       <td>Win10_Home_22H2</td>
       <td>Windows 10 Home</td>
       <td>19045.4474</td>
@@ -54,7 +54,7 @@ Browser Benchmarks and Passmark of various Windows 10/11 ISOs
       <td><a href="#">Ref</a></td>
     </tr>
     <tr>
-      <td><span style="background-color:#6e3c3c; color:white; padding:2px 6px; border-radius:4px;">Fail</span></td>
+      <td>$${\color{red}✖ Fail}$$</td>
       <td>Win8_Lite</td>
       <td>Windows 8.1</td>
       <td>9600</td>
