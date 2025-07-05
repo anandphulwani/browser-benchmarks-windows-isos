@@ -1,28 +1,102 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="200">
-  <foreignObject x="0" y="0" width="1000" height="200">
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="300">
+  <foreignObject x="0" y="0" width="1200" height="300">
     <body xmlns="http://www.w3.org/1999/xhtml">
-      <table style="font-size:14px; border-collapse: collapse;">
+      <style>
+        table {
+          font-family: Arial, sans-serif;
+          font-size: 16px;
+          border-collapse: collapse;
+          width: 100%;
+        }
+        th, td {
+          border: 1px solid #ccc;
+          padding: 6px 10px;
+        }
+        th {
+          background: #eee;
+          font-weight: bold;
+        }
+        .ok {
+          background-color: #406c40;
+          color: white;
+        }
+        .warn {
+          background-color: #736b39;
+          color: white;
+        }
+        .fail {
+          background-color: #6e3c3c;
+          color: white;
+        }
+      </style>
+      <table>
         <thead>
           <tr>
-            <th style="border:1px solid #ccc; padding:4px; background:#eee;">Status</th>
-            <th style="border:1px solid #ccc; padding:4px; background:#eee;">ISO Name</th>
-            <!-- and so on... -->
+            <th>Status</th>
+            <th>ISO Name</th>
+            <th>Windows Version</th>
+            <th>Build Version</th>
+            <th>Speedometer</th>
+            <th>JetStream</th>
+            <th>Motionmark</th>
+            <th>Passmark</th>
+            <th>Other Comments</th>
+            <th>Used Space</th>
+            <th>Size</th>
+            <th>Modified</th>
+            <th>Download URL</th>
+            <th>Referrer URL</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td style="border:1px solid #ccc; padding:4px; background:#406c40; color:white;">OK</td>
-            <td style="border:1px solid #ccc; padding:4px;">Win11_Pro_23H2</td>
-            <!-- data cells -->
+            <td class="ok">OK</td>
+            <td>Win11_Pro_23H2</td>
+            <td>Windows 11 Pro</td>
+            <td>22631.3527</td>
+            <td>90.4</td>
+            <td>250</td>
+            <td>560</td>
+            <td>4100</td>
+            <td>Stable</td>
+            <td>18 GB</td>
+            <td>5.2 GB</td>
+            <td>2025-07-01</td>
+            <td><a href="#">Link</a></td>
+            <td><a href="#">Ref</a></td>
           </tr>
           <tr>
-            <td style="border:1px solid #ccc; padding:4px; background:#736b39; color:white;">Warning</td>
-            <td style="border:1px solid #ccc; padding:4px;">Win10_Home_22H2</td>
+            <td class="warn">Warning</td>
+            <td>Win10_Home_22H2</td>
+            <td>Windows 10 Home</td>
+            <td>19045.4474</td>
+            <td>65.2</td>
+            <td>180</td>
+            <td>430</td>
+            <td>3200</td>
+            <td>Slight lag</td>
+            <td>22 GB</td>
+            <td>4.8 GB</td>
+            <td>2025-06-15</td>
+            <td><a href="#">Link</a></td>
+            <td><a href="#">Ref</a></td>
           </tr>
           <tr>
-            <td style="border:1px solid #ccc; padding:4px; background:#6e3c3c; color:white;">Fail</td>
-            <td style="border:1px solid #ccc; padding:4px;">Win8_Lite</td>
+            <td class="fail">Fail</td>
+            <td>Win8_Lite</td>
+            <td>Windows 8.1</td>
+            <td>9600</td>
+            <td>30.1</td>
+            <td>90</td>
+            <td>210</td>
+            <td>1700</td>
+            <td>Browser crashes</td>
+            <td>25 GB</td>
+            <td>3.1 GB</td>
+            <td>2025-05-10</td>
+            <td><a href="#">Link</a></td>
+            <td><a href="#">Ref</a></td>
           </tr>
         </tbody>
       </table>
