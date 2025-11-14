@@ -1,751 +1,2569 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Modern 3-Color Bubble Table</title>
-    <style>
-      :root {
-        --border-soft: #1e293b;
-        --text-main: #e5e7eb;
-        --text-muted: #9ca3af;
-        /* 3-row band colors */
-        --row-1: #062a35;
-        --row-2: #0a435d;
-        --row-3: #0d5f89;
-        /* Status colors (text only) */
-        --status-error-text: #fecaca;
-        --status-warning-text: #fef3c7;
-        --status-success-text: #bbf7d0;
-        /* per-column widths (px or %) */
-        --col-1-width: 7%;
-        --col-2-width: 17%;
-        --col-3-width: 7%;
-        --col-4-width: 7%;
-        --col-5-width: 7%;
-        --col-6-width: 7%;
-        --col-7-width: 7%;
-        --col-8-width: 7%;
-        --col-9-width: 7%;
-        --col-10-width: 7%;
-        --col-11-width: 7%;
-        --col-12-width: 7%;
-        --col-13-width: 6%;
-      }
 
-      * {
-        box-sizing: border-box;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <title>Modern 3-Color Bubble Table</title>
+  <style>
+    :root {
+      --border-soft: #1e293b;
+      --text-main: #e5e7eb;
+      --text-muted: #9ca3af;
+      /* 3-row band colors */
+      --row-1: #062a35;
+      --row-2: #0a435d;
+      --row-3: #0d5f89;
+      /* Status colors (text only) */
+      --status-error-text: #fecaca;
+      --status-warning-text: #fef3c7;
+      --status-success-text: #bbf7d0;
+      /* per-column widths (px or %) */
+      --col-1-width: 17%;
+      --col-2-width: 7%;
+      --col-3-width: 7%;
+      --col-4-width: 7%;
+      --col-5-width: 7%;
+      --col-6-width: 7%;
+      --col-7-width: 7%;
+      --col-8-width: 7%;
+      --col-9-width: 7%;
+      --col-10-width: 7%;
+      --col-11-width: 7%;
+      --col-12-width: 7%;
+      --col-13-width: 6%;
+    }
 
-      body {
-        margin: 0;
-        min-height: 100vh;
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-          sans-serif;
-        background: #020617;
-        color: var(--text-main);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 24px;
-      }
+    * {
+      box-sizing: border-box;
+    }
 
-      .wrapper {
-        width: 100%;
-      }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      background: #020617;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
 
-      header {
-        text-align: center;
-        margin-bottom: 20px;
-      }
+    .wrapper {
+      width: 100%;
+    }
 
+    header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    header h1 {
+      font-size: clamp(1.7rem, 2.5vw, 2.2rem);
+      margin: 0 0 6px;
+      letter-spacing: 0.04em;
+    }
+
+    .card {
+      background: radial-gradient(circle at top left, #1e2e3c, #1e2e3c);
+      border-radius: 18px;
+      box-shadow:
+        0 18px 45px rgba(15, 23, 42, 0.9),
+        0 0 0 1px rgba(148, 163, 184, 0.06);
+      padding: 18px 18px 18px;
+      overflow: hidden;
+      backdrop-filter: blur(16px);
+    }
+
+    /* Header wrapper cell */
+    .header-cell-wrapper {
+      background-color: #111a27;
+      padding: 20;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.35);
+    }
+
+    /* Header grid that matches bubble-main */
+    .header-main {
+      display: grid;
+      grid-template-columns:
+        var(--col-1-width) var(--col-2-width) var(--col-3-width) var(--col-4-width) var(--col-5-width) var(--col-6-width) var(--col-7-width) var(--col-8-width) var(--col-9-width) var(--col-10-width) var(--col-11-width) var(--col-12-width) var(--col-13-width);
+      margin: 0 20px;
+    }
+
+    /* Individual header labels */
+    .header-main span {
+      padding: 0px 0px;
+      text-align: center;
+      font-weight: bold;
+      text-transform: uppercase;
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      color: #9ca3af;
+      white-space: nowrap;
+    }
+
+    /* Make headers sortable */
+    .header-main span.sortable {
+      cursor: pointer;
+      position: relative;
+      user-select: none;
+    }
+
+    .header-main span.sortable::after {
+      content: "↕";
+      font-size: 0.6rem;
+      opacity: 0.3;
+      margin-left: 4px;
+    }
+
+    .header-main span.sortable.sorted-asc::after {
+      content: "▲";
+      opacity: 0.8;
+    }
+
+    .header-main span.sortable.sorted-desc::after {
+      content: "▼";
+      opacity: 0.8;
+    }
+
+    .table-wrapper {
+      border-radius: 14px;
+      border: 1px solid var(--border-soft);
+      overflow: auto;
+      position: relative;
+      width: min(var(--table-width), var(--table-max-width));
+      max-height: var(--table-max-height);
+      margin: 0 auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+      table-layout: fixed;
+    }
+
+    thead {
+      position: sticky;
+      inset-block-start: 0;
+      z-index: 2;
+    }
+
+    thead tr {
+      background: #020617;
+    }
+
+    th,
+    td {
+      border-bottom: 1px solid rgba(30, 64, 175, 0.28);
+      white-space: nowrap;
+    }
+
+    th {
+      padding: 9px 12px;
+      text-align: center;
+      font-weight: 500;
+      text-transform: uppercase;
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      color: #9ca3af;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.35);
+    }
+
+    tr.parent-row {
+      cursor: pointer;
+      transition:
+        background-color 140ms ease-out,
+        transform 120ms ease-out,
+        box-shadow 120ms ease-out;
+    }
+
+    tr.parent-row.row-band-1 {
+      background-color: var(--row-1);
+    }
+
+    tr.parent-row.row-band-2 {
+      background-color: var(--row-2);
+    }
+
+    tr.parent-row.row-band-3 {
+      background-color: var(--row-3);
+    }
+
+    tr.parent-row:hover {
+      box-shadow: 0 6px 16px rgba(15, 23, 42, 0.8);
+      transform: translateY(-1px);
+    }
+
+    tr.parent-row>td {
+      padding: 6px 10px;
+      border-bottom: 1px solid rgba(30, 64, 175, 0.4);
+    }
+
+    .bubble-row {
+      margin: 0px 5px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: radial-gradient(circle at top left,
+          rgba(15, 23, 42, 0.96),
+          rgba(15, 23, 42, 0.98));
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(148, 163, 184, 0.32);
+      box-shadow:
+        0 16px 34px rgba(0, 0, 0, 0.65),
+        0 0 0 1px rgba(15, 23, 42, 0.8);
+      backdrop-filter: blur(18px);
+      transition:
+        transform 150ms ease-out,
+        box-shadow 150ms ease-out,
+        border-color 150ms ease-out,
+        background 150ms ease-out;
+    }
+
+    .bubble-row::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      mix-blend-mode: soft-light;
+      pointer-events: none;
+    }
+
+    .bubble-main {
+      display: grid;
+      grid-template-columns:
+        var(--col-1-width) var(--col-2-width) var(--col-3-width) var(--col-4-width) var(--col-5-width) var(--col-6-width) var(--col-7-width) var(--col-8-width) var(--col-9-width) var(--col-10-width) var(--col-11-width) var(--col-12-width) var(--col-13-width);
+      align-items: center;
+      gap: 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    tr.parent-row:hover .bubble-row {
+      transform: translateY(-1px);
+      box-shadow:
+        0 22px 40px rgba(0, 0, 0, 0.8),
+        0 0 0 1px rgba(148, 163, 184, 0.55);
+    }
+
+    tr.parent-row:hover .bubble-row.status-error {
+      border-color: rgba(254, 202, 202, 0.9);
+    }
+
+    tr.parent-row:hover .bubble-row.status-warning {
+      border-color: rgba(254, 243, 199, 0.95);
+    }
+
+    tr.parent-row:hover .bubble-row.status-success {
+      border-color: rgba(187, 247, 208, 0.95);
+    }
+
+    .bubble-cell {
+      position: relative;
+      padding: 0 8px;
+      text-align: center;
+      color: #e5e7eb;
+      font-size: 0.78rem;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .bubble-main .bubble-cell+.bubble-cell::before {
+      content: "";
+      position: absolute;
+      inset-block: 24%;
+      inset-inline-start: 0;
+      width: 1px;
+      background: radial-gradient(circle, rgba(15, 23, 42, 0.2), transparent);
+      opacity: 0.8;
+    }
+
+    .bubble-main .bubble-cell:nth-child(2),
+    .bubble-main .bubble-cell:nth-child(3) {
+      font-weight: 600;
+      color: #f9fafb;
+    }
+
+    .bubble-main .bubble-cell:nth-child(n + 5) {
+      color: rgba(226, 232, 240, 0.88);
+    }
+
+    /* Last column: center its contents */
+    .bubble-main .bubble-cell:last-child {
+      text-align: left;
+    }
+
+    /* Status pill (bullet + text) */
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      font-size: 0.72rem;
+    }
+
+    .status-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      display: inline-block;
+      flex-shrink: 0;
+    }
+
+    .status-text {
+      white-space: nowrap;
+    }
+
+    .bubble-extra {
+      display: none;
+      padding-top: 10px;
+      border-top: 1px solid rgba(148, 163, 184, 0.3);
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      z-index: 1;
+    }
+
+    .bubble-row.expanded {
+      overflow: visible;
+      border-radius: 20px;
+      box-shadow:
+        0 22px 40px rgba(0, 0, 0, 0.85),
+        0 0 0 1px rgba(148, 163, 184, 0.55);
+    }
+
+    .bubble-row.expanded .bubble-extra {
+      display: block;
+    }
+
+    .bubble-extra .child-columns {
+      display: flex;
+      gap: 18px;
+      width: 100%;
+    }
+
+    .bubble-extra .child-col {
+      flex: 1;
+      font-size: 0.75rem;
+      line-height: 1.4;
+      color: #cbd5f5;
+    }
+
+    .bubble-extra .child-col-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0px 10px;
+    }
+
+    .bubble-extra .sub-cell {
+      white-space: nowrap;
+      font-size: 0.74rem;
+    }
+
+    .bubble-row.status-error {
+      background: radial-gradient(circle at top left, #7f1d1d, #7f1d1d);
+      border-color: rgba(254, 202, 202, 0.6);
+      box-shadow:
+        0 18px 36px rgba(127, 29, 29, 0.8),
+        0 0 0 1px rgba(24, 24, 27, 0.9);
+    }
+
+    .bubble-row.status-error .bubble-cell {
+      color: var(--status-error-text);
+    }
+
+    .bubble-row.status-warning {
+      background: radial-gradient(circle at top left, #78350f, #78350f);
+      border-color: rgba(254, 243, 199, 0.65);
+      box-shadow:
+        0 18px 36px rgba(120, 53, 15, 0.85),
+        0 0 0 1px rgba(24, 24, 27, 0.9);
+    }
+
+    .bubble-row.status-warning .bubble-cell {
+      color: var(--status-warning-text);
+    }
+
+    .bubble-row.status-success {
+      background: radial-gradient(circle at top left, #065f46, #065f46);
+      border-color: rgba(187, 247, 208, 0.65);
+      box-shadow:
+        0 18px 36px rgba(6, 95, 70, 0.85),
+        0 0 0 1px rgba(24, 24, 27, 0.9);
+    }
+
+    .bubble-row.status-success .bubble-cell {
+      color: var(--status-success-text);
+    }
+
+    /* Bullet colors per status */
+    .bubble-row.status-error .status-dot {
+      background: #fecaca;
+    }
+
+    .bubble-row.status-warning .status-dot {
+      background: #fde68a;
+    }
+
+    .bubble-row.status-success .status-dot {
+      background: #bbf7d0;
+    }
+
+    .child-columns .child-col {
+      border-right: 1px solid rgba(148, 163, 184, 0.85);
+      padding-right: 12px;
+    }
+
+    .child-col-heading {
+      font-weight: 700;
+      margin-bottom: 6px;
+      text-align: center;
+      padding-bottom: 4px;
+      display: inline-block;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.4);
+      position: relative;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+
+    .child-columns .child-col:last-child {
+      border-right: none;
+    }
+
+    .child-col-grid .sub-cell {
+      border-right: 2px solid rgba(148, 163, 184, 0.3);
+      text-align: center;
+      padding-right: 6px;
+    }
+
+    .child-col-grid .sub-cell:nth-child(4n) {
+      border-right: none;
+    }
+
+    @media (max-width: 600px) {
       header h1 {
-        font-size: clamp(1.7rem, 2.5vw, 2.2rem);
-        margin: 0 0 6px;
-        letter-spacing: 0.04em;
+        font-size: 1.3rem;
       }
 
       .card {
-        background: radial-gradient(circle at top left, #1e2e3c, #1e2e3c);
-        border-radius: 18px;
-        box-shadow:
-          0 18px 45px rgba(15, 23, 42, 0.9),
-          0 0 0 1px rgba(148, 163, 184, 0.06);
-        padding: 18px 18px 18px;
-        overflow: hidden;
-        backdrop-filter: blur(16px);
-      }
-
-      /* Header wrapper cell */
-      .header-cell-wrapper {
-        background-color: #111a27;
-        padding: 20;
-        border-bottom: 1px solid rgba(148, 163, 184, 0.35);
-      }
-
-      /* Header grid that matches bubble-main */
-      .header-main {
-        display: grid;
-        grid-template-columns:
-          var(--col-1-width) var(--col-2-width) var(--col-3-width) var(--col-4-width) var(--col-5-width) var(--col-6-width) var(--col-7-width) var(--col-8-width) var(--col-9-width) var(--col-10-width) var(--col-11-width) var(--col-12-width) var(--col-13-width);
-        margin: 0 20px;
-      }
-
-      /* Individual header labels */
-      .header-main span {
-        padding: 0px 0px;
-        text-align: center;
-        font-weight: bold;
-        text-transform: uppercase;
-        font-size: 0.7rem;
-        letter-spacing: 0.08em;
-        color: #9ca3af;
-        white-space: nowrap;
-      }
-
-      /* Make headers sortable */
-      .header-main span.sortable {
-        cursor: pointer;
-        position: relative;
-        user-select: none;
-      }
-
-      .header-main span.sortable::after {
-        content: "↕";
-        font-size: 0.6rem;
-        opacity: 0.3;
-        margin-left: 4px;
-      }
-
-      .header-main span.sortable.sorted-asc::after {
-        content: "▲";
-        opacity: 0.8;
-      }
-
-      .header-main span.sortable.sorted-desc::after {
-        content: "▼";
-        opacity: 0.8;
-      }
-
-      .table-wrapper {
-        border-radius: 14px;
-        border: 1px solid var(--border-soft);
-        overflow: auto;
-        position: relative;
-        width: min(var(--table-width), var(--table-max-width));
-        max-height: var(--table-max-height);
-        margin: 0 auto;
-      }
-
-      table {
-        width: 100%;
-        border-collapse: collapse;
-        font-size: 0.82rem;
-        table-layout: fixed;
-      }
-
-      thead {
-        position: sticky;
-        inset-block-start: 0;
-        z-index: 2;
-      }
-
-      thead tr {
-        background: #020617;
-      }
-
-      th,
-      td {
-        border-bottom: 1px solid rgba(30, 64, 175, 0.28);
-        white-space: nowrap;
-      }
-
-      th {
-        padding: 9px 12px;
-        text-align: center;
-        font-weight: 500;
-        text-transform: uppercase;
-        font-size: 0.7rem;
-        letter-spacing: 0.08em;
-        color: #9ca3af;
-        border-bottom: 1px solid rgba(148, 163, 184, 0.35);
-      }
-
-      tr.parent-row {
-        cursor: pointer;
-        transition:
-          background-color 140ms ease-out,
-          transform 120ms ease-out,
-          box-shadow 120ms ease-out;
-      }
-
-      tr.parent-row.row-band-1 {
-        background-color: var(--row-1);
-      }
-
-      tr.parent-row.row-band-2 {
-        background-color: var(--row-2);
-      }
-
-      tr.parent-row.row-band-3 {
-        background-color: var(--row-3);
-      }
-
-      tr.parent-row:hover {
-        box-shadow: 0 6px 16px rgba(15, 23, 42, 0.8);
-        transform: translateY(-1px);
-      }
-
-      tr.parent-row > td {
-        padding: 6px 10px;
-        border-bottom: 1px solid rgba(30, 64, 175, 0.4);
-      }
-
-      .bubble-row {
-        margin: 0px 5px;
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        padding: 10px 16px;
-        border-radius: 999px;
-        background: radial-gradient(
-          circle at top left,
-          rgba(15, 23, 42, 0.96),
-          rgba(15, 23, 42, 0.98)
-        );
-        position: relative;
-        overflow: hidden;
-        border: 1px solid rgba(148, 163, 184, 0.32);
-        box-shadow:
-          0 16px 34px rgba(0, 0, 0, 0.65),
-          0 0 0 1px rgba(15, 23, 42, 0.8);
-        backdrop-filter: blur(18px);
-        transition:
-          transform 150ms ease-out,
-          box-shadow 150ms ease-out,
-          border-color 150ms ease-out,
-          background 150ms ease-out,
-          border-radius 10ms ease-out;
-      }
-
-      .bubble-row::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        border-radius: inherit;
-        mix-blend-mode: soft-light;
-        pointer-events: none;
-      }
-
-      .bubble-main {
-        display: grid;
-        grid-template-columns:
-          var(--col-1-width) var(--col-2-width) var(--col-3-width) var(--col-4-width) var(--col-5-width) var(--col-6-width) var(--col-7-width) var(--col-8-width) var(--col-9-width) var(--col-10-width) var(--col-11-width) var(--col-12-width) var(--col-13-width);
-        align-items: center;
-        gap: 0;
-        position: relative;
-        z-index: 1;
-      }
-
-      tr.parent-row:hover .bubble-row {
-        transform: translateY(-1px);
-        box-shadow:
-          0 22px 40px rgba(0, 0, 0, 0.8),
-          0 0 0 1px rgba(148, 163, 184, 0.55);
-      }
-
-      tr.parent-row:hover .bubble-row.status-error {
-        border-color: rgba(254, 202, 202, 0.9);
-      }
-
-      tr.parent-row:hover .bubble-row.status-warning {
-        border-color: rgba(254, 243, 199, 0.95);
-      }
-
-      tr.parent-row:hover .bubble-row.status-success {
-        border-color: rgba(187, 247, 208, 0.95);
-      }
-
-      .bubble-cell {
-        position: relative;
-        padding: 0 8px;
-        text-align: center;
-        color: #e5e7eb;
-        font-size: 0.78rem;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        white-space: nowrap;
-      }
-
-      .bubble-main .bubble-cell + .bubble-cell::before {
-        content: "";
-        position: absolute;
-        inset-block: 24%;
-        inset-inline-start: 0;
-        width: 1px;
-        background: radial-gradient(circle, rgba(15, 23, 42, 0.2), transparent);
-        opacity: 0.8;
-      }
-
-      .bubble-main .bubble-cell:nth-child(2),
-      .bubble-main .bubble-cell:nth-child(3) {
-        font-weight: 600;
-        color: #f9fafb;
-      }
-
-      .bubble-main .bubble-cell:nth-child(n + 5) {
-        color: rgba(226, 232, 240, 0.88);
-      }
-
-      /* Last column: center its contents */
-      .bubble-main .bubble-cell:last-child {
-        text-align: left;
-      }
-
-      /* Status pill (bullet + text) */
-      .status-pill {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 0.45rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.09em;
-        font-size: 0.72rem;
-      }
-
-      .status-dot {
-        width: 9px;
-        height: 9px;
-        border-radius: 999px;
-        display: inline-block;
-        flex-shrink: 0;
-      }
-
-      .status-text {
-        white-space: nowrap;
-      }
-
-      .bubble-extra {
-        display: none;
-        padding-top: 10px;
-        border-top: 1px solid rgba(148, 163, 184, 0.3);
-        font-size: 0.78rem;
-        color: var(--text-muted);
-        z-index: 1;
-      }
-
-      .bubble-row.expanded {
-        overflow: visible;
-        border-radius: 20px;
-        box-shadow:
-          0 22px 40px rgba(0, 0, 0, 0.85),
-          0 0 0 1px rgba(148, 163, 184, 0.55);
-      }
-
-      .bubble-row.expanded .bubble-extra {
-        display: block;
+        padding: 14px 12px 8px;
       }
 
       .bubble-extra .child-columns {
-        display: flex;
-        gap: 18px;
-        width: 100%;
+        flex-direction: column;
       }
+    }
+  </style>
+</head>
 
-      .bubble-extra .child-col {
-        flex: 1;
-        font-size: 0.75rem;
-        line-height: 1.4;
-        color: #cbd5f5;
-      }
-
-      .bubble-extra .child-col-grid {
-        display: grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: 0px 10px;
-      }
-
-      .bubble-extra .sub-cell {
-        white-space: nowrap;
-        font-size: 0.74rem;
-      }
-
-      .bubble-row.status-error {
-        background: radial-gradient(circle at top left, #7f1d1d, #7f1d1d);
-        border-color: rgba(254, 202, 202, 0.6);
-        box-shadow:
-          0 18px 36px rgba(127, 29, 29, 0.8),
-          0 0 0 1px rgba(24, 24, 27, 0.9);
-      }
-
-      .bubble-row.status-error .bubble-cell {
-        color: var(--status-error-text);
-      }
-
-      .bubble-row.status-warning {
-        background: radial-gradient(circle at top left, #78350f, #78350f);
-        border-color: rgba(254, 243, 199, 0.65);
-        box-shadow:
-          0 18px 36px rgba(120, 53, 15, 0.85),
-          0 0 0 1px rgba(24, 24, 27, 0.9);
-      }
-
-      .bubble-row.status-warning .bubble-cell {
-        color: var(--status-warning-text);
-      }
-
-      .bubble-row.status-success {
-        background: radial-gradient(circle at top left, #065f46, #065f46);
-        border-color: rgba(187, 247, 208, 0.65);
-        box-shadow:
-          0 18px 36px rgba(6, 95, 70, 0.85),
-          0 0 0 1px rgba(24, 24, 27, 0.9);
-      }
-
-      .bubble-row.status-success .bubble-cell {
-        color: var(--status-success-text);
-      }
-
-      /* Bullet colors per status */
-      .bubble-row.status-error .status-dot {
-        background: #fecaca;
-      }
-
-      .bubble-row.status-warning .status-dot {
-        background: #fde68a;
-      }
-
-      .bubble-row.status-success .status-dot {
-        background: #bbf7d0;
-      }
-
-      .child-columns .child-col {
-        border-right: 1px solid rgba(148, 163, 184, 0.85);
-        padding-right: 12px;
-      }
-
-      .child-columns .child-col:last-child {
-        border-right: none;
-      }
-
-      .child-col-grid .sub-cell {
-        border-right: 2px solid rgba(148, 163, 184, 0.3);
-        text-align: center;
-        padding-right: 6px;
-      }
-
-      .child-col-grid .sub-cell:nth-child(4n) {
-        border-right: none;
-      }
-
-      @media (max-width: 600px) {
-        header h1 {
-          font-size: 1.3rem;
-        }
-
-        .card {
-          padding: 14px 12px 8px;
-        }
-
-        .bubble-extra .child-columns {
-          flex-direction: column;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <div class="wrapper">
-      <header>
-        <h1>Modern Table — 3-Color Stripe Rows</h1>
-      </header>
-      <section class="card">
-        <div class="table-wrapper">
-          <table>
-            <thead>
-              <tr>
-                <th colspan="13" class="header-cell-wrapper">
-                  <div class="header-main">
-                    <span class="sortable" data-col="0">ISO Filename</span>
-                    <span class="sortable" data-col="1">Name</span>
-                    <span class="sortable" data-col="2">ShortCode</span>
-                    <span class="sortable" data-col="3">Version</span>
-                    <span class="sortable" data-col="4">Avg. Benchmark</span>
-                    <span class="sortable" data-col="5">Speedometer</span>
-                    <span class="sortable" data-col="6">JetStream</span>
-                    <span class="sortable" data-col="7">Motionmark</span>
-                    <span class="sortable" data-col="8">Passmark</span>
-                    <span class="sortable" data-col="9">Used Space</span>
-                    <span class="sortable" data-col="10">ISO Size</span>
-                    <span class="sortable" data-col="11">Last Modified</span>
-                    <span class="sortable" data-col="12">Status</span>
-                  </div>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <!-- Row 1 -->
-              <tr class="parent-row row-band-1" data-parent="1">
-                <td colspan="13">
-                  <div class="bubble-row status-error">
-                    <div class="bubble-main">
-                      <span class="bubble-cell">Alpha.iso</span>
-                      <span class="bubble-cell">Alpha</span>
-                      <span class="bubble-cell">Item 01</span>
-                      <span class="bubble-cell">v1.0</span>
-                      <span class="bubble-cell">95</span>
-                      <span class="bubble-cell">220</span>
-                      <span class="bubble-cell">180</span>
-                      <span class="bubble-cell">120</span>
-                      <span class="bubble-cell">1500</span>
-                      <span class="bubble-cell">120GB</span>
-                      <span class="bubble-cell">4.7GB</span>
-                      <span class="bubble-cell">2025-01-01</span>
-                      <span class="bubble-cell">
-                        <span class="status-pill">
-                          <span class="status-dot"></span>
-                          <span class="status-text">Error</span>
-                        </span>
+<body>
+  <div class="wrapper">
+    <header>
+      <h1>Modern Table — 3-Color Stripe Rows</h1>
+    </header>
+    <section class="card">
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th colspan="13" class="header-cell-wrapper">
+                <div class="header-main">
+                  <span class="sortable" data-col="0">ISO Filename</span>
+                  <span class="sortable" data-col="1">Name</span>
+                  <span class="sortable" data-col="2">ShortCode</span>
+                  <span class="sortable" data-col="3">Version</span>
+                  <span class="sortable" data-col="4">Avg. Benchmark</span>
+                  <span class="sortable" data-col="5">Speedometer</span>
+                  <span class="sortable" data-col="6">JetStream</span>
+                  <span class="sortable" data-col="7">Motionmark</span>
+                  <span class="sortable" data-col="8">Passmark</span>
+                  <span class="sortable" data-col="9">Used Space</span>
+                  <span class="sortable" data-col="10">ISO Size</span>
+                  <span class="sortable" data-col="11">Last Modified</span>
+                  <span class="sortable" data-col="12">Status</span>
+                </div>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Row 1 -->
+            <tr class="parent-row row-band-1" data-parent="1">
+              <td colspan="13">
+                <div class="bubble-row status-error">
+                  <div class="bubble-main">
+                    <span class="bubble-cell">Alpha.iso</span>
+                    <span class="bubble-cell">Alpha</span>
+                    <span class="bubble-cell">Item 01</span>
+                    <span class="bubble-cell">v1.0</span>
+                    <span class="bubble-cell">95</span>
+                    <span class="bubble-cell">220</span>
+                    <span class="bubble-cell">180</span>
+                    <span class="bubble-cell">120</span>
+                    <span class="bubble-cell">1500</span>
+                    <span class="bubble-cell">120GB</span>
+                    <span class="bubble-cell">4.7GB</span>
+                    <span class="bubble-cell">2025-01-01</span>
+                    <span class="bubble-cell">
+                      <span class="status-pill">
+                        <span class="status-dot"></span>
+                        <span class="status-text">Error</span>
                       </span>
-                    </div>
-                    <div class="bubble-extra">
-                      <div class="child-columns">
-                        <div class="child-col">
-                          <div class="child-col-grid">
-                            <div class="sub-cell">R1-C1 Val 1</div>
-                            <div class="sub-cell">R1-C1 Val 2</div>
-                            <div class="sub-cell">R1-C1 Val 3</div>
-                            <div class="sub-cell">R1-C1 Val 4</div>
-                            <div class="sub-cell">R1-C1 Val 5</div>
-                            <div class="sub-cell">R1-C1 Val 6</div>
-                            <div class="sub-cell">R1-C1 Val 7</div>
-                            <div class="sub-cell">R1-C1 Val 8</div>
-                            <div class="sub-cell">R1-C1 Val 9</div>
-                            <div class="sub-cell">R1-C1 Val 10</div>
-                            <div class="sub-cell">R1-C1 Val 11</div>
-                            <div class="sub-cell">R1-C1 Val 12</div>
-                            <div class="sub-cell">R1-C1 Val 13</div>
-                            <div class="sub-cell">R1-C1 Val 14</div>
-                            <div class="sub-cell">R1-C1 Val 15</div>
-                            <div class="sub-cell">R1-C1 Val 16</div>
-                            <div class="sub-cell">R1-C1 Val 17</div>
-                            <div class="sub-cell">R1-C1 Val 18</div>
-                            <div class="sub-cell">R1-C1 Val 19</div>
-                            <div class="sub-cell">R1-C1 Val 20</div>
-                          </div>
+                    </span>
+                  </div>
+                  <div class="bubble-extra">
+                    <div class="child-columns">
+                      <div class="child-col">
+                        <div class="child-col-grid">
+                          <div class="sub-cell">R1-C1 Val 1</div>
+                          <div class="sub-cell">R1-C1 Val 2</div>
+                          <div class="sub-cell">R1-C1 Val 3</div>
+                          <div class="sub-cell">R1-C1 Val 4</div>
+                          <div class="sub-cell">R1-C1 Val 5</div>
+                          <div class="sub-cell">R1-C1 Val 6</div>
+                          <div class="sub-cell">R1-C1 Val 7</div>
+                          <div class="sub-cell">R1-C1 Val 8</div>
+                          <div class="sub-cell">R1-C1 Val 9</div>
+                          <div class="sub-cell">R1-C1 Val 10</div>
+                          <div class="sub-cell">R1-C1 Val 11</div>
+                          <div class="sub-cell">R1-C1 Val 12</div>
+                          <div class="sub-cell">R1-C1 Val 13</div>
+                          <div class="sub-cell">R1-C1 Val 14</div>
+                          <div class="sub-cell">R1-C1 Val 15</div>
+                          <div class="sub-cell">R1-C1 Val 16</div>
+                          <div class="sub-cell">R1-C1 Val 17</div>
+                          <div class="sub-cell">R1-C1 Val 18</div>
+                          <div class="sub-cell">R1-C1 Val 19</div>
+                          <div class="sub-cell">R1-C1 Val 20</div>
                         </div>
-                        <div class="child-col">
-                          <div class="child-col-grid">
-                            <div class="sub-cell">R1-C2 Val 1</div>
-                            <div class="sub-cell">R1-C2 Val 2</div>
-                            <div class="sub-cell">R1-C2 Val 3</div>
-                            <div class="sub-cell">R1-C2 Val 4</div>
-                            <div class="sub-cell">R1-C2 Val 5</div>
-                            <div class="sub-cell">R1-C2 Val 6</div>
-                            <div class="sub-cell">R1-C2 Val 7</div>
-                            <div class="sub-cell">R1-C2 Val 8</div>
-                            <div class="sub-cell">R1-C2 Val 9</div>
-                            <div class="sub-cell">R1-C2 Val 10</div>
-                            <div class="sub-cell">R1-C2 Val 11</div>
-                            <div class="sub-cell">R1-C2 Val 12</div>
-                            <div class="sub-cell">R1-C2 Val 13</div>
-                            <div class="sub-cell">R1-C2 Val 14</div>
-                            <div class="sub-cell">R1-C2 Val 15</div>
-                            <div class="sub-cell">R1-C2 Val 16</div>
-                            <div class="sub-cell">R1-C2 Val 17</div>
-                            <div class="sub-cell">R1-C2 Val 18</div>
-                            <div class="sub-cell">R1-C2 Val 19</div>
-                            <div class="sub-cell">R1-C2 Val 20</div>
-                          </div>
+                      </div>
+                      <div class="child-col">
+                        <div class="child-col-grid">
+                          <div class="sub-cell">R1-C2 Val 1</div>
+                          <div class="sub-cell">R1-C2 Val 2</div>
+                          <div class="sub-cell">R1-C2 Val 3</div>
+                          <div class="sub-cell">R1-C2 Val 4</div>
+                          <div class="sub-cell">R1-C2 Val 5</div>
+                          <div class="sub-cell">R1-C2 Val 6</div>
+                          <div class="sub-cell">R1-C2 Val 7</div>
+                          <div class="sub-cell">R1-C2 Val 8</div>
+                          <div class="sub-cell">R1-C2 Val 9</div>
+                          <div class="sub-cell">R1-C2 Val 10</div>
+                          <div class="sub-cell">R1-C2 Val 11</div>
+                          <div class="sub-cell">R1-C2 Val 12</div>
+                          <div class="sub-cell">R1-C2 Val 13</div>
+                          <div class="sub-cell">R1-C2 Val 14</div>
+                          <div class="sub-cell">R1-C2 Val 15</div>
+                          <div class="sub-cell">R1-C2 Val 16</div>
+                          <div class="sub-cell">R1-C2 Val 17</div>
+                          <div class="sub-cell">R1-C2 Val 18</div>
+                          <div class="sub-cell">R1-C2 Val 19</div>
+                          <div class="sub-cell">R1-C2 Val 20</div>
                         </div>
-                        <div class="child-col">
-                          <div class="child-col-grid">
-                            <div class="sub-cell">R1-C3 Val 1</div>
-                            <div class="sub-cell">R1-C3 Val 2</div>
-                            <div class="sub-cell">R1-C3 Val 3</div>
-                            <div class="sub-cell">R1-C3 Val 4</div>
-                            <div class="sub-cell">R1-C3 Val 5</div>
-                            <div class="sub-cell">R1-C3 Val 6</div>
-                            <div class="sub-cell">R1-C3 Val 7</div>
-                            <div class="sub-cell">R1-C3 Val 8</div>
-                            <div class="sub-cell">R1-C3 Val 9</div>
-                            <div class="sub-cell">R1-C3 Val 10</div>
-                            <div class="sub-cell">R1-C3 Val 11</div>
-                            <div class="sub-cell">R1-C3 Val 12</div>
-                            <div class="sub-cell">R1-C3 Val 13</div>
-                            <div class="sub-cell">R1-C3 Val 14</div>
-                            <div class="sub-cell">R1-C3 Val 15</div>
-                            <div class="sub-cell">R1-C3 Val 16</div>
-                            <div class="sub-cell">R1-C3 Val 17</div>
-                            <div class="sub-cell">R1-C3 Val 18</div>
-                            <div class="sub-cell">R1-C3 Val 19</div>
-                            <div class="sub-cell">R1-C3 Val 20</div>
-                          </div>
+                      </div>
+                      <div class="child-col">
+                        <div class="child-col-grid">
+                          <div class="sub-cell">R1-C3 Val 1</div>
+                          <div class="sub-cell">R1-C3 Val 2</div>
+                          <div class="sub-cell">R1-C3 Val 3</div>
+                          <div class="sub-cell">R1-C3 Val 4</div>
+                          <div class="sub-cell">R1-C3 Val 5</div>
+                          <div class="sub-cell">R1-C3 Val 6</div>
+                          <div class="sub-cell">R1-C3 Val 7</div>
+                          <div class="sub-cell">R1-C3 Val 8</div>
+                          <div class="sub-cell">R1-C3 Val 9</div>
+                          <div class="sub-cell">R1-C3 Val 10</div>
+                          <div class="sub-cell">R1-C3 Val 11</div>
+                          <div class="sub-cell">R1-C3 Val 12</div>
+                          <div class="sub-cell">R1-C3 Val 13</div>
+                          <div class="sub-cell">R1-C3 Val 14</div>
+                          <div class="sub-cell">R1-C3 Val 15</div>
+                          <div class="sub-cell">R1-C3 Val 16</div>
+                          <div class="sub-cell">R1-C3 Val 17</div>
+                          <div class="sub-cell">R1-C3 Val 18</div>
+                          <div class="sub-cell">R1-C3 Val 19</div>
+                          <div class="sub-cell">R1-C3 Val 20</div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </td>
-              </tr>
-              <!-- Row 2 -->
-              <tr class="parent-row row-band-2" data-parent="2">
-                <td colspan="13">
-                  <div class="bubble-row status-warning">
-                    <div class="bubble-main">
-                      <span class="bubble-cell">Bravo.iso</span>
-                      <span class="bubble-cell">Bravo</span>
-                      <span class="bubble-cell">Item 02</span>
-                      <span class="bubble-cell">v1.1</span>
-                      <span class="bubble-cell">88</span>
-                      <span class="bubble-cell">210</span>
-                      <span class="bubble-cell">170</span>
-                      <span class="bubble-cell">110</span>
-                      <span class="bubble-cell">1400</span>
-                      <span class="bubble-cell">118GB</span>
-                      <span class="bubble-cell">4.3GB</span>
-                      <span class="bubble-cell">2025-01-02</span>
-                      <span class="bubble-cell">
-                        <span class="status-pill">
-                          <span class="status-dot"></span>
-                          <span class="status-text">Warning</span>
-                        </span>
+                </div>
+              </td>
+            </tr>
+            <!-- Row 2 -->
+            <tr class="parent-row row-band-2" data-parent="2">
+              <td colspan="13">
+                <div class="bubble-row status-warning">
+                  <div class="bubble-main">
+                    <span class="bubble-cell">Bravo.iso</span>
+                    <span class="bubble-cell">Bravo</span>
+                    <span class="bubble-cell">Item 02</span>
+                    <span class="bubble-cell">v1.1</span>
+                    <span class="bubble-cell">88</span>
+                    <span class="bubble-cell">210</span>
+                    <span class="bubble-cell">170</span>
+                    <span class="bubble-cell">110</span>
+                    <span class="bubble-cell">1400</span>
+                    <span class="bubble-cell">118GB</span>
+                    <span class="bubble-cell">4.3GB</span>
+                    <span class="bubble-cell">2025-01-02</span>
+                    <span class="bubble-cell">
+                      <span class="status-pill">
+                        <span class="status-dot"></span>
+                        <span class="status-text">Warning</span>
                       </span>
-                    </div>
-                    <div class="bubble-extra">Row 2 child content...</div>
+                    </span>
                   </div>
-                </td>
-              </tr>
-              <!-- Row 3 -->
-              <tr class="parent-row row-band-3" data-parent="3">
-                <td colspan="13">
-                  <div class="bubble-row status-success">
-                    <div class="bubble-main">
-                      <span class="bubble-cell">Charlie.iso</span>
-                      <span class="bubble-cell">Charlie</span>
-                      <span class="bubble-cell">Item 03</span>
-                      <span class="bubble-cell">v2.0</span>
-                      <span class="bubble-cell">99</span>
-                      <span class="bubble-cell">230</span>
-                      <span class="bubble-cell">190</span>
-                      <span class="bubble-cell">130</span>
-                      <span class="bubble-cell">1600</span>
-                      <span class="bubble-cell">125GB</span>
-                      <span class="bubble-cell">4.9GB</span>
-                      <span class="bubble-cell">2025-01-03</span>
-                      <span class="bubble-cell">
-                        <span class="status-pill">
-                          <span class="status-dot"></span>
-                          <span class="status-text">Success</span>
-                        </span>
+                  <div class="bubble-extra">Row 2 child content...</div>
+                </div>
+              </td>
+            </tr>
+            <!-- Row 3 -->
+            <tr class="parent-row row-band-3" data-parent="3">
+              <td colspan="13">
+                <div class="bubble-row status-success">
+                  <div class="bubble-main">
+                    <span class="bubble-cell">Charlie.iso</span>
+                    <span class="bubble-cell">Charlie</span>
+                    <span class="bubble-cell">Item 03</span>
+                    <span class="bubble-cell">v2.0</span>
+                    <span class="bubble-cell">99</span>
+                    <span class="bubble-cell">230</span>
+                    <span class="bubble-cell">190</span>
+                    <span class="bubble-cell">130</span>
+                    <span class="bubble-cell">1600</span>
+                    <span class="bubble-cell">125GB</span>
+                    <span class="bubble-cell">4.9GB</span>
+                    <span class="bubble-cell">2025-01-03</span>
+                    <span class="bubble-cell">
+                      <span class="status-pill">
+                        <span class="status-dot"></span>
+                        <span class="status-text">Success</span>
                       </span>
-                    </div>
-                    <div class="bubble-extra">Row 3 child content...</div>
+                    </span>
                   </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
-    </div>
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        const headerSpans = document.querySelectorAll(
-          ".header-main span.sortable"
-        );
-        const tbody = document.querySelector("tbody");
+                  <div class="bubble-extra">Row 3 child content...</div>
+                </div>
+              </td>
+            </tr>
 
-        // --- Row expand/collapse ---
-        const parentRows = document.querySelectorAll("tbody tr.parent-row");
-        parentRows.forEach((row) => {
-          row.addEventListener("click", () => {
-            const bubble = row.querySelector(".bubble-row");
-            if (!bubble) return;
-            const isExpanded = bubble.classList.contains("expanded");
-            // close all
-            document
-              .querySelectorAll(".bubble-row.expanded")
-              .forEach((b) => b.classList.remove("expanded"));
-            // toggle current
-            if (!isExpanded) {
-              bubble.classList.add("expanded");
-            }
-          });
-        });
+            <tr class="parent-row" data-parent="4">
+              <td colspan="13">
+                <div class="bubble-row status-success">
+                  <div class="bubble-main">
+                    <span class="bubble-cell">Win10GhostSpectre SuperLite SE</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">163.31</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">
+                      <span class="status-pill">
+                        <span class="status-dot"></span>
+                        <span class="status-text">Success</span>
+                      </span>
+                    </span>
+                  </div>
+                  <div class="bubble-extra">
+                    <div class="child-columns">
+                      <div class="child-col">
+                        <div class="child-col-heading">&nbsp;&nbsp;Jetstream Data&nbsp;&nbsp;</div>
+                        <div class="child-col-grid">
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                        </div>
+                      </div>
+                      <div class="child-col">
+                        <div class="child-col-heading">&nbsp;&nbsp;Jetstream Data&nbsp;&nbsp;</div>
+                        <div class="child-col-grid">
+                          <div class="sub-cell">162.51</div>
+                          <div class="sub-cell">163.47</div>
+                          <div class="sub-cell">162.12</div>
+                          <div class="sub-cell">162.00</div>
+                          <div class="sub-cell">164.88</div>
+                          <div class="sub-cell">163.39</div>
+                          <div class="sub-cell">161.09</div>
+                          <div class="sub-cell">164.89</div>
+                          <div class="sub-cell">162.18</div>
+                          <div class="sub-cell">163.27</div>
+                          <div class="sub-cell">163.56</div>
+                          <div class="sub-cell">162.44</div>
+                          <div class="sub-cell">163.48</div>
+                          <div class="sub-cell">169.32</div>
+                          <div class="sub-cell">163.27</div>
+                          <div class="sub-cell">163.82</div>
+                          <div class="sub-cell">166.63</div>
+                          <div class="sub-cell">161.30</div>
+                          <div class="sub-cell">162.23</div>
+                          <div class="sub-cell">160.25</div>
+                        </div>
+                      </div>
+                      <div class="child-col">
+                        <div class="child-col-heading">&nbsp;&nbsp;Jetstream Data&nbsp;&nbsp;</div>
+                        <div class="child-col-grid">
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
 
-        // --- Sorting logic ---
-        let currentSort = {
-          index: null,
-          direction: "asc",
-        };
+            <tr class="parent-row" data-parent="5">
+              <td colspan="13">
+                <div class="bubble-row status-success">
+                  <div class="bubble-main">
+                    <span class="bubble-cell">Win10GhostSpectre IOT</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">177.17</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">
+                      <span class="status-pill">
+                        <span class="status-dot"></span>
+                        <span class="status-text">Success</span>
+                      </span>
+                    </span>
+                  </div>
+                  <div class="bubble-extra">
+                    <div class="child-columns">
+                      <div class="child-col">
+                        <div class="child-col-heading">&nbsp;&nbsp;Jetstream Data&nbsp;&nbsp;</div>
+                        <div class="child-col-grid">
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                        </div>
+                      </div>
+                      <div class="child-col">
+                        <div class="child-col-heading">&nbsp;&nbsp;Jetstream Data&nbsp;&nbsp;</div>
+                        <div class="child-col-grid">
+                          <div class="sub-cell">178.49</div>
+                          <div class="sub-cell">177.22</div>
+                          <div class="sub-cell">175.15</div>
+                          <div class="sub-cell">176.17</div>
+                          <div class="sub-cell">175.75</div>
+                          <div class="sub-cell">179.57</div>
+                          <div class="sub-cell">177.69</div>
+                          <div class="sub-cell">178.29</div>
+                          <div class="sub-cell">178.18</div>
+                          <div class="sub-cell">175.90</div>
+                          <div class="sub-cell">178.30</div>
+                          <div class="sub-cell">175.36</div>
+                          <div class="sub-cell">178.68</div>
+                          <div class="sub-cell">176.06</div>
+                          <div class="sub-cell">175.21</div>
+                          <div class="sub-cell">173.99</div>
+                          <div class="sub-cell">178.51</div>
+                          <div class="sub-cell">178.63</div>
+                          <div class="sub-cell">179.08</div>
+                          <div class="sub-cell">177.25</div>
+                        </div>
+                      </div>
+                      <div class="child-col">
+                        <div class="child-col-heading">&nbsp;&nbsp;Jetstream Data&nbsp;&nbsp;</div>
+                        <div class="child-col-grid">
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
 
-        function getCellText(row, colIndex) {
-          const cells = row.querySelectorAll(".bubble-main .bubble-cell");
-          const cell = cells[colIndex];
-          return cell ? cell.textContent.trim() : "";
-        }
+            <tr class="parent-row" data-parent="6">
+              <td colspan="13">
+                <div class="bubble-row status-success">
+                  <div class="bubble-main">
+                    <span class="bubble-cell">Atlas</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">172.30</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">
+                      <span class="status-pill">
+                        <span class="status-dot"></span>
+                        <span class="status-text">Success</span>
+                      </span>
+                    </span>
+                  </div>
+                  <div class="bubble-extra">
+                    <div class="child-columns">
+                      <div class="child-col">
+                        <div class="child-col-heading">&nbsp;&nbsp;Jetstream Data&nbsp;&nbsp;</div>
+                        <div class="child-col-grid">
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                        </div>
+                      </div>
+                      <div class="child-col">
+                        <div class="child-col-heading">&nbsp;&nbsp;Jetstream Data&nbsp;&nbsp;</div>
+                        <div class="child-col-grid">
+                          <div class="sub-cell">172.38</div>
+                          <div class="sub-cell">170.55</div>
+                          <div class="sub-cell">173.18</div>
+                          <div class="sub-cell">171.48</div>
+                          <div class="sub-cell">173.46</div>
+                          <div class="sub-cell">172.70</div>
+                          <div class="sub-cell">173.74</div>
+                          <div class="sub-cell">174.30</div>
+                          <div class="sub-cell">168.27</div>
+                          <div class="sub-cell">175.75</div>
+                          <div class="sub-cell">172.43</div>
+                          <div class="sub-cell">171.04</div>
+                          <div class="sub-cell">172.38</div>
+                          <div class="sub-cell">170.64</div>
+                          <div class="sub-cell">172.62</div>
+                          <div class="sub-cell">172.60</div>
+                          <div class="sub-cell">168.71</div>
+                          <div class="sub-cell">172.33</div>
+                          <div class="sub-cell">173.06</div>
+                          <div class="sub-cell">174.41</div>
+                        </div>
+                      </div>
+                      <div class="child-col">
+                        <div class="child-col-heading">&nbsp;&nbsp;Jetstream Data&nbsp;&nbsp;</div>
+                        <div class="child-col-grid">
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
 
-        function sortByColumn(colIndex) {
-          const rows = Array.from(
-            document.querySelectorAll("tbody tr.parent-row")
-          );
+            <tr class="parent-row" data-parent="7">
+              <td colspan="13">
+                <div class="bubble-row status-success">
+                  <div class="bubble-main">
+                    <span class="bubble-cell">Atlas v2</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">172.02</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">
+                      <span class="status-pill">
+                        <span class="status-dot"></span>
+                        <span class="status-text">Success</span>
+                      </span>
+                    </span>
+                  </div>
+                  <div class="bubble-extra">
+                    <div class="child-columns">
+                      <div class="child-col">
+                        <div class="child-col-heading">&nbsp;&nbsp;Jetstream Data&nbsp;&nbsp;</div>
+                        <div class="child-col-grid">
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                        </div>
+                      </div>
+                      <div class="child-col">
+                        <div class="child-col-heading">&nbsp;&nbsp;Jetstream Data&nbsp;&nbsp;</div>
+                        <div class="child-col-grid">
+                          <div class="sub-cell">171.56</div>
+                          <div class="sub-cell">169.16</div>
+                          <div class="sub-cell">173.86</div>
+                          <div class="sub-cell">172.45</div>
+                          <div class="sub-cell">170.45</div>
+                          <div class="sub-cell">173.86</div>
+                          <div class="sub-cell">174.81</div>
+                          <div class="sub-cell">170.62</div>
+                          <div class="sub-cell">171.38</div>
+                          <div class="sub-cell">176.11</div>
+                          <div class="sub-cell">172.35</div>
+                          <div class="sub-cell">174.69</div>
+                          <div class="sub-cell">172.61</div>
+                          <div class="sub-cell">173.38</div>
+                          <div class="sub-cell">172.77</div>
+                          <div class="sub-cell">171.93</div>
+                          <div class="sub-cell">170.81</div>
+                          <div class="sub-cell">168.08</div>
+                          <div class="sub-cell">168.08</div>
+                          <div class="sub-cell">171.51</div>
+                        </div>
+                      </div>
+                      <div class="child-col">
+                        <div class="child-col-heading">&nbsp;&nbsp;Jetstream Data&nbsp;&nbsp;</div>
+                        <div class="child-col-grid">
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
 
-          // Determine direction (toggle if same column)
-          if (currentSort.index === colIndex) {
-            currentSort.direction =
-              currentSort.direction === "asc" ? "desc" : "asc";
-          } else {
-            currentSort.index = colIndex;
-            currentSort.direction = "asc";
+            <tr class="parent-row" data-parent="8">
+              <td colspan="13">
+                <div class="bubble-row status-success">
+                  <div class="bubble-main">
+                    <span class="bubble-cell">RevOS</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">182.48</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">
+                      <span class="status-pill">
+                        <span class="status-dot"></span>
+                        <span class="status-text">Success</span>
+                      </span>
+                    </span>
+                  </div>
+                  <div class="bubble-extra">
+                    <div class="child-columns">
+                      <div class="child-col">
+                        <div class="child-col-heading">&nbsp;&nbsp;Jetstream Data&nbsp;&nbsp;</div>
+                        <div class="child-col-grid">
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                        </div>
+                      </div>
+                      <div class="child-col">
+                        <div class="child-col-heading">&nbsp;&nbsp;Jetstream Data&nbsp;&nbsp;</div>
+                        <div class="child-col-grid">
+                          <div class="sub-cell">181.76</div>
+                          <div class="sub-cell">177.64</div>
+                          <div class="sub-cell">181.44</div>
+                          <div class="sub-cell">176.60</div>
+                          <div class="sub-cell">186.16</div>
+                          <div class="sub-cell">181.42</div>
+                          <div class="sub-cell">181.09</div>
+                          <div class="sub-cell">182.80</div>
+                          <div class="sub-cell">186.99</div>
+                          <div class="sub-cell">182.93</div>
+                          <div class="sub-cell">184.96</div>
+                          <div class="sub-cell">183.62</div>
+                          <div class="sub-cell">185.96</div>
+                          <div class="sub-cell">177.73</div>
+                          <div class="sub-cell">183.45</div>
+                          <div class="sub-cell">182.07</div>
+                          <div class="sub-cell">184.24</div>
+                          <div class="sub-cell">183.05</div>
+                          <div class="sub-cell">184.23</div>
+                          <div class="sub-cell">181.49</div>
+                        </div>
+                      </div>
+                      <div class="child-col">
+                        <div class="child-col-heading">&nbsp;&nbsp;Jetstream Data&nbsp;&nbsp;</div>
+                        <div class="child-col-grid">
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+
+            <tr class="parent-row" data-parent="9">
+              <td colspan="13">
+                <div class="bubble-row status-success">
+                  <div class="bubble-main">
+                    <span class="bubble-cell">RevOS</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">178.95</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">
+                      <span class="status-pill">
+                        <span class="status-dot"></span>
+                        <span class="status-text">Success</span>
+                      </span>
+                    </span>
+                  </div>
+                  <div class="bubble-extra">
+                    <div class="child-columns">
+                      <div class="child-col">
+                        <div class="child-col-heading">&nbsp;&nbsp;Jetstream Data&nbsp;&nbsp;</div>
+                        <div class="child-col-grid">
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                        </div>
+                      </div>
+                      <div class="child-col">
+                        <div class="child-col-heading">&nbsp;&nbsp;Jetstream Data&nbsp;&nbsp;</div>
+                        <div class="child-col-grid">
+                          <div class="sub-cell">179.68</div>
+                          <div class="sub-cell">173.04</div>
+                          <div class="sub-cell">178.51</div>
+                          <div class="sub-cell">177.66</div>
+                          <div class="sub-cell">176.67</div>
+                          <div class="sub-cell">181.67</div>
+                          <div class="sub-cell">178.58</div>
+                          <div class="sub-cell">180.12</div>
+                          <div class="sub-cell">179.33</div>
+                          <div class="sub-cell">180.21</div>
+                          <div class="sub-cell">177.62</div>
+                          <div class="sub-cell">180.81</div>
+                          <div class="sub-cell">182.27</div>
+                          <div class="sub-cell">177.90</div>
+                          <div class="sub-cell">178.99</div>
+                          <div class="sub-cell">180.98</div>
+                          <div class="sub-cell">180.50</div>
+                          <div class="sub-cell">176.73</div>
+                          <div class="sub-cell">178.27</div>
+                          <div class="sub-cell">179.39</div>
+                        </div>
+                      </div>
+                      <div class="child-col">
+                        <div class="child-col-heading">&nbsp;&nbsp;Jetstream Data&nbsp;&nbsp;</div>
+                        <div class="child-col-grid">
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+
+            <tr class="parent-row" data-parent="10">
+              <td colspan="13">
+                <div class="bubble-row status-success">
+                  <div class="bubble-main">
+                    <span class="bubble-cell">TinyOS</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">150.79</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">
+                      <span class="status-pill">
+                        <span class="status-dot"></span>
+                        <span class="status-text">Success</span>
+                      </span>
+                    </span>
+                  </div>
+                  <div class="bubble-extra">
+                    <div class="child-columns">
+                      <div class="child-col">
+                        <div class="child-col-heading">&nbsp;&nbsp;Jetstream Data&nbsp;&nbsp;</div>
+                        <div class="child-col-grid">
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                        </div>
+                      </div>
+                      <div class="child-col">
+                        <div class="child-col-heading">&nbsp;&nbsp;Jetstream Data&nbsp;&nbsp;</div>
+                        <div class="child-col-grid">
+                          <div class="sub-cell">154.15</div>
+                          <div class="sub-cell">153.66</div>
+                          <div class="sub-cell">151.24</div>
+                          <div class="sub-cell">149.94</div>
+                          <div class="sub-cell">149.54</div>
+                          <div class="sub-cell">151.13</div>
+                          <div class="sub-cell">149.63</div>
+                          <div class="sub-cell">151.39</div>
+                          <div class="sub-cell">149.80</div>
+                          <div class="sub-cell">153.50</div>
+                          <div class="sub-cell">149.96</div>
+                          <div class="sub-cell">150.43</div>
+                          <div class="sub-cell">147.14</div>
+                          <div class="sub-cell">150.77</div>
+                          <div class="sub-cell">148.48</div>
+                          <div class="sub-cell">147.34</div>
+                          <div class="sub-cell">151.87</div>
+                          <div class="sub-cell">152.62</div>
+                          <div class="sub-cell">150.66</div>
+                          <div class="sub-cell">152.63</div>
+                        </div>
+                      </div>
+                      <div class="child-col">
+                        <div class="child-col-heading">&nbsp;&nbsp;Jetstream Data&nbsp;&nbsp;</div>
+                        <div class="child-col-grid">
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+
+            <tr class="parent-row" data-parent="11">
+              <td colspan="13">
+                <div class="bubble-row status-success">
+                  <div class="bubble-main">
+                    <span class="bubble-cell">FoxOS</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">171.36</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">
+                      <span class="status-pill">
+                        <span class="status-dot"></span>
+                        <span class="status-text">Success</span>
+                      </span>
+                    </span>
+                  </div>
+                  <div class="bubble-extra">
+                    <div class="child-columns">
+                      <div class="child-col">
+                        <div class="child-col-heading">&nbsp;&nbsp;Jetstream Data&nbsp;&nbsp;</div>
+                        <div class="child-col-grid">
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                        </div>
+                      </div>
+                      <div class="child-col">
+                        <div class="child-col-heading">&nbsp;&nbsp;Jetstream Data&nbsp;&nbsp;</div>
+                        <div class="child-col-grid">
+                          <div class="sub-cell">171.15</div>
+                          <div class="sub-cell">171.14</div>
+                          <div class="sub-cell">170.03</div>
+                          <div class="sub-cell">169.08</div>
+                          <div class="sub-cell">171.69</div>
+                          <div class="sub-cell">168.74</div>
+                          <div class="sub-cell">173.82</div>
+                          <div class="sub-cell">175.89</div>
+                          <div class="sub-cell">172.04</div>
+                          <div class="sub-cell">172.12</div>
+                          <div class="sub-cell">172.74</div>
+                          <div class="sub-cell">168.03</div>
+                          <div class="sub-cell">173.03</div>
+                          <div class="sub-cell">171.38</div>
+                          <div class="sub-cell">172.47</div>
+                          <div class="sub-cell">168.97</div>
+                          <div class="sub-cell">168.33</div>
+                          <div class="sub-cell">173.74</div>
+                          <div class="sub-cell">171.16</div>
+                          <div class="sub-cell">171.68</div>
+                        </div>
+                      </div>
+                      <div class="child-col">
+                        <div class="child-col-heading">&nbsp;&nbsp;Jetstream Data&nbsp;&nbsp;</div>
+                        <div class="child-col-grid">
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+
+            <tr class="parent-row" data-parent="12">
+              <td colspan="13">
+                <div class="bubble-row status-success">
+                  <div class="bubble-main">
+                    <span class="bubble-cell">NexusOS</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">182.18</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">
+                      <span class="status-pill">
+                        <span class="status-dot"></span>
+                        <span class="status-text">Success</span>
+                      </span>
+                    </span>
+                  </div>
+                  <div class="bubble-extra">
+                    <div class="child-columns">
+                      <div class="child-col">
+                        <div class="child-col-heading">&nbsp;&nbsp;Jetstream Data&nbsp;&nbsp;</div>
+                        <div class="child-col-grid">
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                        </div>
+                      </div>
+                      <div class="child-col">
+                        <div class="child-col-heading">&nbsp;&nbsp;Jetstream Data&nbsp;&nbsp;</div>
+                        <div class="child-col-grid">
+                          <div class="sub-cell">185.45</div>
+                          <div class="sub-cell">179.46</div>
+                          <div class="sub-cell">182.33</div>
+                          <div class="sub-cell">180.25</div>
+                          <div class="sub-cell">181.90</div>
+                          <div class="sub-cell">184.65</div>
+                          <div class="sub-cell">182.09</div>
+                          <div class="sub-cell">186.78</div>
+                          <div class="sub-cell">182.12</div>
+                          <div class="sub-cell">176.94</div>
+                          <div class="sub-cell">183.90</div>
+                          <div class="sub-cell">179.77</div>
+                          <div class="sub-cell">182.07</div>
+                          <div class="sub-cell">181.52</div>
+                          <div class="sub-cell">182.29</div>
+                          <div class="sub-cell">179.91</div>
+                          <div class="sub-cell">181.61</div>
+                          <div class="sub-cell">183.62</div>
+                          <div class="sub-cell">185.02</div>
+                          <div class="sub-cell">181.99</div>
+
+                        </div>
+                      </div>
+                      <div class="child-col">
+                        <div class="child-col-heading">&nbsp;&nbsp;Jetstream Data&nbsp;&nbsp;</div>
+                        <div class="child-col-grid">
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+
+            <tr class="parent-row" data-parent="13">
+              <td colspan="13">
+                <div class="bubble-row status-success">
+                  <div class="bubble-main">
+                    <span class="bubble-cell">_GetIntoPC</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">181.24</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">
+                      <span class="status-pill">
+                        <span class="status-dot"></span>
+                        <span class="status-text">Success</span>
+                      </span>
+                    </span>
+                  </div>
+                  <div class="bubble-extra">
+                    <div class="child-columns">
+                      <div class="child-col">
+                        <div class="child-col-heading">&nbsp;&nbsp;Jetstream Data&nbsp;&nbsp;</div>
+                        <div class="child-col-grid">
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                        </div>
+                      </div>
+                      <div class="child-col">
+                        <div class="child-col-heading">&nbsp;&nbsp;Jetstream Data&nbsp;&nbsp;</div>
+                        <div class="child-col-grid">
+                          <div class="sub-cell">181.14</div>
+                          <div class="sub-cell">183.23</div>
+                          <div class="sub-cell">181.32</div>
+                          <div class="sub-cell">181.48</div>
+                          <div class="sub-cell">180.90</div>
+                          <div class="sub-cell">180.05</div>
+                          <div class="sub-cell">177.54</div>
+                          <div class="sub-cell">182.56</div>
+                          <div class="sub-cell">181.45</div>
+                          <div class="sub-cell">180.45</div>
+                          <div class="sub-cell">184.60</div>
+                          <div class="sub-cell">182.62</div>
+                          <div class="sub-cell">183.53</div>
+                          <div class="sub-cell">183.53</div>
+                          <div class="sub-cell">179.43</div>
+                          <div class="sub-cell">178.98</div>
+                          <div class="sub-cell">181.88</div>
+                          <div class="sub-cell">179.72</div>
+                          <div class="sub-cell">179.24</div>
+                          <div class="sub-cell">181.12</div>
+                        </div>
+                      </div>
+                      <div class="child-col">
+                        <div class="child-col-heading">&nbsp;&nbsp;Jetstream Data&nbsp;&nbsp;</div>
+                        <div class="child-col-grid">
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+
+            <tr class="parent-row" data-parent="14">
+              <td colspan="13">
+                <div class="bubble-row status-success">
+                  <div class="bubble-main">
+                    <span class="bubble-cell">Windows 10 MNF</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">182.26</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">
+                      <span class="status-pill">
+                        <span class="status-dot"></span>
+                        <span class="status-text">Success</span>
+                      </span>
+                    </span>
+                  </div>
+                  <div class="bubble-extra">
+                    <div class="child-columns">
+                      <div class="child-col">
+                        <div class="child-col-heading">&nbsp;&nbsp;Jetstream Data&nbsp;&nbsp;</div>
+                        <div class="child-col-grid">
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                        </div>
+                      </div>
+                      <div class="child-col">
+                        <div class="child-col-heading">&nbsp;&nbsp;Jetstream Data&nbsp;&nbsp;</div>
+                        <div class="child-col-grid">
+                          <div class="sub-cell">183.19</div>
+                          <div class="sub-cell">184.76</div>
+                          <div class="sub-cell">182.47</div>
+                          <div class="sub-cell">184.17</div>
+                          <div class="sub-cell">183.71</div>
+                          <div class="sub-cell">182.93</div>
+                          <div class="sub-cell">180.04</div>
+                          <div class="sub-cell">179.04</div>
+                          <div class="sub-cell">185.97</div>
+                          <div class="sub-cell">181.44</div>
+                          <div class="sub-cell">179.89</div>
+                          <div class="sub-cell">182.41</div>
+                          <div class="sub-cell">184.25</div>
+                          <div class="sub-cell">175.69</div>
+                          <div class="sub-cell">183.75</div>
+                          <div class="sub-cell">181.12</div>
+                          <div class="sub-cell">178.04</div>
+                          <div class="sub-cell">183.11</div>
+                          <div class="sub-cell">185.40</div>
+                          <div class="sub-cell">183.79</div>
+                        </div>
+                      </div>
+                      <div class="child-col">
+                        <div class="child-col-heading">&nbsp;&nbsp;Jetstream Data&nbsp;&nbsp;</div>
+                        <div class="child-col-grid">
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+
+            <tr class="parent-row" data-parent="15">
+              <td colspan="13">
+                <div class="bubble-row status-success">
+                  <div class="bubble-main">
+                    <span class="bubble-cell">Windows 10 Mordern N Fast</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">182.32</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">
+                      <span class="status-pill">
+                        <span class="status-dot"></span>
+                        <span class="status-text">Success</span>
+                      </span>
+                    </span>
+                  </div>
+                  <div class="bubble-extra">
+                    <div class="child-columns">
+                      <div class="child-col">
+                        <div class="child-col-heading">&nbsp;&nbsp;Jetstream Data&nbsp;&nbsp;</div>
+                        <div class="child-col-grid">
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                        </div>
+                      </div>
+                      <div class="child-col">
+                        <div class="child-col-heading">&nbsp;&nbsp;Jetstream Data&nbsp;&nbsp;</div>
+                        <div class="child-col-grid">
+                          <div class="sub-cell">177.12</div>
+                          <div class="sub-cell">182.90</div>
+                          <div class="sub-cell">183.95</div>
+                          <div class="sub-cell">183.51</div>
+                          <div class="sub-cell">184.85</div>
+                          <div class="sub-cell">183.11</div>
+                          <div class="sub-cell">185.06</div>
+                          <div class="sub-cell">180.02</div>
+                          <div class="sub-cell">183.70</div>
+                          <div class="sub-cell">184.67</div>
+                          <div class="sub-cell">181.78</div>
+                          <div class="sub-cell">180.12</div>
+                          <div class="sub-cell">181.68</div>
+                          <div class="sub-cell">182.72</div>
+                          <div class="sub-cell">180.62</div>
+                          <div class="sub-cell">183.42</div>
+                          <div class="sub-cell">184.11</div>
+                          <div class="sub-cell">182.78</div>
+                          <div class="sub-cell">177.18</div>
+                          <div class="sub-cell">183.13</div>
+                        </div>
+                      </div>
+                      <div class="child-col">
+                        <div class="child-col-heading">&nbsp;&nbsp;Jetstream Data&nbsp;&nbsp;</div>
+                        <div class="child-col-grid">
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+
+            <tr class="parent-row" data-parent="16">
+              <td colspan="13">
+                <div class="bubble-row status-success">
+                  <div class="bubble-main">
+                    <span
+                      class="bubble-cell">Windows.10.X-Lite.RESURRECCION_19044.2075.10.21H2.Enterprise.LTSC.By.FBConan</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">175.71</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">
+                      <span class="status-pill">
+                        <span class="status-dot"></span>
+                        <span class="status-text">Success</span>
+                      </span>
+                    </span>
+                  </div>
+                  <div class="bubble-extra">
+                    <div class="child-columns">
+                      <div class="child-col">
+                        <div class="child-col-heading">&nbsp;&nbsp;Jetstream Data&nbsp;&nbsp;</div>
+                        <div class="child-col-grid">
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                        </div>
+                      </div>
+                      <div class="child-col">
+                        <div class="child-col-heading">&nbsp;&nbsp;Jetstream Data&nbsp;&nbsp;</div>
+                        <div class="child-col-grid">
+                          <div class="sub-cell">174.93</div>
+                          <div class="sub-cell">177.53</div>
+                          <div class="sub-cell">173.79</div>
+                          <div class="sub-cell">178.46</div>
+                          <div class="sub-cell">175.85</div>
+                          <div class="sub-cell">175.49</div>
+                          <div class="sub-cell">174.58</div>
+                          <div class="sub-cell">175.43</div>
+                          <div class="sub-cell">175.04</div>
+                          <div class="sub-cell">177.34</div>
+                          <div class="sub-cell">176.82</div>
+                          <div class="sub-cell">177.41</div>
+                          <div class="sub-cell">175.02</div>
+                          <div class="sub-cell">174.03</div>
+                          <div class="sub-cell">173.39</div>
+                          <div class="sub-cell">175.32</div>
+                          <div class="sub-cell">178.22</div>
+                          <div class="sub-cell">176.10</div>
+                          <div class="sub-cell">174.97</div>
+                          <div class="sub-cell">174.50</div>
+                        </div>
+                      </div>
+                      <div class="child-col">
+                        <div class="child-col-heading">&nbsp;&nbsp;Jetstream Data&nbsp;&nbsp;</div>
+                        <div class="child-col-grid">
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+
+            <tr class="parent-row" data-parent="17">
+              <td colspan="13">
+                <div class="bubble-row status-success">
+                  <div class="bubble-main">
+                    <span class="bubble-cell">Mini 10 Beta 1</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">161.54</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">
+                      <span class="status-pill">
+                        <span class="status-dot"></span>
+                        <span class="status-text">Success</span>
+                      </span>
+                    </span>
+                  </div>
+                  <div class="bubble-extra">
+                    <div class="child-columns">
+                      <div class="child-col">
+                        <div class="child-col-heading">&nbsp;&nbsp;Jetstream Data&nbsp;&nbsp;</div>
+                        <div class="child-col-grid">
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                        </div>
+                      </div>
+                      <div class="child-col">
+                        <div class="child-col-heading">&nbsp;&nbsp;Jetstream Data&nbsp;&nbsp;</div>
+                        <div class="child-col-grid">
+                          <div class="sub-cell">158.99</div>
+                          <div class="sub-cell">159.57</div>
+                          <div class="sub-cell">164.73</div>
+                          <div class="sub-cell">162.95</div>
+                          <div class="sub-cell">163.05</div>
+                          <div class="sub-cell">160.16</div>
+                          <div class="sub-cell">163.12</div>
+                          <div class="sub-cell">161.44</div>
+                          <div class="sub-cell">161.75</div>
+                          <div class="sub-cell">161.93</div>
+                          <div class="sub-cell">161.74</div>
+                          <div class="sub-cell">160.38</div>
+                          <div class="sub-cell">160.55</div>
+                          <div class="sub-cell">161.60</div>
+                          <div class="sub-cell">160.82</div>
+                          <div class="sub-cell">160.35</div>
+                          <div class="sub-cell">158.03</div>
+                          <div class="sub-cell">164.50</div>
+                          <div class="sub-cell">161.65</div>
+                          <div class="sub-cell">163.43</div>
+                        </div>
+                      </div>
+                      <div class="child-col">
+                        <div class="child-col-heading">&nbsp;&nbsp;Jetstream Data&nbsp;&nbsp;</div>
+                        <div class="child-col-grid">
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+
+            <tr class="parent-row" data-parent="18">
+              <td colspan="13">
+                <div class="bubble-row status-success">
+                  <div class="bubble-main">
+                    <span class="bubble-cell">64Bit. Obsidian TeamOS</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">176.48</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">
+                      <span class="status-pill">
+                        <span class="status-dot"></span>
+                        <span class="status-text">Success</span>
+                      </span>
+                    </span>
+                  </div>
+                  <div class="bubble-extra">
+                    <div class="child-columns">
+                      <div class="child-col">
+                        <div class="child-col-heading">&nbsp;&nbsp;Jetstream Data&nbsp;&nbsp;</div>
+                        <div class="child-col-grid">
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                        </div>
+                      </div>
+                      <div class="child-col">
+                        <div class="child-col-heading">&nbsp;&nbsp;Jetstream Data&nbsp;&nbsp;</div>
+                        <div class="child-col-grid">
+                          <div class="sub-cell">173.45</div>
+                          <div class="sub-cell">172.91</div>
+                          <div class="sub-cell">173.91</div>
+                          <div class="sub-cell">177.98</div>
+                          <div class="sub-cell">178.32</div>
+                          <div class="sub-cell">180.42</div>
+                          <div class="sub-cell">179.71</div>
+                          <div class="sub-cell">180.03</div>
+                          <div class="sub-cell">176.15</div>
+                          <div class="sub-cell">176.31</div>
+                          <div class="sub-cell">177.79</div>
+                          <div class="sub-cell">176.65</div>
+                          <div class="sub-cell">178.65</div>
+                          <div class="sub-cell">178.17</div>
+                          <div class="sub-cell">179.22</div>
+                          <div class="sub-cell">172.77</div>
+                          <div class="sub-cell">176.03</div>
+                          <div class="sub-cell">172.36</div>
+                          <div class="sub-cell">175.40</div>
+                          <div class="sub-cell">173.37</div>
+                        </div>
+                      </div>
+                      <div class="child-col">
+                        <div class="child-col-heading">&nbsp;&nbsp;Jetstream Data&nbsp;&nbsp;</div>
+                        <div class="child-col-grid">
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+
+            <tr class="parent-row" data-parent="19">
+              <td colspan="13">
+                <div class="bubble-row status-success">
+                  <div class="bubble-main">
+                    <span class="bubble-cell">Threshold_Winter-Beta_1.iso</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">179.64</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">
+                      <span class="status-pill">
+                        <span class="status-dot"></span>
+                        <span class="status-text">Success</span>
+                      </span>
+                    </span>
+                  </div>
+                  <div class="bubble-extra">
+                    <div class="child-columns">
+                      <div class="child-col">
+                        <div class="child-col-heading">&nbsp;&nbsp;Jetstream Data&nbsp;&nbsp;</div>
+                        <div class="child-col-grid">
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                        </div>
+                      </div>
+                      <div class="child-col">
+                        <div class="child-col-heading">&nbsp;&nbsp;Jetstream Data&nbsp;&nbsp;</div>
+                        <div class="child-col-grid">
+                          <div class="sub-cell">174.97</div>
+                          <div class="sub-cell">175.87</div>
+                          <div class="sub-cell">178.39</div>
+                          <div class="sub-cell">180.24</div>
+                          <div class="sub-cell">177.24</div>
+                          <div class="sub-cell">179.24</div>
+                          <div class="sub-cell">182.13</div>
+                          <div class="sub-cell">181.51</div>
+                          <div class="sub-cell">182.93</div>
+                          <div class="sub-cell">178.92</div>
+                          <div class="sub-cell">181.62</div>
+                          <div class="sub-cell">181.41</div>
+                          <div class="sub-cell">180.31</div>
+                          <div class="sub-cell">179.01</div>
+                          <div class="sub-cell">177.58</div>
+                          <div class="sub-cell">180.63</div>
+                          <div class="sub-cell">179.27</div>
+                          <div class="sub-cell">179.57</div>
+                          <div class="sub-cell">181.38</div>
+                          <div class="sub-cell">180.56</div>
+                        </div>
+                      </div>
+                      <div class="child-col">
+                        <div class="child-col-heading">&nbsp;&nbsp;Jetstream Data&nbsp;&nbsp;</div>
+                        <div class="child-col-grid">
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+
+            <tr class="parent-row" data-parent="20">
+              <td colspan="13">
+                <div class="bubble-row status-success">
+                  <div class="bubble-main">
+                    <span class="bubble-cell">Windows SV Pro v1-Legacy</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">181.82</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">
+                      <span class="status-pill">
+                        <span class="status-dot"></span>
+                        <span class="status-text">Success</span>
+                      </span>
+                    </span>
+                  </div>
+                  <div class="bubble-extra">
+                    <div class="child-columns">
+                      <div class="child-col">
+                        <div class="child-col-heading">&nbsp;&nbsp;Jetstream Data&nbsp;&nbsp;</div>
+                        <div class="child-col-grid">
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                        </div>
+                      </div>
+                      <div class="child-col">
+                        <div class="child-col-heading">&nbsp;&nbsp;Jetstream Data&nbsp;&nbsp;</div>
+                        <div class="child-col-grid">
+                          <div class="sub-cell">180.51</div>
+                          <div class="sub-cell">182.29</div>
+                          <div class="sub-cell">182.66</div>
+                          <div class="sub-cell">181.83</div>
+                          <div class="sub-cell">181.32</div>
+                          <div class="sub-cell">178.54</div>
+                          <div class="sub-cell">184.89</div>
+                          <div class="sub-cell">185.20</div>
+                          <div class="sub-cell">184.46</div>
+                          <div class="sub-cell">183.41</div>
+                          <div class="sub-cell">179.61</div>
+                          <div class="sub-cell">183.15</div>
+                          <div class="sub-cell">182.85</div>
+                          <div class="sub-cell">181.01</div>
+                          <div class="sub-cell">180.78</div>
+                          <div class="sub-cell">183.69</div>
+                          <div class="sub-cell">182.42</div>
+                          <div class="sub-cell">177.37</div>
+                          <div class="sub-cell">181.92</div>
+                          <div class="sub-cell">178.54</div>
+                        </div>
+                      </div>
+                      <div class="child-col">
+                        <div class="child-col-heading">&nbsp;&nbsp;Jetstream Data&nbsp;&nbsp;</div>
+                        <div class="child-col-grid">
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                          <div class="sub-cell">&nbsp;</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const headerSpans = document.querySelectorAll(
+        ".header-main span.sortable"
+      );
+      const tbody = document.querySelector("tbody");
+
+      // --- Row expand/collapse ---
+      const parentRows = document.querySelectorAll("tbody tr.parent-row");
+      parentRows.forEach((row) => {
+        row.addEventListener("click", () => {
+          const bubble = row.querySelector(".bubble-row");
+          if (!bubble) return;
+          const isExpanded = bubble.classList.contains("expanded");
+          // close all
+          document
+            .querySelectorAll(".bubble-row.expanded")
+            .forEach((b) => b.classList.remove("expanded"));
+          // toggle current
+          if (!isExpanded) {
+            bubble.classList.add("expanded");
           }
-
-          // Clear header sort classes
-          headerSpans.forEach((span) => {
-            span.classList.remove("sorted-asc", "sorted-desc");
-          });
-          const activeHeader = document.querySelector(
-            `.header-main span.sortable[data-col="${colIndex}"]`
-          );
-          if (activeHeader) {
-            activeHeader.classList.add(
-              currentSort.direction === "asc"
-                ? "sorted-asc"
-                : "sorted-desc"
-            );
-          }
-
-          // Sort rows using text comparison (numeric-aware)
-          rows.sort((a, b) => {
-            const aText = getCellText(a, colIndex);
-            const bText = getCellText(b, colIndex);
-
-            let cmp = aText.localeCompare(bText, undefined, {
-              numeric: true,
-              sensitivity: "base",
-            });
-
-            return currentSort.direction === "asc" ? cmp : -cmp;
-          });
-
-          // Re-append rows and re-assign band colors
-          rows.forEach((row, idx) => {
-            row.classList.remove("row-band-1", "row-band-2", "row-band-3");
-            const band = (idx % 3) + 1;
-            row.classList.add(`row-band-${band}`);
-            tbody.appendChild(row);
-          });
-        }
-
-        // Attach header click handlers
-        headerSpans.forEach((span) => {
-          span.addEventListener("click", (e) => {
-            e.stopPropagation(); // avoid triggering row expand
-            const colIndex = parseInt(span.dataset.col, 10);
-            if (!Number.isNaN(colIndex)) {
-              sortByColumn(colIndex);
-            }
-          });
         });
       });
-    </script>
-  </body>
+
+      // --- Sorting logic ---
+      let currentSort = {
+        index: null,
+        direction: "asc",
+      };
+
+      function getCellText(row, colIndex) {
+        const cells = row.querySelectorAll(".bubble-main .bubble-cell");
+        const cell = cells[colIndex];
+        return cell ? cell.textContent.trim() : "";
+      }
+
+      function sortByColumn(colIndex) {
+        const rows = Array.from(
+          document.querySelectorAll("tbody tr.parent-row")
+        );
+
+        // Determine direction (toggle if same column)
+        if (currentSort.index === colIndex) {
+          currentSort.direction =
+            currentSort.direction === "asc" ? "desc" : "asc";
+        } else {
+          currentSort.index = colIndex;
+          currentSort.direction = "asc";
+        }
+
+        // Clear header sort classes
+        headerSpans.forEach((span) => {
+          span.classList.remove("sorted-asc", "sorted-desc");
+        });
+        const activeHeader = document.querySelector(
+          `.header-main span.sortable[data-col="${colIndex}"]`
+        );
+        if (activeHeader) {
+          activeHeader.classList.add(
+            currentSort.direction === "asc"
+              ? "sorted-asc"
+              : "sorted-desc"
+          );
+        }
+
+        // Sort rows using text comparison (numeric-aware)
+        rows.sort((a, b) => {
+          const aText = getCellText(a, colIndex);
+          const bText = getCellText(b, colIndex);
+
+          let cmp = aText.localeCompare(bText, undefined, {
+            numeric: true,
+            sensitivity: "base",
+          });
+
+          return currentSort.direction === "asc" ? cmp : -cmp;
+        });
+
+        // Re-append rows and re-assign band colors
+        rows.forEach((row, idx) => {
+          row.classList.remove("row-band-1", "row-band-2", "row-band-3");
+          const band = (idx % 3) + 1;
+          row.classList.add(`row-band-${band}`);
+          tbody.appendChild(row);
+        });
+      }
+
+      // Attach header click handlers
+      headerSpans.forEach((span) => {
+        span.addEventListener("click", (e) => {
+          e.stopPropagation(); // avoid triggering row expand
+          const colIndex = parseInt(span.dataset.col, 10);
+          if (!Number.isNaN(colIndex)) {
+            sortByColumn(colIndex);
+          }
+        });
+      });
+    });
+  </script>
+</body>
+
 </html>
