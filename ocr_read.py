@@ -20,7 +20,7 @@ def crop_hexagon(img, hexagon_points, save_path):
 # === Configuration ===
 OCR_EXECUTABLE = 'Capture2Text_CLI.exe'
 THRESHOLD = 128
-ROOT_DIR = '.'
+ROOT_DIR = os.path.join('.', 'data_collected')
 CROPPED_DIR = os.path.join(os.getcwd(), 'cropped_images')
 os.makedirs(CROPPED_DIR, exist_ok=True)
 
