@@ -2,6 +2,7 @@ import os
 import subprocess
 import time
 import logging
+import argparse
 from PIL import Image, ImageDraw
 
 # Setup logging
@@ -145,7 +146,7 @@ def process_image(img, roi_list, filename_base, use_threshold_rectangles=False):
             logging.error(f"Error processing ROI {idx} in {filename_base}: {e}")
     return concatenated_text.strip()
 
-def main():
+def main(debug=False, target_folder_name=None):
     for dirpath, dirnames, filenames in os.walk(ROOT_DIR):
         base = os.path.basename(dirpath)
         if base in screenshot_settings:
@@ -154,6 +155,11 @@ def main():
             use_threshold_rectangles = settings['use_threshold_rectangles']
 
             folder_name = os.path.basename(os.path.dirname(dirpath))
+
+            # If a specific folder name is requested, skip others
+            if target_folder_name and folder_name != target_folder_name:
+                continue
+
             roi_list = roi_configurations.get(folder_name, roi_configurations['default'])
 
             extracted_values = []
@@ -171,12 +177,31 @@ def main():
             logging.info(f"Extracted Texts for {folder_name}: {', '.join(extracted_values)}")
             import time
             time.sleep(10)
-            # Clean up cropped images
-            for f in os.listdir(CROPPED_DIR):
-                try:
-                    os.unlink(os.path.join(CROPPED_DIR, f))
-                except Exception as e:
-                    logging.warning(f"Failed to delete {f}: {e}")
+            if not debug:
+                # Clean up cropped images
+                for f in os.listdir(CROPPED_DIR):
+                    try:
+                        os.unlink(os.path.join(CROPPED_DIR, f))
+                    except Exception as e:
+                        logging.warning(f"Failed to delete {f}: {e}")
+
+    if not debug:
+        # Remove the cropped_images folder itself when not debugging
+        try:
+            os.rmdir(CROPPED_DIR)
+        except Exception as e:
+            logging.warning(f"Failed to remove cropped_images folder: {e}")
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(description="Process screenshots and perform OCR.")
+    parser.add_argument(
+        '--debug',
+        action='store_true',
+        help='Enable debug mode (keep cropped_images folder and its contents).'
+    )
+    parser.add_argument(
+        '--folder-name',
+        help='Process only this specific folder name (e.g. "A01. Win10GhostSpectre SuperLite SE").'
+    )
+    args = parser.parse_args()
+    main(debug=args.debug, target_folder_name=args.folder_name)
