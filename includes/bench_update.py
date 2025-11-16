@@ -37,8 +37,6 @@ def get_20_values_for_folder(folder_path: str, bench_key: str) -> List[float]:
         target_folder_name=folder_path,
         benchmark_type=bench_key
     )
-    print(values)
-    # return [0.0] * 20
     return values
 
 
