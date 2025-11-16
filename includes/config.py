@@ -3,16 +3,16 @@
 import os
 
 # Folder that contains the "ISO Name" folders
-ROOT_DIR = r"./data_collected"
+ROOT_DIR = os.path.join(".", "data_collected")
 
 # Path to the JSON file you’re maintaining
-JSON_PATH = r"./data_benchmarks.json"
+JSON_PATH = os.path.join(".", "data_benchmarks.json")
 
 # Mapping: subfolder name -> JSON parent key
 BENCH_CONFIG = {
-    "Screenshots_MotionMark": "Motionmark",
-    "Screenshots_JetStream": "Jetstream",
-    "Screenshots_SpeedoMeter": "Speedometer",
+    "Screenshots_JetStream": "jetstream",
+    "Screenshots_MotionMark": "motionmark",
+    "Screenshots_SpeedoMeter": "speedometer",
 }
 
 def ensure_paths():

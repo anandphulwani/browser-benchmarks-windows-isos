@@ -154,7 +154,7 @@ def process_image(img, roi_list, filename_base, use_threshold_rectangles=False):
             logging.error(f"Error processing ROI {idx} in {filename_base}: {e}")
     return concatenated_text.strip()
 
-def main(debug=False, target_folder_name=None, benchmark_type=None):
+def ocr_reader(debug=False, target_folder_name=None, benchmark_type=None):
     """
     benchmark_type: one of None, 'motionmark', 'speedometer', 'jetstream'
     Returns a dict suitable for JSON, e.g.:
@@ -167,9 +167,9 @@ def main(debug=False, target_folder_name=None, benchmark_type=None):
     }
     """
     aggregated_results = {
+        "jetstream": [],
         "motionmark": [],
-        "speedometer": [],
-        "jetstream": []
+        "speedometer": []
     }
 
     for dirpath, dirnames, filenames in os.walk(ROOT_DIR):
@@ -214,7 +214,7 @@ def main(debug=False, target_folder_name=None, benchmark_type=None):
             })
 
             import time
-            time.sleep(10)
+            time.sleep(2)
             if not debug:
                 # Clean up cropped images
                 for f in os.listdir(CROPPED_DIR):
@@ -230,7 +230,10 @@ def main(debug=False, target_folder_name=None, benchmark_type=None):
         except Exception as e:
             logging.warning(f"Failed to remove cropped_images folder: {e}")
 
-    return aggregated_results
+    if target_folder_name and benchmark_type:
+        return aggregated_results[benchmark_type][0]['values']
+    else:
+        return aggregated_results
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Process screenshots and perform OCR.")
@@ -249,7 +252,7 @@ if __name__ == "__main__":
         help='Limit processing to this benchmark type.'
     )
     args = parser.parse_args()
-    result = main(
+    result = ocr_reader(
         debug=args.debug,
         target_folder_name=args.folder_name,
         benchmark_type=args.type

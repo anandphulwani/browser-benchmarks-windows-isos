@@ -2,8 +2,8 @@
 
 from statistics import mean
 from typing import Dict, Any, List
-
 import os
+import re
 
 from includes.utils import (
     get_latest_file_timestamp,
@@ -11,6 +11,7 @@ from includes.utils import (
     timestamp_str_to_dt,
 )
 from includes.store import get_bench_dict
+from ocr_read import ocr_reader
 
 
 # --------- PLUG YOUR 20-ITEM LOGIC HERE ------------------------------------
@@ -25,12 +26,20 @@ def get_20_values_for_folder(folder_path: str, bench_key: str) -> List[float]:
       - return a list of 20 numeric values (float or int)
 
     'bench_key' will be one of:
-      - 'Motionmark'
-      - 'Jetstream'
-      - 'Speedometer'
+      - 'motionmark'
+      - 'jetstream'
+      - 'speedometer'
     """
-    # Dummy implementation so the system runs; replace with your real logic.
-    return [0.0] * 20
+    print(f"folder_path: {folder_path}")
+    print(f"bench_key: {bench_key}")
+    values = ocr_reader(
+        debug=True,
+        target_folder_name=folder_path,
+        benchmark_type=bench_key
+    )
+    print(values)
+    # return [0.0] * 20
+    return values
 
 
 # --------- CORE UPDATE LOGIC -----------------------------------------------
@@ -40,15 +49,37 @@ def recompute_benchmark_avg(entry: Dict[str, Any]) -> None:
     Recompute entry['benchmark_avg'] from Motionmark / Jetstream / Speedometer values.
     """
     all_means = []
-    for key in ["Motionmark", "Jetstream", "Speedometer"]:
+    for key in ["motionmark", "jetstream", "speedometer"]:
         b = get_bench_dict(entry, key)
-        vals = b.get("values") or []
-        if vals:
-            all_means.append(mean(vals))
+        raw_vals = b.get("values") or []
+        if not raw_vals:
+            continue
 
-    if all_means:
-        entry["benchmark_avg"] = f"{mean(all_means):.2f}"
-
+        if key == "motionmark":
+            # Motionmark: extract score, fps, percent from each string
+            scores: List[float] = []
+            fps_list: List[int] = []
+            percents: List[float] = []
+            for v in raw_vals:
+                match = re.match(r"([\d.]+)\s+@(\d+)fps\s+([\d.]+)%", v)
+                if match:
+                    score, fps, percent = match.groups()
+                    scores.append(float(score))
+                    fps_list.append(int(fps))
+                    percents.append(float(percent))
+            
+            # You can combine them as needed — here we're taking the average of all three metrics
+            score_avg = f"{mean(scores):.3f}" if scores else "0.000"
+            fps_avg = f"{mean(fps_list):.0f}" if fps_list else "0"
+            percent_avg = f"{mean(percents):.2f}" if percents else "0.00"
+            average = f"{score_avg} @{fps_avg}fps {percent_avg}%"
+        else:
+            # Others: just convert string values to int
+            vals: List[float] = []
+            for v in raw_vals:
+                vals.append(float(v))
+            average = f"{mean(vals):.2f}" if key == "speedometer" else f"{mean(vals):.3f}"
+        entry[key]["average"] = average
 
 def update_entry_for_bench(
     entry: Dict[str, Any],
@@ -78,7 +109,7 @@ def update_entry_for_bench(
         return
 
     # 04(c). Latest file is newer -> recompute the 20 values
-    values = get_20_values_for_folder(folder_path, bench_key)
+    values = get_20_values_for_folder(os.path.basename(iso_folder), bench_key)
     if len(values) != 20:
         raise ValueError(
             f"get_20_values_for_folder must return 20 items, got {len(values)} "
@@ -89,4 +120,4 @@ def update_entry_for_bench(
     bench["latest"] = latest_str
 
     recompute_benchmark_avg(entry)
-    entry["status"] = "Success"
+    entry["status"] = "success"
