@@ -56,7 +56,6 @@ def save_json(path: str, data: List[Dict[str, Any]]) -> None:
     with open(path, "w", encoding="utf-8") as f:
         f.write(text)
 
-
 def load_json(path: str) -> List[Dict[str, Any]]:
     try:
         with open(path, "r", encoding="utf-8") as f:
