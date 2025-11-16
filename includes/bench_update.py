@@ -18,8 +18,6 @@ from ocr_read import ocr_reader
 
 def get_20_values_for_folder(folder_path: str, bench_key: str) -> List[float]:
     """
-    TODO: Replace this stub with your real logic.
-
     It should:
       - look at the given folder_path (Screenshots_* folder)
       - compute / read whatever you need
@@ -40,7 +38,7 @@ def get_20_values_for_folder(folder_path: str, bench_key: str) -> List[float]:
 
 # --------- CORE UPDATE LOGIC -----------------------------------------------
 
-def recompute_benchmark_avg(entry: Dict[str, Any]) -> None:
+def recompute_benchmark_type_avg(entry: Dict[str, Any]) -> None:
     """
     Recompute entry['benchmark_avg'] from Motionmark / Jetstream / Speedometer values.
     """
@@ -115,5 +113,5 @@ def update_entry_for_bench(
     bench["values"] = values
     bench["latest"] = latest_str
 
-    recompute_benchmark_avg(entry)
+    recompute_benchmark_type_avg(entry)
     entry["status"] = "success"
