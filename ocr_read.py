@@ -24,8 +24,33 @@ ROOT_DIR = '.'
 CROPPED_DIR = os.path.join(os.getcwd(), 'cropped_images')
 os.makedirs(CROPPED_DIR, exist_ok=True)
 
-# ROI configurations per folder
-roi_configurations = {
+image_extensions = ('.png', '.jpg', '.jpeg')
+
+# ROI configurations per script/folder type (kept exactly as in originals)
+
+# 01. ocr_read_jetstream.py
+jetstream_roi_configurations = {
+    # 'Folder_X': [
+    #     {'type': 'rectangle', 'box': (100, 200, 300, 400)},
+    #     {'type': 'hexagon', 'points': [(100,150), (150,100), (250,100), (300,150), (250,200), (150,200)]},
+    # ],
+    'A01. Win10GhostSpectre SuperLite SE': [
+        {'type': 'rectangle', 'box': (869, 265, 1073, 320)},
+    ],
+    'B05. TinyOS': [
+        {'type': 'rectangle', 'box': (869, 290, 1073, 345)},
+    ],
+    'B11. Windows 10 MNF': [
+        {'type': 'rectangle', 'box': (869, 290, 1073, 345)},
+    ],
+    # Default ROI if folder not explicitly defined
+    'default': [
+        {'type': 'rectangle', 'box': (869, 275, 1073, 330)},
+    ]
+}
+
+# 02. ocr_read_speedometer.py
+speedometer_roi_configurations = {
     'A01. Win10GhostSpectre SuperLite SE': [
         {'type': 'rectangle', 'box': (761, 510, 1200, 667)},
     ],
@@ -35,16 +60,66 @@ roi_configurations = {
     ]
 }
 
-image_extensions = ('.png', '.jpg', '.jpeg')
+# 03. ocr_read_motionmark.py
+motionmark_roi_configurations = {
+    'A01. Win10GhostSpectre SuperLite SE': [
+        {'type': 'rectangle', 'box': (177, 325, 558, 431)},
+        {'type': 'rectangle', 'box': (150, 445, 650, 560)},
+        {'type': 'hexagon', 'points': [(440, 546), (440, 599), (252, 599), (252, 546), (294, 546), (316, 546)]},
+    ],
+    'B11. Windows 10 MNF': [
+        {'type': 'rectangle', 'box': (177, 345, 558, 451)},
+        {'type': 'rectangle', 'box': (150, 465, 650, 580)},
+        {'type': 'hexagon', 'points': [(450, 566), (450, 619), (255, 619), (255, 566), (294, 566), (316, 566)]},
+    ],
+    'B12. Windows 10 Mordern N Fast': [
+        {'type': 'rectangle', 'box': (177, 328, 558, 434)},
+        {'type': 'rectangle', 'box': (150, 448, 650, 563)},
+        {'type': 'hexagon', 'points': [(445, 551), (445, 604), (260, 604), (260, 551), (294, 551), (316, 551)]},
+    ],
+    # Default ROI if folder not explicitly defined
+    'default': [
+        {'type': 'rectangle', 'box': (177, 330, 558, 436)},
+        {'type': 'rectangle', 'box': (150, 450, 650, 565)},
+        {'type': 'hexagon', 'points': [(440, 551), (440, 604), (260, 604), (260, 551), (294, 551), (316, 551)]},
+    ]
+}
 
-def process_image(img, roi_list, filename_base):
+# Settings per screenshots folder, to keep original behavior of each script
+screenshot_settings = {
+    # 01. ocr_read_jetstream.py
+    'Screenshots_JetStream': {
+        'roi_configurations': jetstream_roi_configurations,
+        'use_threshold_rectangles': False,  # plain crop
+    },
+    # 02. ocr_read_speedometer.py
+    'Screenshots_SpeedoMeter': {
+        'roi_configurations': speedometer_roi_configurations,
+        'use_threshold_rectangles': False,  # plain crop
+    },
+    # 03. ocr_read_motionmark.py
+    'Screenshots_MotionMark': {
+        'roi_configurations': motionmark_roi_configurations,
+        'use_threshold_rectangles': True,   # grayscale + threshold
+    },
+}
+
+
+def process_image(img, roi_list, filename_base, use_threshold_rectangles=False):
     concatenated_text = ''
     for idx, roi in enumerate(roi_list, start=1):
         cropped_path = os.path.join(CROPPED_DIR, f"cropped_{filename_base}_{idx}.png")
         try:
             if roi['type'] == 'rectangle':
-                roi_img = img.crop(roi['box'])
-                roi_img.save(cropped_path)
+                if use_threshold_rectangles:
+                    # MotionMark behavior
+                    roi_img = img.crop(roi['box']).convert('L')
+                    roi_bw = roi_img.point(lambda x: 255 if x > THRESHOLD else 0)
+                    roi_bw.save(cropped_path)
+                else:
+                    # JetStream & Speedometer behavior
+                    roi_img = img.crop(roi['box'])
+                    roi_img.save(cropped_path)
             elif roi['type'] == 'hexagon':
                 crop_hexagon(img, roi['points'], cropped_path)
             else:
@@ -72,7 +147,12 @@ def process_image(img, roi_list, filename_base):
 
 def main():
     for dirpath, dirnames, filenames in os.walk(ROOT_DIR):
-        if os.path.basename(dirpath) == 'Screenshots_SpeedoMeter':
+        base = os.path.basename(dirpath)
+        if base in screenshot_settings:
+            settings = screenshot_settings[base]
+            roi_configurations = settings['roi_configurations']
+            use_threshold_rectangles = settings['use_threshold_rectangles']
+
             folder_name = os.path.basename(os.path.dirname(dirpath))
             roi_list = roi_configurations.get(folder_name, roi_configurations['default'])
 
@@ -83,7 +163,7 @@ def main():
                     try:
                         with Image.open(image_path) as img:
                             filename_base = os.path.splitext(filename)[0]
-                            text = process_image(img, roi_list, filename_base)
+                            text = process_image(img, roi_list, filename_base, use_threshold_rectangles)
                             extracted_values.append(text)
                     except Exception as e:
                         logging.error(f"Failed to process image {image_path}: {e}")
