@@ -3,6 +3,7 @@ import subprocess
 import time
 import logging
 import argparse
+import json
 from PIL import Image, ImageDraw
 
 # Setup logging
@@ -105,6 +106,13 @@ screenshot_settings = {
     },
 }
 
+# Map screenshot folder base name -> logical type name
+SCREENSHOT_TYPE_MAP = {
+    'Screenshots_JetStream': 'jetstream',
+    'Screenshots_SpeedoMeter': 'speedometer',
+    'Screenshots_MotionMark': 'motionmark',
+}
+
 
 def process_image(img, roi_list, filename_base, use_threshold_rectangles=False):
     concatenated_text = ''
@@ -146,10 +154,33 @@ def process_image(img, roi_list, filename_base, use_threshold_rectangles=False):
             logging.error(f"Error processing ROI {idx} in {filename_base}: {e}")
     return concatenated_text.strip()
 
-def main(debug=False, target_folder_name=None):
+def main(debug=False, target_folder_name=None, benchmark_type=None):
+    """
+    benchmark_type: one of None, 'motionmark', 'speedometer', 'jetstream'
+    Returns a dict suitable for JSON, e.g.:
+    {
+        "motionmark": [
+            {"folder_name": "...", "values": ["...", "..."]},
+        ],
+        "speedometer": [],
+        "jetstream": []
+    }
+    """
+    aggregated_results = {
+        "motionmark": [],
+        "speedometer": [],
+        "jetstream": []
+    }
+
     for dirpath, dirnames, filenames in os.walk(ROOT_DIR):
         base = os.path.basename(dirpath)
         if base in screenshot_settings:
+            this_type = SCREENSHOT_TYPE_MAP.get(base)
+
+            # If a specific benchmark type is requested, skip others
+            if benchmark_type and this_type != benchmark_type:
+                continue
+
             settings = screenshot_settings[base]
             roi_configurations = settings['roi_configurations']
             use_threshold_rectangles = settings['use_threshold_rectangles']
@@ -175,6 +206,13 @@ def main(debug=False, target_folder_name=None):
                         logging.error(f"Failed to process image {image_path}: {e}")
 
             logging.info(f"Extracted Texts for {folder_name}: {', '.join(extracted_values)}")
+
+            # Store results in JSON-serializable structure
+            aggregated_results[this_type].append({
+                "folder_name": folder_name,
+                "values": extracted_values
+            })
+
             import time
             time.sleep(10)
             if not debug:
@@ -192,6 +230,8 @@ def main(debug=False, target_folder_name=None):
         except Exception as e:
             logging.warning(f"Failed to remove cropped_images folder: {e}")
 
+    return aggregated_results
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Process screenshots and perform OCR.")
     parser.add_argument(
@@ -203,5 +243,14 @@ if __name__ == "__main__":
         '--folder-name',
         help='Process only this specific folder name (e.g. "A01. Win10GhostSpectre SuperLite SE").'
     )
+    parser.add_argument(
+        '--type',
+        choices=['motionmark', 'speedometer', 'jetstream'],
+        help='Limit processing to this benchmark type.'
+    )
     args = parser.parse_args()
-    main(debug=args.debug, target_folder_name=args.folder_name)
+    result = main(
+        debug=args.debug,
+        target_folder_name=args.folder_name,
+        benchmark_type=args.type
+    )
