@@ -30,8 +30,6 @@ def get_20_values_for_folder(folder_path: str, bench_key: str) -> List[float]:
       - 'jetstream'
       - 'speedometer'
     """
-    print(f"folder_path: {folder_path}")
-    print(f"bench_key: {bench_key}")
     values = ocr_reader(
         debug=True,
         target_folder_name=folder_path,
