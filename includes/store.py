@@ -51,7 +51,7 @@ def save_json(path: str, data: List[Dict[str, Any]]) -> None:
     text = json.dumps(data, indent=2)
 
     # Then reflow the "values" arrays
-    text = _wrap_values_arrays(text, per_line=5)
+    text = _wrap_values_arrays(text, per_line=7)
 
     with open(path, "w", encoding="utf-8") as f:
         f.write(text)
@@ -89,16 +89,22 @@ def get_iso_entry_for_name(data: List[Dict[str, Any]], iso_name: str) -> Dict[st
         "motionmark": {
             "latest": "",
             "average": "",
+            "highest": "",
+            "lowest": "",
             "values": []
         },
         "jetstream": {
             "latest": "",
             "average": "",
+            "highest": "",
+            "lowest": "",
             "values": []
         },
         "speedometer": {
             "latest": "",
             "average": "",
+            "highest": "",
+            "lowest": "",
             "values": []
         },
         "status": "",

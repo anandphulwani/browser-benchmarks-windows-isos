@@ -1,5 +1,3 @@
-# bench_update.py
-
 from statistics import mean
 from typing import Dict, Any, List
 import os
@@ -54,6 +52,7 @@ def recompute_benchmark_type_avg(entry: Dict[str, Any]) -> None:
             scores: List[float] = []
             fps_list: List[int] = []
             percents: List[float] = []
+            grouped_text: List[str] = []
             for v in raw_vals:
                 match = re.match(r"([\d.]+)\s+@(\d+)fps\s+([\d.]+)%", v)
                 if match:
@@ -61,19 +60,27 @@ def recompute_benchmark_type_avg(entry: Dict[str, Any]) -> None:
                     scores.append(float(score))
                     fps_list.append(int(fps))
                     percents.append(float(percent))
+                    grouped_text.append(f"{float(score):.3f} @{int(fps):.0f}fps {float(percent):.2f}%")
             
             # You can combine them as needed — here we're taking the average of all three metrics
             score_avg = f"{mean(scores):.3f}" if scores else "0.000"
             fps_avg = f"{mean(fps_list):.0f}" if fps_list else "0"
             percent_avg = f"{mean(percents):.2f}" if percents else "0.00"
+
             average = f"{score_avg} @{fps_avg}fps {percent_avg}%"
+            highest = f"{max(grouped_text)}"
+            lowest = f"{min(grouped_text)}"
         else:
             # Others: just convert string values to int
             vals: List[float] = []
             for v in raw_vals:
                 vals.append(float(v))
             average = f"{mean(vals):.2f}" if key == "speedometer" else f"{mean(vals):.3f}"
+            highest = f"{max(vals):.2f}" if key == "speedometer" else f"{max(vals):.3f}"
+            lowest = f"{min(vals):.2f}" if key == "speedometer" else f"{min(vals):.3f}"
         entry[key]["average"] = average
+        entry[key]["highest"] = highest
+        entry[key]["lowest"] = lowest
 
 def update_entry_for_bench(
     entry: Dict[str, Any],
