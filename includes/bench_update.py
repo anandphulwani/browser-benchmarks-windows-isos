@@ -27,7 +27,7 @@ def get_20_values_for_folder(folder_path: str, bench_key: str) -> List[float]:
       - 'speedometer'
     """
     values = ocr_reader(
-        debug=True,
+        debug=False,
         target_folder_name=folder_path,
         benchmark_type=bench_key
     )
@@ -121,4 +121,4 @@ def update_entry_for_bench(
     bench["latest"] = latest_str
 
     recompute_benchmark_type_avg(entry)
-    entry["status"] = "success"
+    entry["status"] = ""

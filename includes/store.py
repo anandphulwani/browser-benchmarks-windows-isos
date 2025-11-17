@@ -81,9 +81,18 @@ def get_iso_entry_for_name(data: List[Dict[str, Any]], iso_name: str) -> Dict[st
             return entry
 
     new_entry = {
-        "parent": None,  # adjust if you have a rule for parent IDs
         "name": iso_name,
-        "main": ["", "", "", "", "", "", ""],
+        "version": "",
+        "version_shortcode": "",
+        "used_space": "",
+        "status": "",
+        "youtube_link": "",
+        "iso_file_name": "",
+        "iso_file_size": "",
+        "iso_file_lastmodified": "",
+        "iso_sha1": "",
+        "iso_download_link": "",
+        "comments": "",
         "benchmark_avg": "",
         "passmark": "",
         "motionmark": {
@@ -106,8 +115,7 @@ def get_iso_entry_for_name(data: List[Dict[str, Any]], iso_name: str) -> Dict[st
             "highest": "",
             "lowest": "",
             "values": []
-        },
-        "status": "",
+        }
     }
     data.append(new_entry)
     return new_entry
