@@ -26,7 +26,6 @@ OCR_EXECUTABLE = 'Capture2Text_CLI.exe'
 THRESHOLD = 128
 ROOT_DIR = os.path.join('.', 'data_collected')
 CROPPED_DIR = os.path.join(os.getcwd(), 'cropped_images')
-os.makedirs(CROPPED_DIR, exist_ok=True)
 
 image_extensions = ('.png', '.jpg', '.jpeg')
 
@@ -188,6 +187,7 @@ def ocr_reader(debug=False, target_folder_name=None, benchmark_type=None):
         "jetstream": []
     }
     """
+    os.makedirs(CROPPED_DIR, exist_ok=True)
     aggregated_results = {
         "jetstream": [],
         "motionmark": [],
@@ -235,18 +235,14 @@ def ocr_reader(debug=False, target_folder_name=None, benchmark_type=None):
                 "values": extracted_values
             })
 
-            import time
-            time.sleep(2)
-            if not debug:
-                # Clean up cropped images
-                for f in os.listdir(CROPPED_DIR):
-                    try:
-                        os.unlink(os.path.join(CROPPED_DIR, f))
-                    except Exception as e:
-                        logging.warning(f"Failed to delete {f}: {e}")
+    if not debug and os.path.isdir(CROPPED_DIR):
+        for f in os.listdir(CROPPED_DIR):
+            try:
+                os.unlink(os.path.join(CROPPED_DIR, f))
+            except Exception as e:
+                logging.warning(f"Failed to delete {f}: {e}")
 
-    if not debug:
-        # Remove the cropped_images folder itself when not debugging
+    if not debug and os.path.isdir(CROPPED_DIR):
         try:
             os.rmdir(CROPPED_DIR)
         except Exception as e:
