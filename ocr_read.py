@@ -1,4 +1,6 @@
 import os
+import sys
+import re
 import subprocess
 import time
 import logging
@@ -114,7 +116,7 @@ SCREENSHOT_TYPE_MAP = {
 }
 
 
-def process_image(img, roi_list, filename_base, use_threshold_rectangles=False):
+def process_image(img, roi_list, filename_base, benchmark_type, use_threshold_rectangles=False):
     concatenated_text = ''
     for idx, roi in enumerate(roi_list, start=1):
         cropped_path = os.path.join(CROPPED_DIR, f"cropped_{filename_base}_{idx}.png")
@@ -152,7 +154,27 @@ def process_image(img, roi_list, filename_base, use_threshold_rectangles=False):
             logging.error(f"OCR failed for {cropped_path}: {e}")
         except Exception as e:
             logging.error(f"Error processing ROI {idx} in {filename_base}: {e}")
-    return concatenated_text.strip()
+
+    concatenated_text = concatenated_text.strip()
+
+    if benchmark_type == "jetstream":
+        concatenated_text = concatenated_text.replace("181_.442","181.442")
+        concatenated_text = concatenated_text.replace("178-035","178.035")
+        regex_to_match = r"^([\d.]+)$"
+    elif benchmark_type == "motionmark":
+        concatenated_text = concatenated_text.replace("@ ","@")
+        concatenated_text = concatenated_text.replace(" %","%")
+        regex_to_match = r"^([\d.]+)\s+@(\d+)fps\s+([\d.]+)%$"
+    elif benchmark_type == "speedometer":
+        regex_to_match = r"^([\d]+(?:\.\d+)?)$"
+
+    match = re.search(regex_to_match, concatenated_text)
+    if not match:
+        print(f"Error: Failed to match pattern for `{benchmark_type}` in fie `{cropped_path}`, got this: `{concatenated_text}`")
+        sys.exit(1)
+
+    print(".", end="", flush=True)
+    return concatenated_text
 
 def ocr_reader(debug=False, target_folder_name=None, benchmark_type=None):
     """
@@ -200,11 +222,11 @@ def ocr_reader(debug=False, target_folder_name=None, benchmark_type=None):
                     try:
                         with Image.open(image_path) as img:
                             filename_base = os.path.splitext(filename)[0]
-                            text = process_image(img, roi_list, filename_base, use_threshold_rectangles)
+                            text = process_image(img, roi_list, filename_base, benchmark_type, use_threshold_rectangles)
                             extracted_values.append(text)
                     except Exception as e:
                         logging.error(f"Failed to process image {image_path}: {e}")
-
+            print("")
             logging.info(f"Extracted Texts for {folder_name}: {', '.join(extracted_values)}")
 
             # Store results in JSON-serializable structure
