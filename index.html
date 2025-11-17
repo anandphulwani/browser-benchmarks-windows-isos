@@ -18,19 +18,25 @@
       --status-warning-text: #fef3c7;
       --status-success-text: #bbf7d0;
       /* per-column widths (px or %) */
-      --col-1-width: 17%;
-      --col-2-width: 7%;
-      --col-3-width: 7%;
-      --col-4-width: 7%;
-      --col-5-width: 7%;
-      --col-6-width: 7%;
-      --col-7-width: 7%;
-      --col-8-width: 7%;
-      --col-9-width: 7%;
-      --col-10-width: 7%;
-      --col-11-width: 7%;
-      --col-12-width: 7%;
-      --col-13-width: 6%;
+      --col-1-width: 10%;
+      --col-2-width: 5%;
+      --col-3-width: 5%;
+      --col-4-width: 5%;
+      --col-5-width: 5%;
+      --col-6-width: 5%;
+      --col-7-width: 5%;
+      --col-8-width: 5%;
+      --col-9-width: 5%;
+      --col-10-width: 5%;
+      --col-11-width: 5%;
+      --col-12-width: 5%;
+      --col-13-width: 5%;
+      --col-14-width: 5%;
+      --col-15-width: 5%;
+      --col-16-width: 5%;
+      --col-17-width: 5%;
+      --col-18-width: 5%;
+      --col-19-width: 5%;
     }
 
     * {
@@ -66,7 +72,7 @@
     }
 
     .card {
-      background: radial-gradient(circle at top left, #1e2e3c, #1e2e3c);
+      background: radial-gradient(circle at top left, #4B5D6E, #4B5D6E);
       border-radius: 18px;
       box-shadow:
         0 18px 45px rgba(15, 23, 42, 0.9),
@@ -87,7 +93,7 @@
     .header-main {
       display: grid;
       grid-template-columns:
-        var(--col-1-width) var(--col-2-width) var(--col-3-width) var(--col-4-width) var(--col-5-width) var(--col-6-width) var(--col-7-width) var(--col-8-width) var(--col-9-width) var(--col-10-width) var(--col-11-width) var(--col-12-width) var(--col-13-width);
+        var(--col-1-width) var(--col-2-width) var(--col-3-width) var(--col-4-width) var(--col-5-width) var(--col-6-width) var(--col-7-width) var(--col-8-width) var(--col-9-width) var(--col-10-width) var(--col-11-width) var(--col-12-width) var(--col-13-width) var(--col-14-width) var(--col-15-width) var(--col-16-width) var(--col-17-width) var(--col-18-width) var(--col-19-width);
       margin: 0 20px;
     }
 
@@ -237,7 +243,7 @@
     .bubble-main {
       display: grid;
       grid-template-columns:
-        var(--col-1-width) var(--col-2-width) var(--col-3-width) var(--col-4-width) var(--col-5-width) var(--col-6-width) var(--col-7-width) var(--col-8-width) var(--col-9-width) var(--col-10-width) var(--col-11-width) var(--col-12-width) var(--col-13-width);
+        var(--col-1-width) var(--col-2-width) var(--col-3-width) var(--col-4-width) var(--col-5-width) var(--col-6-width) var(--col-7-width) var(--col-8-width) var(--col-9-width) var(--col-10-width) var(--col-11-width) var(--col-12-width) var(--col-13-width) var(--col-14-width) var(--col-15-width) var(--col-16-width) var(--col-17-width) var(--col-18-width) var(--col-19-width);
       align-items: center;
       gap: 0;
       position: relative;
@@ -345,13 +351,15 @@
     }
 
     .bubble-extra .child-columns {
-      display: flex;
+      display: grid;
+      /* grid-template-columns: 46% 27% 26%; */
+      grid-template-columns: 33% 33% 33%;
       gap: 18px;
       width: 100%;
     }
 
     .bubble-extra .child-col {
-      flex: 1;
+      /* no flex here anymore */
       font-size: 0.75rem;
       line-height: 1.4;
       color: #cbd5f5;
@@ -475,312 +483,59 @@
         <table>
           <thead>
             <tr>
-              <th colspan="13" class="header-cell-wrapper">
+              <th colspan="19" class="header-cell-wrapper">
                 <div class="header-main">
                   <span class="sortable" data-col="0">ISO Filename</span>
                   <span class="sortable" data-col="1">Name</span>
                   <span class="sortable" data-col="2">ShortCode</span>
                   <span class="sortable" data-col="3">Version</span>
-                  <span class="sortable" data-col="4">Avg. Benchmark</span>
-                  <span class="sortable" data-col="5">Motionmark</span>
-                  <span class="sortable" data-col="6">JetStream</span>
-                  <span class="sortable" data-col="7">Speedometer</span>
-                  <span class="sortable" data-col="8">Passmark</span>
-                  <span class="sortable" data-col="9">Used Space</span>
-                  <span class="sortable" data-col="10">ISO Size</span>
-                  <span class="sortable" data-col="11">Last Modified</span>
-                  <span class="sortable" data-col="12">Status</span>
+                  <span class="sortable" data-col="4">Avg.<br />Bench<br />mark</span>
+                  <span class="sortable" data-col="5">Avg.<br />Motion<br />mark</span>
+                  <span class="sortable" data-col="6">Avg.<br />Jet<br />Stream</span>
+                  <span class="sortable" data-col="7">Avg.<br />Speedo<br />meter</span>
+                  <span class="sortable" data-col="8">Max.<br />Motion<br />mark</span>
+                  <span class="sortable" data-col="9">Max.<br />Jet<br />Stream</span>
+                  <span class="sortable" data-col="10">Max.<br />Speedo<br />meter</span>
+                  <span class="sortable" data-col="11">Min.<br />Motion<br />mark</span>
+                  <span class="sortable" data-col="12">Min.<br />Jet<br />Stream</span>
+                  <span class="sortable" data-col="13">Min.<br />Speedo<br />meter</span>
+                  <span class="sortable" data-col="14">Passmark</span>
+                  <span class="sortable" data-col="15">Used<br />Space</span>
+                  <span class="sortable" data-col="16">ISO Size</span>
+                  <span class="sortable" data-col="17">Last<br />Modified</span>
+                  <span class="sortable" data-col="18">Status</span>
                 </div>
               </th>
             </tr>
           </thead>
-          <tbody>
+          <tbody id="benchmarks-table">
             <!-- Row 1 -->
-            <tr class="parent-row row-band-1" data-parent="1">
-              <td colspan="13">
+            <!-- tr class="parent-row row-band-1">
+              <td colspan="19">
                 <div class="bubble-row status-error">
                   <div class="bubble-main">
                     <span class="bubble-cell">Alpha.iso</span>
                     <span class="bubble-cell">Alpha</span>
                     <span class="bubble-cell">Item 01</span>
                     <span class="bubble-cell">v1.0</span>
-                    <span class="bubble-cell">95</span>
-                    <span class="bubble-cell">220</span>
+                    <span class="bubble-cell">100</span>
+                    <span class="bubble-cell">326</span>
                     <span class="bubble-cell">180</span>
-                    <span class="bubble-cell">120</span>
-                    <span class="bubble-cell">1500</span>
-                    <span class="bubble-cell">120GB</span>
-                    <span class="bubble-cell">4.7GB</span>
+                    <span class="bubble-cell">10.07</span>
+                    <span class="bubble-cell">350</span>
+                    <span class="bubble-cell">210</span>
+                    <span class="bubble-cell">12.00</span>
+                    <span class="bubble-cell">301</span>
+                    <span class="bubble-cell">150</span>
+                    <span class="bubble-cell">8.00</span>
+                    <span class="bubble-cell">345</span>
+                    <span class="bubble-cell">20.12 GB</span>
+                    <span class="bubble-cell">4.7 GB</span>
                     <span class="bubble-cell">2025-01-01</span>
                     <span class="bubble-cell">
                       <span class="status-pill">
                         <span class="status-dot"></span>
                         <span class="status-text">Error</span>
-                      </span>
-                    </span>
-                  </div>
-                  <div class="bubble-extra">
-                    <div class="child-columns">
-                      <div class="child-col">
-                        <div class="child-col-grid">
-                          <div class="sub-cell">R1-C1 Val 1</div>
-                          <div class="sub-cell">R1-C1 Val 2</div>
-                          <div class="sub-cell">R1-C1 Val 3</div>
-                          <div class="sub-cell">R1-C1 Val 4</div>
-                          <div class="sub-cell">R1-C1 Val 5</div>
-                          <div class="sub-cell">R1-C1 Val 6</div>
-                          <div class="sub-cell">R1-C1 Val 7</div>
-                          <div class="sub-cell">R1-C1 Val 8</div>
-                          <div class="sub-cell">R1-C1 Val 9</div>
-                          <div class="sub-cell">R1-C1 Val 10</div>
-                          <div class="sub-cell">R1-C1 Val 11</div>
-                          <div class="sub-cell">R1-C1 Val 12</div>
-                          <div class="sub-cell">R1-C1 Val 13</div>
-                          <div class="sub-cell">R1-C1 Val 14</div>
-                          <div class="sub-cell">R1-C1 Val 15</div>
-                          <div class="sub-cell">R1-C1 Val 16</div>
-                          <div class="sub-cell">R1-C1 Val 17</div>
-                          <div class="sub-cell">R1-C1 Val 18</div>
-                          <div class="sub-cell">R1-C1 Val 19</div>
-                          <div class="sub-cell">R1-C1 Val 20</div>
-                        </div>
-                      </div>
-                      <div class="child-col">
-                        <div class="child-col-grid">
-                          <div class="sub-cell">R1-C2 Val 1</div>
-                          <div class="sub-cell">R1-C2 Val 2</div>
-                          <div class="sub-cell">R1-C2 Val 3</div>
-                          <div class="sub-cell">R1-C2 Val 4</div>
-                          <div class="sub-cell">R1-C2 Val 5</div>
-                          <div class="sub-cell">R1-C2 Val 6</div>
-                          <div class="sub-cell">R1-C2 Val 7</div>
-                          <div class="sub-cell">R1-C2 Val 8</div>
-                          <div class="sub-cell">R1-C2 Val 9</div>
-                          <div class="sub-cell">R1-C2 Val 10</div>
-                          <div class="sub-cell">R1-C2 Val 11</div>
-                          <div class="sub-cell">R1-C2 Val 12</div>
-                          <div class="sub-cell">R1-C2 Val 13</div>
-                          <div class="sub-cell">R1-C2 Val 14</div>
-                          <div class="sub-cell">R1-C2 Val 15</div>
-                          <div class="sub-cell">R1-C2 Val 16</div>
-                          <div class="sub-cell">R1-C2 Val 17</div>
-                          <div class="sub-cell">R1-C2 Val 18</div>
-                          <div class="sub-cell">R1-C2 Val 19</div>
-                          <div class="sub-cell">R1-C2 Val 20</div>
-                        </div>
-                      </div>
-                      <div class="child-col">
-                        <div class="child-col-grid">
-                          <div class="sub-cell">R1-C3 Val 1</div>
-                          <div class="sub-cell">R1-C3 Val 2</div>
-                          <div class="sub-cell">R1-C3 Val 3</div>
-                          <div class="sub-cell">R1-C3 Val 4</div>
-                          <div class="sub-cell">R1-C3 Val 5</div>
-                          <div class="sub-cell">R1-C3 Val 6</div>
-                          <div class="sub-cell">R1-C3 Val 7</div>
-                          <div class="sub-cell">R1-C3 Val 8</div>
-                          <div class="sub-cell">R1-C3 Val 9</div>
-                          <div class="sub-cell">R1-C3 Val 10</div>
-                          <div class="sub-cell">R1-C3 Val 11</div>
-                          <div class="sub-cell">R1-C3 Val 12</div>
-                          <div class="sub-cell">R1-C3 Val 13</div>
-                          <div class="sub-cell">R1-C3 Val 14</div>
-                          <div class="sub-cell">R1-C3 Val 15</div>
-                          <div class="sub-cell">R1-C3 Val 16</div>
-                          <div class="sub-cell">R1-C3 Val 17</div>
-                          <div class="sub-cell">R1-C3 Val 18</div>
-                          <div class="sub-cell">R1-C3 Val 19</div>
-                          <div class="sub-cell">R1-C3 Val 20</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <!-- Row 2 -->
-            <tr class="parent-row row-band-2" data-parent="2">
-              <td colspan="13">
-                <div class="bubble-row status-warning">
-                  <div class="bubble-main">
-                    <span class="bubble-cell">Bravo.iso</span>
-                    <span class="bubble-cell">Bravo</span>
-                    <span class="bubble-cell">Item 02</span>
-                    <span class="bubble-cell">v1.1</span>
-                    <span class="bubble-cell">88</span>
-                    <span class="bubble-cell">210</span>
-                    <span class="bubble-cell">170</span>
-                    <span class="bubble-cell">110</span>
-                    <span class="bubble-cell">1400</span>
-                    <span class="bubble-cell">118GB</span>
-                    <span class="bubble-cell">4.3GB</span>
-                    <span class="bubble-cell">2025-01-02</span>
-                    <span class="bubble-cell">
-                      <span class="status-pill">
-                        <span class="status-dot"></span>
-                        <span class="status-text">Warning</span>
-                      </span>
-                    </span>
-                  </div>
-                  <div class="bubble-extra">Row 2 child content...</div>
-                </div>
-              </td>
-            </tr>
-            <!-- Row 3 -->
-            <tr class="parent-row row-band-3" data-parent="3">
-              <td colspan="13">
-                <div class="bubble-row status-success">
-                  <div class="bubble-main">
-                    <span class="bubble-cell">Charlie.iso</span>
-                    <span class="bubble-cell">Charlie</span>
-                    <span class="bubble-cell">Item 03</span>
-                    <span class="bubble-cell">v2.0</span>
-                    <span class="bubble-cell">99</span>
-                    <span class="bubble-cell">230</span>
-                    <span class="bubble-cell">190</span>
-                    <span class="bubble-cell">130</span>
-                    <span class="bubble-cell">1600</span>
-                    <span class="bubble-cell">125GB</span>
-                    <span class="bubble-cell">4.9GB</span>
-                    <span class="bubble-cell">2025-01-03</span>
-                    <span class="bubble-cell">
-                      <span class="status-pill">
-                        <span class="status-dot"></span>
-                        <span class="status-text">Success</span>
-                      </span>
-                    </span>
-                  </div>
-                  <div class="bubble-extra">Row 3 child content...</div>
-                </div>
-              </td>
-            </tr>
-
-            <tr class="parent-row" data-parent="4">
-              <td colspan="13">
-                <div class="bubble-row status-success">
-                  <div class="bubble-main">
-                    <span class="bubble-cell">Win10GhostSpectre SuperLite SE</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">163.31</span>
-                    <span class="bubble-cell">10.83</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">
-                      <span class="status-pill">
-                        <span class="status-dot"></span>
-                        <span class="status-text">Success</span>
-                      </span>
-                    </span>
-                  </div>
-                  <div class="bubble-extra">
-                    <div class="child-columns">
-                      <div class="child-col">
-                        <div class="child-col-heading">&nbsp;&nbsp;Motionmark Data&nbsp;&nbsp;</div>
-                        <div class="child-col-grid">
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                        </div>
-                      </div>
-                      <div class="child-col">
-                        <div class="child-col-heading">&nbsp;&nbsp;Jetstream Data&nbsp;&nbsp;</div>
-                        <div class="child-col-grid">
-                          <div class="sub-cell">162.51</div>
-                          <div class="sub-cell">163.47</div>
-                          <div class="sub-cell">162.12</div>
-                          <div class="sub-cell">162.00</div>
-                          <div class="sub-cell">164.88</div>
-                          <div class="sub-cell">163.39</div>
-                          <div class="sub-cell">161.09</div>
-                          <div class="sub-cell">164.89</div>
-                          <div class="sub-cell">162.18</div>
-                          <div class="sub-cell">163.27</div>
-                          <div class="sub-cell">163.56</div>
-                          <div class="sub-cell">162.44</div>
-                          <div class="sub-cell">163.48</div>
-                          <div class="sub-cell">169.32</div>
-                          <div class="sub-cell">163.27</div>
-                          <div class="sub-cell">163.82</div>
-                          <div class="sub-cell">166.63</div>
-                          <div class="sub-cell">161.30</div>
-                          <div class="sub-cell">162.23</div>
-                          <div class="sub-cell">160.25</div>
-                        </div>
-                      </div>
-                      <div class="child-col">
-                        <div class="child-col-heading">&nbsp;&nbsp;Speedometer Data&nbsp;&nbsp;</div>
-                        <div class="child-col-grid">
-                          <div class="sub-cell">10.70</div>
-                          <div class="sub-cell">10.90</div>
-                          <div class="sub-cell">10.90</div>
-                          <div class="sub-cell">10.90</div>
-                          <div class="sub-cell">10.70</div>
-                          <div class="sub-cell">10.80</div>
-                          <div class="sub-cell">10.90</div>
-                          <div class="sub-cell">10.80</div>
-                          <div class="sub-cell">10.90</div>
-                          <div class="sub-cell">10.80</div>
-                          <div class="sub-cell">10.80</div>
-                          <div class="sub-cell">10.90</div>
-                          <div class="sub-cell">10.90</div>
-                          <div class="sub-cell">10.80</div>
-                          <div class="sub-cell">10.90</div>
-                          <div class="sub-cell">10.80</div>
-                          <div class="sub-cell">10.80</div>
-                          <div class="sub-cell">10.80</div>
-                          <div class="sub-cell">10.90</div>
-                          <div class="sub-cell">10.70</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </td>
-            </tr>
-
-            <tr class="parent-row" data-parent="5">
-              <td colspan="13">
-                <div class="bubble-row status-success">
-                  <div class="bubble-main">
-                    <span class="bubble-cell">Win10GhostSpectre IOT</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">177.17</span>
-                    <span class="bubble-cell">11.62</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">
-                      <span class="status-pill">
-                        <span class="status-dot"></span>
-                        <span class="status-text">Success</span>
                       </span>
                     </span>
                   </div>
@@ -865,24 +620,52 @@
                   </div>
                 </div>
               </td>
-            </tr>
-
-            <tr class="parent-row" data-parent="6">
-              <td colspan="13">
+            </tr -->
+            <!-- Row 2 -->
+            <!-- tr class="parent-row row-band-2">
+              <td colspan="19">
+                <div class="bubble-row status-warning">
+                  <div class="bubble-main">
+                    <span class="bubble-cell">Bravo.iso</span>
+                    <span class="bubble-cell">Bravo</span>
+                    <span class="bubble-cell">Item 02</span>
+                    <span class="bubble-cell">v1.1</span>
+                    <span class="bubble-cell">88</span>
+                    <span class="bubble-cell">210</span>
+                    <span class="bubble-cell">170</span>
+                    <span class="bubble-cell">110</span>
+                    <span class="bubble-cell">1400</span>
+                    <span class="bubble-cell">118GB</span>
+                    <span class="bubble-cell">4.3GB</span>
+                    <span class="bubble-cell">2025-01-02</span>
+                    <span class="bubble-cell">
+                      <span class="status-pill">
+                        <span class="status-dot"></span>
+                        <span class="status-text">Warning</span>
+                      </span>
+                    </span>
+                  </div>
+                  <div class="bubble-extra">Row 2 child content...</div>
+                </div>
+              </td>
+            </tr -->
+            <!-- Row 3 -->
+            <!-- tr class="parent-row row-band-3">
+              <td colspan="19">
                 <div class="bubble-row status-success">
                   <div class="bubble-main">
-                    <span class="bubble-cell">Atlas</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">172.30</span>
-                    <span class="bubble-cell">11.91</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
+                    <span class="bubble-cell">Charlie.iso</span>
+                    <span class="bubble-cell">Charlie</span>
+                    <span class="bubble-cell">Item 03</span>
+                    <span class="bubble-cell">v2.0</span>
+                    <span class="bubble-cell">99</span>
+                    <span class="bubble-cell">230</span>
+                    <span class="bubble-cell">190</span>
+                    <span class="bubble-cell">130</span>
+                    <span class="bubble-cell">1600</span>
+                    <span class="bubble-cell">125GB</span>
+                    <span class="bubble-cell">4.9GB</span>
+                    <span class="bubble-cell">2025-01-03</span>
                     <span class="bubble-cell">
                       <span class="status-pill">
                         <span class="status-dot"></span>
@@ -890,1607 +673,172 @@
                       </span>
                     </span>
                   </div>
-                  <div class="bubble-extra">
-                    <div class="child-columns">
-                      <div class="child-col">
-                        <div class="child-col-heading">&nbsp;&nbsp;Motionmark Data&nbsp;&nbsp;</div>
-                        <div class="child-col-grid">
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                        </div>
-                      </div>
-                      <div class="child-col">
-                        <div class="child-col-heading">&nbsp;&nbsp;Jetstream Data&nbsp;&nbsp;</div>
-                        <div class="child-col-grid">
-                          <div class="sub-cell">172.38</div>
-                          <div class="sub-cell">170.55</div>
-                          <div class="sub-cell">173.18</div>
-                          <div class="sub-cell">171.48</div>
-                          <div class="sub-cell">173.46</div>
-                          <div class="sub-cell">172.70</div>
-                          <div class="sub-cell">173.74</div>
-                          <div class="sub-cell">174.30</div>
-                          <div class="sub-cell">168.27</div>
-                          <div class="sub-cell">175.75</div>
-                          <div class="sub-cell">172.43</div>
-                          <div class="sub-cell">171.04</div>
-                          <div class="sub-cell">172.38</div>
-                          <div class="sub-cell">170.64</div>
-                          <div class="sub-cell">172.62</div>
-                          <div class="sub-cell">172.60</div>
-                          <div class="sub-cell">168.71</div>
-                          <div class="sub-cell">172.33</div>
-                          <div class="sub-cell">173.06</div>
-                          <div class="sub-cell">174.41</div>
-                        </div>
-                      </div>
-                      <div class="child-col">
-                        <div class="child-col-heading">&nbsp;&nbsp;Speedometer Data&nbsp;&nbsp;</div>
-                        <div class="child-col-grid">
-                          <div class="sub-cell">11.60</div>
-                          <div class="sub-cell">12.00</div>
-                          <div class="sub-cell">12.00</div>
-                          <div class="sub-cell">11.90</div>
-                          <div class="sub-cell">11.90</div>
-                          <div class="sub-cell">11.90</div>
-                          <div class="sub-cell">12.10</div>
-                          <div class="sub-cell">11.90</div>
-                          <div class="sub-cell">11.90</div>
-                          <div class="sub-cell">11.80</div>
-                          <div class="sub-cell">11.90</div>
-                          <div class="sub-cell">11.90</div>
-                          <div class="sub-cell">12.00</div>
-                          <div class="sub-cell">11.80</div>
-                          <div class="sub-cell">11.90</div>
-                          <div class="sub-cell">11.90</div>
-                          <div class="sub-cell">11.90</div>
-                          <div class="sub-cell">11.90</div>
-                          <div class="sub-cell">12.00</div>
-                          <div class="sub-cell">12.00</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  <div class="bubble-extra">Row 3 child content...</div>
                 </div>
               </td>
-            </tr>
-
-            <tr class="parent-row" data-parent="7">
-              <td colspan="13">
-                <div class="bubble-row status-success">
-                  <div class="bubble-main">
-                    <span class="bubble-cell">Atlas v2</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">172.02</span>
-                    <span class="bubble-cell">11.89</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">
-                      <span class="status-pill">
-                        <span class="status-dot"></span>
-                        <span class="status-text">Success</span>
-                      </span>
-                    </span>
-                  </div>
-                  <div class="bubble-extra">
-                    <div class="child-columns">
-                      <div class="child-col">
-                        <div class="child-col-heading">&nbsp;&nbsp;Motionmark Data&nbsp;&nbsp;</div>
-                        <div class="child-col-grid">
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                        </div>
-                      </div>
-                      <div class="child-col">
-                        <div class="child-col-heading">&nbsp;&nbsp;Jetstream Data&nbsp;&nbsp;</div>
-                        <div class="child-col-grid">
-                          <div class="sub-cell">171.56</div>
-                          <div class="sub-cell">169.16</div>
-                          <div class="sub-cell">173.86</div>
-                          <div class="sub-cell">172.45</div>
-                          <div class="sub-cell">170.45</div>
-                          <div class="sub-cell">173.86</div>
-                          <div class="sub-cell">174.81</div>
-                          <div class="sub-cell">170.62</div>
-                          <div class="sub-cell">171.38</div>
-                          <div class="sub-cell">176.11</div>
-                          <div class="sub-cell">172.35</div>
-                          <div class="sub-cell">174.69</div>
-                          <div class="sub-cell">172.61</div>
-                          <div class="sub-cell">173.38</div>
-                          <div class="sub-cell">172.77</div>
-                          <div class="sub-cell">171.93</div>
-                          <div class="sub-cell">170.81</div>
-                          <div class="sub-cell">168.08</div>
-                          <div class="sub-cell">168.08</div>
-                          <div class="sub-cell">171.51</div>
-                        </div>
-                      </div>
-                      <div class="child-col">
-                        <div class="child-col-heading">&nbsp;&nbsp;Speedometer Data&nbsp;&nbsp;</div>
-                        <div class="child-col-grid">
-                          <div class="sub-cell">11.50</div>
-                          <div class="sub-cell">11.60</div>
-                          <div class="sub-cell">11.60</div>
-                          <div class="sub-cell">11.80</div>
-                          <div class="sub-cell">11.80</div>
-                          <div class="sub-cell">11.87</div>
-                          <div class="sub-cell">11.90</div>
-                          <div class="sub-cell">11.90</div>
-                          <div class="sub-cell">12.00</div>
-                          <div class="sub-cell">12.00</div>
-                          <div class="sub-cell">12.00</div>
-                          <div class="sub-cell">12.10</div>
-                          <div class="sub-cell">12.10</div>
-                          <div class="sub-cell">12.00</div>
-                          <div class="sub-cell">11.80</div>
-                          <div class="sub-cell">12.00</div>
-                          <div class="sub-cell">11.90</div>
-                          <div class="sub-cell">11.80</div>
-                          <div class="sub-cell">12.20</div>
-                          <div class="sub-cell">12.00</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </td>
-            </tr>
-
-            <tr class="parent-row" data-parent="8">
-              <td colspan="13">
-                <div class="bubble-row status-success">
-                  <div class="bubble-main">
-                    <span class="bubble-cell">RevOS</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">182.48</span>
-                    <span class="bubble-cell">12.06</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">
-                      <span class="status-pill">
-                        <span class="status-dot"></span>
-                        <span class="status-text">Success</span>
-                      </span>
-                    </span>
-                  </div>
-                  <div class="bubble-extra">
-                    <div class="child-columns">
-                      <div class="child-col">
-                        <div class="child-col-heading">&nbsp;&nbsp;Motionmark Data&nbsp;&nbsp;</div>
-                        <div class="child-col-grid">
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                        </div>
-                      </div>
-                      <div class="child-col">
-                        <div class="child-col-heading">&nbsp;&nbsp;Jetstream Data&nbsp;&nbsp;</div>
-                        <div class="child-col-grid">
-                          <div class="sub-cell">181.76</div>
-                          <div class="sub-cell">177.64</div>
-                          <div class="sub-cell">181.44</div>
-                          <div class="sub-cell">176.60</div>
-                          <div class="sub-cell">186.16</div>
-                          <div class="sub-cell">181.42</div>
-                          <div class="sub-cell">181.09</div>
-                          <div class="sub-cell">182.80</div>
-                          <div class="sub-cell">186.99</div>
-                          <div class="sub-cell">182.93</div>
-                          <div class="sub-cell">184.96</div>
-                          <div class="sub-cell">183.62</div>
-                          <div class="sub-cell">185.96</div>
-                          <div class="sub-cell">177.73</div>
-                          <div class="sub-cell">183.45</div>
-                          <div class="sub-cell">182.07</div>
-                          <div class="sub-cell">184.24</div>
-                          <div class="sub-cell">183.05</div>
-                          <div class="sub-cell">184.23</div>
-                          <div class="sub-cell">181.49</div>
-                        </div>
-                      </div>
-                      <div class="child-col">
-                        <div class="child-col-heading">&nbsp;&nbsp;Speedometer Data&nbsp;&nbsp;</div>
-                        <div class="child-col-grid">
-                          <div class="sub-cell">11.40</div>
-                          <div class="sub-cell">11.60</div>
-                          <div class="sub-cell">11.90</div>
-                          <div class="sub-cell">11.90</div>
-                          <div class="sub-cell">12.00</div>
-                          <div class="sub-cell">12.10</div>
-                          <div class="sub-cell">12.10</div>
-                          <div class="sub-cell">12.10</div>
-                          <div class="sub-cell">12.40</div>
-                          <div class="sub-cell">12.20</div>
-                          <div class="sub-cell">12.20</div>
-                          <div class="sub-cell">12.10</div>
-                          <div class="sub-cell">12.10</div>
-                          <div class="sub-cell">12.10</div>
-                          <div class="sub-cell">12.20</div>
-                          <div class="sub-cell">12.10</div>
-                          <div class="sub-cell">12.20</div>
-                          <div class="sub-cell">12.20</div>
-                          <div class="sub-cell">12.00</div>
-                          <div class="sub-cell">12.20</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </td>
-            </tr>
-
-            <tr class="parent-row" data-parent="9">
-              <td colspan="13">
-                <div class="bubble-row status-success">
-                  <div class="bubble-main">
-                    <span class="bubble-cell">RevOS</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">178.95</span>
-                    <span class="bubble-cell">12.10</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">
-                      <span class="status-pill">
-                        <span class="status-dot"></span>
-                        <span class="status-text">Success</span>
-                      </span>
-                    </span>
-                  </div>
-                  <div class="bubble-extra">
-                    <div class="child-columns">
-                      <div class="child-col">
-                        <div class="child-col-heading">&nbsp;&nbsp;Motionmark Data&nbsp;&nbsp;</div>
-                        <div class="child-col-grid">
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                        </div>
-                      </div>
-                      <div class="child-col">
-                        <div class="child-col-heading">&nbsp;&nbsp;Jetstream Data&nbsp;&nbsp;</div>
-                        <div class="child-col-grid">
-                          <div class="sub-cell">179.68</div>
-                          <div class="sub-cell">173.04</div>
-                          <div class="sub-cell">178.51</div>
-                          <div class="sub-cell">177.66</div>
-                          <div class="sub-cell">176.67</div>
-                          <div class="sub-cell">181.67</div>
-                          <div class="sub-cell">178.58</div>
-                          <div class="sub-cell">180.12</div>
-                          <div class="sub-cell">179.33</div>
-                          <div class="sub-cell">180.21</div>
-                          <div class="sub-cell">177.62</div>
-                          <div class="sub-cell">180.81</div>
-                          <div class="sub-cell">182.27</div>
-                          <div class="sub-cell">177.90</div>
-                          <div class="sub-cell">178.99</div>
-                          <div class="sub-cell">180.98</div>
-                          <div class="sub-cell">180.50</div>
-                          <div class="sub-cell">176.73</div>
-                          <div class="sub-cell">178.27</div>
-                          <div class="sub-cell">179.39</div>
-                        </div>
-                      </div>
-                      <div class="child-col">
-                        <div class="child-col-heading">&nbsp;&nbsp;Speedometer Data&nbsp;&nbsp;</div>
-                        <div class="child-col-grid">
-                          <div class="sub-cell">11.60</div>
-                          <div class="sub-cell">11.90</div>
-                          <div class="sub-cell">12.20</div>
-                          <div class="sub-cell">12.10</div>
-                          <div class="sub-cell">12.20</div>
-                          <div class="sub-cell">12.21</div>
-                          <div class="sub-cell">11.80</div>
-                          <div class="sub-cell">12.00</div>
-                          <div class="sub-cell">12.20</div>
-                          <div class="sub-cell">12.20</div>
-                          <div class="sub-cell">12.20</div>
-                          <div class="sub-cell">12.20</div>
-                          <div class="sub-cell">12.20</div>
-                          <div class="sub-cell">12.10</div>
-                          <div class="sub-cell">12.20</div>
-                          <div class="sub-cell">12.10</div>
-                          <div class="sub-cell">12.20</div>
-                          <div class="sub-cell">12.20</div>
-                          <div class="sub-cell">12.10</div>
-                          <div class="sub-cell">12.10</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </td>
-            </tr>
-
-            <tr class="parent-row" data-parent="10">
-              <td colspan="13">
-                <div class="bubble-row status-success">
-                  <div class="bubble-main">
-                    <span class="bubble-cell">TinyOS</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">150.79</span>
-                    <span class="bubble-cell">7.75</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">
-                      <span class="status-pill">
-                        <span class="status-dot"></span>
-                        <span class="status-text">Success</span>
-                      </span>
-                    </span>
-                  </div>
-                  <div class="bubble-extra">
-                    <div class="child-columns">
-                      <div class="child-col">
-                        <div class="child-col-heading">&nbsp;&nbsp;Motionmark Data&nbsp;&nbsp;</div>
-                        <div class="child-col-grid">
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                        </div>
-                      </div>
-                      <div class="child-col">
-                        <div class="child-col-heading">&nbsp;&nbsp;Jetstream Data&nbsp;&nbsp;</div>
-                        <div class="child-col-grid">
-                          <div class="sub-cell">154.15</div>
-                          <div class="sub-cell">153.66</div>
-                          <div class="sub-cell">151.24</div>
-                          <div class="sub-cell">149.94</div>
-                          <div class="sub-cell">149.54</div>
-                          <div class="sub-cell">151.13</div>
-                          <div class="sub-cell">149.63</div>
-                          <div class="sub-cell">151.39</div>
-                          <div class="sub-cell">149.80</div>
-                          <div class="sub-cell">153.50</div>
-                          <div class="sub-cell">149.96</div>
-                          <div class="sub-cell">150.43</div>
-                          <div class="sub-cell">147.14</div>
-                          <div class="sub-cell">150.77</div>
-                          <div class="sub-cell">148.48</div>
-                          <div class="sub-cell">147.34</div>
-                          <div class="sub-cell">151.87</div>
-                          <div class="sub-cell">152.62</div>
-                          <div class="sub-cell">150.66</div>
-                          <div class="sub-cell">152.63</div>
-                        </div>
-                      </div>
-                      <div class="child-col">
-                        <div class="child-col-heading">&nbsp;&nbsp;Speedometer Data&nbsp;&nbsp;</div>
-                        <div class="child-col-grid">
-                          <div class="sub-cell">7.95</div>
-                          <div class="sub-cell">7.91</div>
-                          <div class="sub-cell">7.74</div>
-                          <div class="sub-cell">7.69</div>
-                          <div class="sub-cell">8.03</div>
-                          <div class="sub-cell">8.03</div>
-                          <div class="sub-cell">7.89</div>
-                          <div class="sub-cell">7.84</div>
-                          <div class="sub-cell">7.74</div>
-                          <div class="sub-cell">7.64</div>
-                          <div class="sub-cell">7.63</div>
-                          <div class="sub-cell">7.41</div>
-                          <div class="sub-cell">7.40</div>
-                          <div class="sub-cell">7.67</div>
-                          <div class="sub-cell">7.99</div>
-                          <div class="sub-cell">7.91</div>
-                          <div class="sub-cell">7.73</div>
-                          <div class="sub-cell">7.71</div>
-                          <div class="sub-cell">7.63</div>
-                          <div class="sub-cell">7.47</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </td>
-            </tr>
-
-            <tr class="parent-row" data-parent="11">
-              <td colspan="13">
-                <div class="bubble-row status-success">
-                  <div class="bubble-main">
-                    <span class="bubble-cell">FoxOS</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">171.36</span>
-                    <span class="bubble-cell">11.75</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">
-                      <span class="status-pill">
-                        <span class="status-dot"></span>
-                        <span class="status-text">Success</span>
-                      </span>
-                    </span>
-                  </div>
-                  <div class="bubble-extra">
-                    <div class="child-columns">
-                      <div class="child-col">
-                        <div class="child-col-heading">&nbsp;&nbsp;Motionmark Data&nbsp;&nbsp;</div>
-                        <div class="child-col-grid">
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                        </div>
-                      </div>
-                      <div class="child-col">
-                        <div class="child-col-heading">&nbsp;&nbsp;Jetstream Data&nbsp;&nbsp;</div>
-                        <div class="child-col-grid">
-                          <div class="sub-cell">171.15</div>
-                          <div class="sub-cell">171.14</div>
-                          <div class="sub-cell">170.03</div>
-                          <div class="sub-cell">169.08</div>
-                          <div class="sub-cell">171.69</div>
-                          <div class="sub-cell">168.74</div>
-                          <div class="sub-cell">173.82</div>
-                          <div class="sub-cell">175.89</div>
-                          <div class="sub-cell">172.04</div>
-                          <div class="sub-cell">172.12</div>
-                          <div class="sub-cell">172.74</div>
-                          <div class="sub-cell">168.03</div>
-                          <div class="sub-cell">173.03</div>
-                          <div class="sub-cell">171.38</div>
-                          <div class="sub-cell">172.47</div>
-                          <div class="sub-cell">168.97</div>
-                          <div class="sub-cell">168.33</div>
-                          <div class="sub-cell">173.74</div>
-                          <div class="sub-cell">171.16</div>
-                          <div class="sub-cell">171.68</div>
-                        </div>
-                      </div>
-                      <div class="child-col">
-                        <div class="child-col-heading">&nbsp;&nbsp;Speedometer Data&nbsp;&nbsp;</div>
-                        <div class="child-col-grid">
-                          <div class="sub-cell">11.30</div>
-                          <div class="sub-cell">11.50</div>
-                          <div class="sub-cell">11.70</div>
-                          <div class="sub-cell">11.80</div>
-                          <div class="sub-cell">11.70</div>
-                          <div class="sub-cell">11.80</div>
-                          <div class="sub-cell">11.70</div>
-                          <div class="sub-cell">11.70</div>
-                          <div class="sub-cell">11.80</div>
-                          <div class="sub-cell">11.80</div>
-                          <div class="sub-cell">11.80</div>
-                          <div class="sub-cell">11.80</div>
-                          <div class="sub-cell">11.70</div>
-                          <div class="sub-cell">11.80</div>
-                          <div class="sub-cell">11.90</div>
-                          <div class="sub-cell">11.80</div>
-                          <div class="sub-cell">11.80</div>
-                          <div class="sub-cell">11.90</div>
-                          <div class="sub-cell">11.80</div>
-                          <div class="sub-cell">11.90</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </td>
-            </tr>
-
-            <tr class="parent-row" data-parent="12">
-              <td colspan="13">
-                <div class="bubble-row status-success">
-                  <div class="bubble-main">
-                    <span class="bubble-cell">NexusOS</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">182.18</span>
-                    <span class="bubble-cell">12.05</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">
-                      <span class="status-pill">
-                        <span class="status-dot"></span>
-                        <span class="status-text">Success</span>
-                      </span>
-                    </span>
-                  </div>
-                  <div class="bubble-extra">
-                    <div class="child-columns">
-                      <div class="child-col">
-                        <div class="child-col-heading">&nbsp;&nbsp;Motionmark Data&nbsp;&nbsp;</div>
-                        <div class="child-col-grid">
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                        </div>
-                      </div>
-                      <div class="child-col">
-                        <div class="child-col-heading">&nbsp;&nbsp;Jetstream Data&nbsp;&nbsp;</div>
-                        <div class="child-col-grid">
-                          <div class="sub-cell">185.45</div>
-                          <div class="sub-cell">179.46</div>
-                          <div class="sub-cell">182.33</div>
-                          <div class="sub-cell">180.25</div>
-                          <div class="sub-cell">181.90</div>
-                          <div class="sub-cell">184.65</div>
-                          <div class="sub-cell">182.09</div>
-                          <div class="sub-cell">186.78</div>
-                          <div class="sub-cell">182.12</div>
-                          <div class="sub-cell">176.94</div>
-                          <div class="sub-cell">183.90</div>
-                          <div class="sub-cell">179.77</div>
-                          <div class="sub-cell">182.07</div>
-                          <div class="sub-cell">181.52</div>
-                          <div class="sub-cell">182.29</div>
-                          <div class="sub-cell">179.91</div>
-                          <div class="sub-cell">181.61</div>
-                          <div class="sub-cell">183.62</div>
-                          <div class="sub-cell">185.02</div>
-                          <div class="sub-cell">181.99</div>
-                        </div>
-                      </div>
-                      <div class="child-col">
-                        <div class="child-col-heading">&nbsp;&nbsp;Speedometer Data&nbsp;&nbsp;</div>
-                        <div class="child-col-grid">
-                          <div class="sub-cell">11.70</div>
-                          <div class="sub-cell">11.70</div>
-                          <div class="sub-cell">12.10</div>
-                          <div class="sub-cell">12.00</div>
-                          <div class="sub-cell">12.00</div>
-                          <div class="sub-cell">11.90</div>
-                          <div class="sub-cell">12.00</div>
-                          <div class="sub-cell">12.00</div>
-                          <div class="sub-cell">12.20</div>
-                          <div class="sub-cell">11.90</div>
-                          <div class="sub-cell">12.10</div>
-                          <div class="sub-cell">12.20</div>
-                          <div class="sub-cell">12.20</div>
-                          <div class="sub-cell">12.20</div>
-                          <div class="sub-cell">12.20</div>
-                          <div class="sub-cell">12.10</div>
-                          <div class="sub-cell">12.10</div>
-                          <div class="sub-cell">12.10</div>
-                          <div class="sub-cell">12.10</div>
-                          <div class="sub-cell">12.10</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </td>
-            </tr>
-
-            <tr class="parent-row" data-parent="13">
-              <td colspan="13">
-                <div class="bubble-row status-success">
-                  <div class="bubble-main">
-                    <span class="bubble-cell">_GetIntoPC</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">181.24</span>
-                    <span class="bubble-cell">11.86</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">
-                      <span class="status-pill">
-                        <span class="status-dot"></span>
-                        <span class="status-text">Success</span>
-                      </span>
-                    </span>
-                  </div>
-                  <div class="bubble-extra">
-                    <div class="child-columns">
-                      <div class="child-col">
-                        <div class="child-col-heading">&nbsp;&nbsp;Motionmark Data&nbsp;&nbsp;</div>
-                        <div class="child-col-grid">
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                        </div>
-                      </div>
-                      <div class="child-col">
-                        <div class="child-col-heading">&nbsp;&nbsp;Jetstream Data&nbsp;&nbsp;</div>
-                        <div class="child-col-grid">
-                          <div class="sub-cell">181.14</div>
-                          <div class="sub-cell">183.23</div>
-                          <div class="sub-cell">181.32</div>
-                          <div class="sub-cell">181.48</div>
-                          <div class="sub-cell">180.90</div>
-                          <div class="sub-cell">180.05</div>
-                          <div class="sub-cell">177.54</div>
-                          <div class="sub-cell">182.56</div>
-                          <div class="sub-cell">181.45</div>
-                          <div class="sub-cell">180.45</div>
-                          <div class="sub-cell">184.60</div>
-                          <div class="sub-cell">182.62</div>
-                          <div class="sub-cell">183.53</div>
-                          <div class="sub-cell">183.53</div>
-                          <div class="sub-cell">179.43</div>
-                          <div class="sub-cell">178.98</div>
-                          <div class="sub-cell">181.88</div>
-                          <div class="sub-cell">179.72</div>
-                          <div class="sub-cell">179.24</div>
-                          <div class="sub-cell">181.12</div>
-                        </div>
-                      </div>
-                      <div class="child-col">
-                        <div class="child-col-heading">&nbsp;&nbsp;Speedometer Data&nbsp;&nbsp;</div>
-                        <div class="child-col-grid">
-                          <div class="sub-cell">11.30</div>
-                          <div class="sub-cell">11.20</div>
-                          <div class="sub-cell">11.70</div>
-                          <div class="sub-cell">11.70</div>
-                          <div class="sub-cell">11.90</div>
-                          <div class="sub-cell">11.90</div>
-                          <div class="sub-cell">11.90</div>
-                          <div class="sub-cell">11.70</div>
-                          <div class="sub-cell">11.90</div>
-                          <div class="sub-cell">12.10</div>
-                          <div class="sub-cell">11.90</div>
-                          <div class="sub-cell">11.90</div>
-                          <div class="sub-cell">11.90</div>
-                          <div class="sub-cell">12.10</div>
-                          <div class="sub-cell">12.00</div>
-                          <div class="sub-cell">12.10</div>
-                          <div class="sub-cell">11.90</div>
-                          <div class="sub-cell">12.00</div>
-                          <div class="sub-cell">12.00</div>
-                          <div class="sub-cell">12.00</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </td>
-            </tr>
-
-            <tr class="parent-row" data-parent="14">
-              <td colspan="13">
-                <div class="bubble-row status-success">
-                  <div class="bubble-main">
-                    <span class="bubble-cell">Windows 10 MNF</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">182.26</span>
-                    <span class="bubble-cell">11.78</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">
-                      <span class="status-pill">
-                        <span class="status-dot"></span>
-                        <span class="status-text">Success</span>
-                      </span>
-                    </span>
-                  </div>
-                  <div class="bubble-extra">
-                    <div class="child-columns">
-                      <div class="child-col">
-                        <div class="child-col-heading">&nbsp;&nbsp;Motionmark Data&nbsp;&nbsp;</div>
-                        <div class="child-col-grid">
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                        </div>
-                      </div>
-                      <div class="child-col">
-                        <div class="child-col-heading">&nbsp;&nbsp;Jetstream Data&nbsp;&nbsp;</div>
-                        <div class="child-col-grid">
-                          <div class="sub-cell">183.19</div>
-                          <div class="sub-cell">184.76</div>
-                          <div class="sub-cell">182.47</div>
-                          <div class="sub-cell">184.17</div>
-                          <div class="sub-cell">183.71</div>
-                          <div class="sub-cell">182.93</div>
-                          <div class="sub-cell">180.04</div>
-                          <div class="sub-cell">179.04</div>
-                          <div class="sub-cell">185.97</div>
-                          <div class="sub-cell">181.44</div>
-                          <div class="sub-cell">179.89</div>
-                          <div class="sub-cell">182.41</div>
-                          <div class="sub-cell">184.25</div>
-                          <div class="sub-cell">175.69</div>
-                          <div class="sub-cell">183.75</div>
-                          <div class="sub-cell">181.12</div>
-                          <div class="sub-cell">178.04</div>
-                          <div class="sub-cell">183.11</div>
-                          <div class="sub-cell">185.40</div>
-                          <div class="sub-cell">183.79</div>
-                        </div>
-                      </div>
-                      <div class="child-col">
-                        <div class="child-col-heading">&nbsp;&nbsp;Speedometer Data&nbsp;&nbsp;</div>
-                        <div class="child-col-grid">
-                          <div class="sub-cell">11.20</div>
-                          <div class="sub-cell">11.90</div>
-                          <div class="sub-cell">12.00</div>
-                          <div class="sub-cell">11.70</div>
-                          <div class="sub-cell">11.90</div>
-                          <div class="sub-cell">11.90</div>
-                          <div class="sub-cell">11.70</div>
-                          <div class="sub-cell">11.90</div>
-                          <div class="sub-cell">11.80</div>
-                          <div class="sub-cell">12.00</div>
-                          <div class="sub-cell">11.90</div>
-                          <div class="sub-cell">11.80</div>
-                          <div class="sub-cell">11.70</div>
-                          <div class="sub-cell">11.60</div>
-                          <div class="sub-cell">11.70</div>
-                          <div class="sub-cell">11.60</div>
-                          <div class="sub-cell">11.90</div>
-                          <div class="sub-cell">11.90</div>
-                          <div class="sub-cell">11.70</div>
-                          <div class="sub-cell">11.80</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </td>
-            </tr>
-
-            <tr class="parent-row" data-parent="15">
-              <td colspan="13">
-                <div class="bubble-row status-success">
-                  <div class="bubble-main">
-                    <span class="bubble-cell">Windows 10 Mordern N Fast</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">182.32</span>
-                    <span class="bubble-cell">11.93</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">
-                      <span class="status-pill">
-                        <span class="status-dot"></span>
-                        <span class="status-text">Success</span>
-                      </span>
-                    </span>
-                  </div>
-                  <div class="bubble-extra">
-                    <div class="child-columns">
-                      <div class="child-col">
-                        <div class="child-col-heading">&nbsp;&nbsp;Motionmark Data&nbsp;&nbsp;</div>
-                        <div class="child-col-grid">
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                        </div>
-                      </div>
-                      <div class="child-col">
-                        <div class="child-col-heading">&nbsp;&nbsp;Jetstream Data&nbsp;&nbsp;</div>
-                        <div class="child-col-grid">
-                          <div class="sub-cell">177.12</div>
-                          <div class="sub-cell">182.90</div>
-                          <div class="sub-cell">183.95</div>
-                          <div class="sub-cell">183.51</div>
-                          <div class="sub-cell">184.85</div>
-                          <div class="sub-cell">183.11</div>
-                          <div class="sub-cell">185.06</div>
-                          <div class="sub-cell">180.02</div>
-                          <div class="sub-cell">183.70</div>
-                          <div class="sub-cell">184.67</div>
-                          <div class="sub-cell">181.78</div>
-                          <div class="sub-cell">180.12</div>
-                          <div class="sub-cell">181.68</div>
-                          <div class="sub-cell">182.72</div>
-                          <div class="sub-cell">180.62</div>
-                          <div class="sub-cell">183.42</div>
-                          <div class="sub-cell">184.11</div>
-                          <div class="sub-cell">182.78</div>
-                          <div class="sub-cell">177.18</div>
-                          <div class="sub-cell">183.13</div>
-                        </div>
-                      </div>
-                      <div class="child-col">
-                        <div class="child-col-heading">&nbsp;&nbsp;Speedometer Data&nbsp;&nbsp;</div>
-                        <div class="child-col-grid">
-                          <div class="sub-cell">11.50</div>
-                          <div class="sub-cell">11.90</div>
-                          <div class="sub-cell">11.60</div>
-                          <div class="sub-cell">12.00</div>
-                          <div class="sub-cell">12.00</div>
-                          <div class="sub-cell">12.10</div>
-                          <div class="sub-cell">12.00</div>
-                          <div class="sub-cell">11.90</div>
-                          <div class="sub-cell">11.90</div>
-                          <div class="sub-cell">12.00</div>
-                          <div class="sub-cell">11.90</div>
-                          <div class="sub-cell">11.90</div>
-                          <div class="sub-cell">12.00</div>
-                          <div class="sub-cell">12.00</div>
-                          <div class="sub-cell">11.80</div>
-                          <div class="sub-cell">12.00</div>
-                          <div class="sub-cell">12.00</div>
-                          <div class="sub-cell">12.00</div>
-                          <div class="sub-cell">12.00</div>
-                          <div class="sub-cell">12.00</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </td>
-            </tr>
-
-            <tr class="parent-row" data-parent="16">
-              <td colspan="13">
-                <div class="bubble-row status-success">
-                  <div class="bubble-main">
-                    <span
-                      class="bubble-cell">Windows.10.X-Lite.RESURRECCION_19044.2075.10.21H2.Enterprise.LTSC.By.FBConan</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">175.71</span>
-                    <span class="bubble-cell">11.64</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">
-                      <span class="status-pill">
-                        <span class="status-dot"></span>
-                        <span class="status-text">Success</span>
-                      </span>
-                    </span>
-                  </div>
-                  <div class="bubble-extra">
-                    <div class="child-columns">
-                      <div class="child-col">
-                        <div class="child-col-heading">&nbsp;&nbsp;Motionmark Data&nbsp;&nbsp;</div>
-                        <div class="child-col-grid">
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                        </div>
-                      </div>
-                      <div class="child-col">
-                        <div class="child-col-heading">&nbsp;&nbsp;Jetstream Data&nbsp;&nbsp;</div>
-                        <div class="child-col-grid">
-                          <div class="sub-cell">174.93</div>
-                          <div class="sub-cell">177.53</div>
-                          <div class="sub-cell">173.79</div>
-                          <div class="sub-cell">178.46</div>
-                          <div class="sub-cell">175.85</div>
-                          <div class="sub-cell">175.49</div>
-                          <div class="sub-cell">174.58</div>
-                          <div class="sub-cell">175.43</div>
-                          <div class="sub-cell">175.04</div>
-                          <div class="sub-cell">177.34</div>
-                          <div class="sub-cell">176.82</div>
-                          <div class="sub-cell">177.41</div>
-                          <div class="sub-cell">175.02</div>
-                          <div class="sub-cell">174.03</div>
-                          <div class="sub-cell">173.39</div>
-                          <div class="sub-cell">175.32</div>
-                          <div class="sub-cell">178.22</div>
-                          <div class="sub-cell">176.10</div>
-                          <div class="sub-cell">174.97</div>
-                          <div class="sub-cell">174.50</div>
-                        </div>
-                      </div>
-                      <div class="child-col">
-                        <div class="child-col-heading">&nbsp;&nbsp;Speedometer Data&nbsp;&nbsp;</div>
-                        <div class="child-col-grid">
-                          <div class="sub-cell">11.30</div>
-                          <div class="sub-cell">11.10</div>
-                          <div class="sub-cell">11.67</div>
-                          <div class="sub-cell">11.60</div>
-                          <div class="sub-cell">11.70</div>
-                          <div class="sub-cell">11.50</div>
-                          <div class="sub-cell">11.60</div>
-                          <div class="sub-cell">11.70</div>
-                          <div class="sub-cell">11.90</div>
-                          <div class="sub-cell">11.70</div>
-                          <div class="sub-cell">11.80</div>
-                          <div class="sub-cell">11.70</div>
-                          <div class="sub-cell">11.70</div>
-                          <div class="sub-cell">11.80</div>
-                          <div class="sub-cell">11.80</div>
-                          <div class="sub-cell">11.70</div>
-                          <div class="sub-cell">11.60</div>
-                          <div class="sub-cell">11.70</div>
-                          <div class="sub-cell">11.60</div>
-                          <div class="sub-cell">11.60</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </td>
-            </tr>
-
-            <tr class="parent-row" data-parent="17">
-              <td colspan="13">
-                <div class="bubble-row status-success">
-                  <div class="bubble-main">
-                    <span class="bubble-cell">Mini 10 Beta 1</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">161.54</span>
-                    <span class="bubble-cell">11.04</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">
-                      <span class="status-pill">
-                        <span class="status-dot"></span>
-                        <span class="status-text">Success</span>
-                      </span>
-                    </span>
-                  </div>
-                  <div class="bubble-extra">
-                    <div class="child-columns">
-                      <div class="child-col">
-                        <div class="child-col-heading">&nbsp;&nbsp;Motionmark Data&nbsp;&nbsp;</div>
-                        <div class="child-col-grid">
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                        </div>
-                      </div>
-                      <div class="child-col">
-                        <div class="child-col-heading">&nbsp;&nbsp;Jetstream Data&nbsp;&nbsp;</div>
-                        <div class="child-col-grid">
-                          <div class="sub-cell">158.99</div>
-                          <div class="sub-cell">159.57</div>
-                          <div class="sub-cell">164.73</div>
-                          <div class="sub-cell">162.95</div>
-                          <div class="sub-cell">163.05</div>
-                          <div class="sub-cell">160.16</div>
-                          <div class="sub-cell">163.12</div>
-                          <div class="sub-cell">161.44</div>
-                          <div class="sub-cell">161.75</div>
-                          <div class="sub-cell">161.93</div>
-                          <div class="sub-cell">161.74</div>
-                          <div class="sub-cell">160.38</div>
-                          <div class="sub-cell">160.55</div>
-                          <div class="sub-cell">161.60</div>
-                          <div class="sub-cell">160.82</div>
-                          <div class="sub-cell">160.35</div>
-                          <div class="sub-cell">158.03</div>
-                          <div class="sub-cell">164.50</div>
-                          <div class="sub-cell">161.65</div>
-                          <div class="sub-cell">163.43</div>
-                        </div>
-                      </div>
-                      <div class="child-col">
-                        <div class="child-col-heading">&nbsp;&nbsp;Speedometer Data&nbsp;&nbsp;</div>
-                        <div class="child-col-grid">
-                          <div class="sub-cell">10.80</div>
-                          <div class="sub-cell">10.90</div>
-                          <div class="sub-cell">10.90</div>
-                          <div class="sub-cell">11.00</div>
-                          <div class="sub-cell">10.70</div>
-                          <div class="sub-cell">11.20</div>
-                          <div class="sub-cell">11.30</div>
-                          <div class="sub-cell">11.10</div>
-                          <div class="sub-cell">11.20</div>
-                          <div class="sub-cell">11.20</div>
-                          <div class="sub-cell">11.10</div>
-                          <div class="sub-cell">11.00</div>
-                          <div class="sub-cell">11.10</div>
-                          <div class="sub-cell">10.90</div>
-                          <div class="sub-cell">11.10</div>
-                          <div class="sub-cell">10.80</div>
-                          <div class="sub-cell">11.16</div>
-                          <div class="sub-cell">11.00</div>
-                          <div class="sub-cell">11.20</div>
-                          <div class="sub-cell">11.20</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </td>
-            </tr>
-
-            <tr class="parent-row" data-parent="18">
-              <td colspan="13">
-                <div class="bubble-row status-success">
-                  <div class="bubble-main">
-                    <span class="bubble-cell">64Bit. Obsidian TeamOS</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">176.48</span>
-                    <span class="bubble-cell">11.51</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">
-                      <span class="status-pill">
-                        <span class="status-dot"></span>
-                        <span class="status-text">Success</span>
-                      </span>
-                    </span>
-                  </div>
-                  <div class="bubble-extra">
-                    <div class="child-columns">
-                      <div class="child-col">
-                        <div class="child-col-heading">&nbsp;&nbsp;Motionmark Data&nbsp;&nbsp;</div>
-                        <div class="child-col-grid">
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                        </div>
-                      </div>
-                      <div class="child-col">
-                        <div class="child-col-heading">&nbsp;&nbsp;Jetstream Data&nbsp;&nbsp;</div>
-                        <div class="child-col-grid">
-                          <div class="sub-cell">173.45</div>
-                          <div class="sub-cell">172.91</div>
-                          <div class="sub-cell">173.91</div>
-                          <div class="sub-cell">177.98</div>
-                          <div class="sub-cell">178.32</div>
-                          <div class="sub-cell">180.42</div>
-                          <div class="sub-cell">179.71</div>
-                          <div class="sub-cell">180.03</div>
-                          <div class="sub-cell">176.15</div>
-                          <div class="sub-cell">176.31</div>
-                          <div class="sub-cell">177.79</div>
-                          <div class="sub-cell">176.65</div>
-                          <div class="sub-cell">178.65</div>
-                          <div class="sub-cell">178.17</div>
-                          <div class="sub-cell">179.22</div>
-                          <div class="sub-cell">172.77</div>
-                          <div class="sub-cell">176.03</div>
-                          <div class="sub-cell">172.36</div>
-                          <div class="sub-cell">175.40</div>
-                          <div class="sub-cell">173.37</div>
-                        </div>
-                      </div>
-                      <div class="child-col">
-                        <div class="child-col-heading">&nbsp;&nbsp;Speedometer Data&nbsp;&nbsp;</div>
-                        <div class="child-col-grid">
-                          <div class="sub-cell">11.20</div>
-                          <div class="sub-cell">11.00</div>
-                          <div class="sub-cell">11.60</div>
-                          <div class="sub-cell">11.51</div>
-                          <div class="sub-cell">11.50</div>
-                          <div class="sub-cell">11.50</div>
-                          <div class="sub-cell">11.57</div>
-                          <div class="sub-cell">11.40</div>
-                          <div class="sub-cell">11.70</div>
-                          <div class="sub-cell">11.70</div>
-                          <div class="sub-cell">11.60</div>
-                          <div class="sub-cell">11.60</div>
-                          <div class="sub-cell">11.30</div>
-                          <div class="sub-cell">11.70</div>
-                          <div class="sub-cell">11.60</div>
-                          <div class="sub-cell">11.50</div>
-                          <div class="sub-cell">11.60</div>
-                          <div class="sub-cell">11.60</div>
-                          <div class="sub-cell">11.60</div>
-                          <div class="sub-cell">11.50</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </td>
-            </tr>
-
-            <tr class="parent-row" data-parent="19">
-              <td colspan="13">
-                <div class="bubble-row status-success">
-                  <div class="bubble-main">
-                    <span class="bubble-cell">Threshold_Winter-Beta_1.iso</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">179.64</span>
-                    <span class="bubble-cell">11.75</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">
-                      <span class="status-pill">
-                        <span class="status-dot"></span>
-                        <span class="status-text">Success</span>
-                      </span>
-                    </span>
-                  </div>
-                  <div class="bubble-extra">
-                    <div class="child-columns">
-                      <div class="child-col">
-                        <div class="child-col-heading">&nbsp;&nbsp;Motionmark Data&nbsp;&nbsp;</div>
-                        <div class="child-col-grid">
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                        </div>
-                      </div>
-                      <div class="child-col">
-                        <div class="child-col-heading">&nbsp;&nbsp;Jetstream Data&nbsp;&nbsp;</div>
-                        <div class="child-col-grid">
-                          <div class="sub-cell">174.97</div>
-                          <div class="sub-cell">175.87</div>
-                          <div class="sub-cell">178.39</div>
-                          <div class="sub-cell">180.24</div>
-                          <div class="sub-cell">177.24</div>
-                          <div class="sub-cell">179.24</div>
-                          <div class="sub-cell">182.13</div>
-                          <div class="sub-cell">181.51</div>
-                          <div class="sub-cell">182.93</div>
-                          <div class="sub-cell">178.92</div>
-                          <div class="sub-cell">181.62</div>
-                          <div class="sub-cell">181.41</div>
-                          <div class="sub-cell">180.31</div>
-                          <div class="sub-cell">179.01</div>
-                          <div class="sub-cell">177.58</div>
-                          <div class="sub-cell">180.63</div>
-                          <div class="sub-cell">179.27</div>
-                          <div class="sub-cell">179.57</div>
-                          <div class="sub-cell">181.38</div>
-                          <div class="sub-cell">180.56</div>
-                        </div>
-                      </div>
-                      <div class="child-col">
-                        <div class="child-col-heading">&nbsp;&nbsp;Speedometer Data&nbsp;&nbsp;</div>
-                        <div class="child-col-grid">
-                          <div class="sub-cell">11.40</div>
-                          <div class="sub-cell">11.40</div>
-                          <div class="sub-cell">11.90</div>
-                          <div class="sub-cell">11.90</div>
-                          <div class="sub-cell">11.90</div>
-                          <div class="sub-cell">11.40</div>
-                          <div class="sub-cell">11.70</div>
-                          <div class="sub-cell">11.70</div>
-                          <div class="sub-cell">11.80</div>
-                          <div class="sub-cell">11.90</div>
-                          <div class="sub-cell">12.00</div>
-                          <div class="sub-cell">11.90</div>
-                          <div class="sub-cell">11.90</div>
-                          <div class="sub-cell">12.00</div>
-                          <div class="sub-cell">11.80</div>
-                          <div class="sub-cell">11.80</div>
-                          <div class="sub-cell">11.80</div>
-                          <div class="sub-cell">11.50</div>
-                          <div class="sub-cell">11.60</div>
-                          <div class="sub-cell">11.70</div>
-
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </td>
-            </tr>
-
-            <tr class="parent-row" data-parent="20">
-              <td colspan="13">
-                <div class="bubble-row status-success">
-                  <div class="bubble-main">
-                    <span class="bubble-cell">Windows SV Pro v1-Legacy</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">181.82</span>
-                    <span class="bubble-cell">11.92</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">&nbsp;</span>
-                    <span class="bubble-cell">
-                      <span class="status-pill">
-                        <span class="status-dot"></span>
-                        <span class="status-text">Success</span>
-                      </span>
-                    </span>
-                  </div>
-                  <div class="bubble-extra">
-                    <div class="child-columns">
-                      <div class="child-col">
-                        <div class="child-col-heading">&nbsp;&nbsp;Motionmark Data&nbsp;&nbsp;</div>
-                        <div class="child-col-grid">
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                        </div>
-                      </div>
-                      <div class="child-col">
-                        <div class="child-col-heading">&nbsp;&nbsp;Jetstream Data&nbsp;&nbsp;</div>
-                        <div class="child-col-grid">
-                          <div class="sub-cell">180.51</div>
-                          <div class="sub-cell">182.29</div>
-                          <div class="sub-cell">182.66</div>
-                          <div class="sub-cell">181.83</div>
-                          <div class="sub-cell">181.32</div>
-                          <div class="sub-cell">178.54</div>
-                          <div class="sub-cell">184.89</div>
-                          <div class="sub-cell">185.20</div>
-                          <div class="sub-cell">184.46</div>
-                          <div class="sub-cell">183.41</div>
-                          <div class="sub-cell">179.61</div>
-                          <div class="sub-cell">183.15</div>
-                          <div class="sub-cell">182.85</div>
-                          <div class="sub-cell">181.01</div>
-                          <div class="sub-cell">180.78</div>
-                          <div class="sub-cell">183.69</div>
-                          <div class="sub-cell">182.42</div>
-                          <div class="sub-cell">177.37</div>
-                          <div class="sub-cell">181.92</div>
-                          <div class="sub-cell">178.54</div>
-                        </div>
-                      </div>
-                      <div class="child-col">
-                        <div class="child-col-heading">&nbsp;&nbsp;Speedometer Data&nbsp;&nbsp;</div>
-                        <div class="child-col-grid">
-                          <div class="sub-cell">11.80</div>
-                          <div class="sub-cell">11.10</div>
-                          <div class="sub-cell">12.07</div>
-                          <div class="sub-cell">12.00</div>
-                          <div class="sub-cell">11.90</div>
-                          <div class="sub-cell">11.80</div>
-                          <div class="sub-cell">11.80</div>
-                          <div class="sub-cell">12.00</div>
-                          <div class="sub-cell">11.90</div>
-                          <div class="sub-cell">12.10</div>
-                          <div class="sub-cell">12.10</div>
-                          <div class="sub-cell">12.00</div>
-                          <div class="sub-cell">11.90</div>
-                          <div class="sub-cell">12.10</div>
-                          <div class="sub-cell">11.90</div>
-                          <div class="sub-cell">12.00</div>
-                          <div class="sub-cell">12.10</div>
-                          <div class="sub-cell">11.80</div>
-                          <div class="sub-cell">12.00</div>
-                          <div class="sub-cell">12.00</div>
-
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </td>
-            </tr>
+            </tr -->
 
           </tbody>
         </table>
       </div>
     </section>
   </div>
+
+
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      const headerSpans = document.querySelectorAll(
-        ".header-main span.sortable"
-      );
-      const tbody = document.querySelector("tbody");
+      const tbody = document.getElementById("benchmarks-table");
+      const headerSpans = document.querySelectorAll(".header-main span.sortable");
 
-      // --- Row expand/collapse ---
-      const parentRows = document.querySelectorAll("tbody tr.parent-row");
-      parentRows.forEach((row) => {
-        row.addEventListener("click", () => {
-          const bubble = row.querySelector(".bubble-row");
-          if (!bubble) return;
-          const isExpanded = bubble.classList.contains("expanded");
-          // close all
-          document
-            .querySelectorAll(".bubble-row.expanded")
-            .forEach((b) => b.classList.remove("expanded"));
-          // toggle current
-          if (!isExpanded) {
-            bubble.classList.add("expanded");
-          }
-        });
+      // Helpers
+      const safe = (v) =>
+        v === null || v === undefined || v === "" ? "&nbsp;" : v;
+
+      const statusClass = (status) =>
+        status ? "status-" + status.toLowerCase() : "";
+
+      const toInt = (v) => {
+        if (!v) return "&nbsp;";
+        const num = parseFloat(v);
+        return isNaN(num) ? safe(v) : Math.floor(num); // keep integer part only
+      };
+
+      const extractNumeric = (v) => parseFloat(v) || 0;
+      const sortWithExtraction = (arr) =>
+        arr.filter((v) => v).sort((a, b) => extractNumeric(a) - extractNumeric(b));
+      // -----------------------------
+      // 1) LOAD ROWS FROM JSON
+      // -----------------------------
+      async function loadBenchmarks() {
+        try {
+          const response = await fetch("data_benchmarks.json");
+          const data = await response.json();
+
+          data.forEach((row, index) => {
+            const tr = document.createElement("tr");
+
+            const rowBandClass = "row-band-" + ((index % 3) + 1);
+            const statusText = row.status || "Unknown";
+            const bubbleStatusClass = statusClass(statusText);
+
+            const motionValues =
+              (row.motionmark && row.motionmark.values) || new Array(20).fill("");
+
+            const jetValues =
+              (row.jetstream && row.jetstream.values) || new Array(20).fill("");
+
+            const speedValues =
+              (row.speedometer && row.speedometer.values) || new Array(20).fill("");
+
+            // Sort the values
+            const sortedMotionValues = sortWithExtraction(motionValues);
+            const sortedJetValues = sortWithExtraction(jetValues);
+            const sortedSpeedValues = sortWithExtraction(speedValues);
+
+            const motionGridHtml = sortedMotionValues
+              .map((v) => `<div class="sub-cell">${toInt(v)}</div>`)
+              .join("");
+
+            const jetGridHtml = sortedJetValues
+              .map((v) => `<div class="sub-cell">${toInt(v)}</div>`)
+              .join("");
+
+            const speedGridHtml = sortedSpeedValues
+              .map((v) => `<div class="sub-cell">${safe(v)}</div>`)
+              .join("");
+
+
+            tr.className = `parent-row ${rowBandClass}`;
+            tr.innerHTML = `
+            <td colspan="19">
+              <div class="bubble-row ${bubbleStatusClass}">
+                <div class="bubble-main">
+                  <!-- 19 columns, same order as THEAD -->
+                  <span class="bubble-cell">${safe(row.iso_file_name)}</span>          <!-- 0 ISO Filename -->
+                  <span class="bubble-cell">${safe(row.name)}</span>                   <!-- 1 Name -->
+                  <span class="bubble-cell">${safe(row.version_shortcode)}</span>      <!-- 2 ShortCode -->
+                  <span class="bubble-cell">${safe(row.version)}</span>                <!-- 3 Version -->
+                  <span class="bubble-cell">${safe(row.benchmark_avg)}</span>          <!-- 4 Avg Benchmark -->
+                  <span class="bubble-cell">${toInt(row.motionmark?.average)}</span>    <!-- 5 Avg Motionmark -->
+                  <span class="bubble-cell">${toInt(row.jetstream?.average)}</span>     <!-- 6 Avg JetStream -->
+                  <span class="bubble-cell">${safe(row.speedometer?.average)}</span>   <!-- 7 Avg Speedometer -->
+                  <span class="bubble-cell">${toInt(row.motionmark?.highest)}</span>    <!-- 8 Max Motionmark -->
+                  <span class="bubble-cell">${toInt(row.jetstream?.highest)}</span>     <!-- 9 Max JetStream -->
+                  <span class="bubble-cell">${safe(row.speedometer?.highest)}</span>   <!-- 10 Max Speedometer -->
+                  <span class="bubble-cell">${toInt(row.motionmark?.lowest)}</span>     <!-- 11 Min Motionmark -->
+                  <span class="bubble-cell">${toInt(row.jetstream?.lowest)}</span>      <!-- 12 Min JetStream -->
+                  <span class="bubble-cell">${safe(row.speedometer?.lowest)}</span>    <!-- 13 Min Speedometer -->
+                  <span class="bubble-cell">${safe(row.passmark)}</span>               <!-- 14 Passmark -->
+                  <span class="bubble-cell">${safe(row.used_space)}</span>             <!-- 15 Used Space -->
+                  <span class="bubble-cell">${safe(row.iso_file_size)}</span>          <!-- 16 ISO Size -->
+                  <span class="bubble-cell">${safe(row.iso_file_lastmodified)}</span>  <!-- 17 Last Modified -->
+                  <span class="bubble-cell">                                           <!-- 18 Status -->
+                    <span class="status-pill">
+                      <span class="status-dot"></span>
+                      <span class="status-text">${safe(statusText)}</span>
+                    </span>
+                  </span>
+                </div>
+
+                <div class="bubble-extra">
+                  <div class="child-columns">
+                    <div class="child-col">
+                      <div class="child-col-heading">&nbsp;&nbsp;Motionmark Data&nbsp;&nbsp;</div>
+                      <div class="child-col-grid">
+                        ${motionGridHtml}
+                      </div>
+                    </div>
+                    <div class="child-col">
+                      <div class="child-col-heading">&nbsp;&nbsp;Jetstream Data&nbsp;&nbsp;</div>
+                      <div class="child-col-grid">
+                        ${jetGridHtml}
+                      </div>
+                    </div>
+                    <div class="child-col">
+                      <div class="child-col-heading">&nbsp;&nbsp;Speedometer Data&nbsp;&nbsp;</div>
+                      <div class="child-col-grid">
+                        ${speedGridHtml}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+          `;
+
+            tbody.appendChild(tr);
+          });
+        } catch (err) {
+          console.error("Failed to load benchmarks JSON:", err);
+        }
+      }
+
+      // -----------------------------
+      // 2) ROW EXPAND/COLLAPSE (DELEGATED)
+      // -----------------------------
+      tbody.addEventListener("click", (e) => {
+        const row = e.target.closest("tr.parent-row");
+        if (!row) return;
+
+        const bubble = row.querySelector(".bubble-row");
+        if (!bubble) return;
+
+        const isExpanded = bubble.classList.contains("expanded");
+
+        // close all
+        document
+          .querySelectorAll(".bubble-row.expanded")
+          .forEach((b) => b.classList.remove("expanded"));
+
+        // toggle current
+        if (!isExpanded) {
+          bubble.classList.add("expanded");
+        }
       });
 
-      // --- Sorting logic ---
+      // -----------------------------
+      // 3) SORTING
+      // -----------------------------
       let currentSort = {
         index: null,
         direction: "asc",
@@ -2503,11 +851,9 @@
       }
 
       function sortByColumn(colIndex) {
-        const rows = Array.from(
-          document.querySelectorAll("tbody tr.parent-row")
-        );
+        const rows = Array.from(tbody.querySelectorAll("tr.parent-row"));
 
-        // Determine direction (toggle if same column)
+        // Toggle direction
         if (currentSort.index === colIndex) {
           currentSort.direction =
             currentSort.direction === "asc" ? "desc" : "asc";
@@ -2516,7 +862,7 @@
           currentSort.direction = "asc";
         }
 
-        // Clear header sort classes
+        // Reset header classes
         headerSpans.forEach((span) => {
           span.classList.remove("sorted-asc", "sorted-desc");
         });
@@ -2525,13 +871,11 @@
         );
         if (activeHeader) {
           activeHeader.classList.add(
-            currentSort.direction === "asc"
-              ? "sorted-asc"
-              : "sorted-desc"
+            currentSort.direction === "asc" ? "sorted-asc" : "sorted-desc"
           );
         }
 
-        // Sort rows using text comparison (numeric-aware)
+        // Sort rows
         rows.sort((a, b) => {
           const aText = getCellText(a, colIndex);
           const bText = getCellText(b, colIndex);
@@ -2544,7 +888,7 @@
           return currentSort.direction === "asc" ? cmp : -cmp;
         });
 
-        // Re-append rows and re-assign band colors
+        // Re-append rows and reassign band classes
         rows.forEach((row, idx) => {
           row.classList.remove("row-band-1", "row-band-2", "row-band-3");
           const band = (idx % 3) + 1;
@@ -2553,18 +897,22 @@
         });
       }
 
-      // Attach header click handlers
+      // Header click handlers
       headerSpans.forEach((span) => {
         span.addEventListener("click", (e) => {
-          e.stopPropagation(); // avoid triggering row expand
+          e.stopPropagation(); // don't trigger row expand
           const colIndex = parseInt(span.dataset.col, 10);
           if (!Number.isNaN(colIndex)) {
             sortByColumn(colIndex);
           }
         });
       });
+
+      // Finally: load data
+      loadBenchmarks();
     });
   </script>
+
 </body>
 
 </html>
