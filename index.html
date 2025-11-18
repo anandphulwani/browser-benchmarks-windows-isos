@@ -18,25 +18,19 @@
       --status-warning-text: #fef3c7;
       --status-success-text: #bbf7d0;
       /* per-column widths (px or %) */
-      --col-1-width: 10%;
-      --col-2-width: 5%;
-      --col-3-width: 5%;
-      --col-4-width: 5%;
-      --col-5-width: 5%;
-      --col-6-width: 5%;
-      --col-7-width: 5%;
-      --col-8-width: 5%;
-      --col-9-width: 5%;
-      --col-10-width: 5%;
-      --col-11-width: 5%;
-      --col-12-width: 5%;
-      --col-13-width: 5%;
-      --col-14-width: 5%;
-      --col-15-width: 5%;
-      --col-16-width: 5%;
-      --col-17-width: 5%;
-      --col-18-width: 5%;
-      --col-19-width: 5%;
+      --col-1-width: 12%;
+      --col-2-width: 21%;
+      --col-3-width: 8%;
+      --col-4-width: 7%;
+      --col-5-width: 6%;
+      --col-6-width: 3%;
+      --col-7-width: 3%;
+      --col-8-width: 3%;
+      --col-9-width: 7%;
+      --col-10-width: 7%;
+      --col-11-width: 7%;
+      --col-12-width: 8%;
+      --col-13-width: 8%;
     }
 
     * {
@@ -93,7 +87,7 @@
     .header-main {
       display: grid;
       grid-template-columns:
-        var(--col-1-width) var(--col-2-width) var(--col-3-width) var(--col-4-width) var(--col-5-width) var(--col-6-width) var(--col-7-width) var(--col-8-width) var(--col-9-width) var(--col-10-width) var(--col-11-width) var(--col-12-width) var(--col-13-width) var(--col-14-width) var(--col-15-width) var(--col-16-width) var(--col-17-width) var(--col-18-width) var(--col-19-width);
+        var(--col-1-width) var(--col-2-width) var(--col-3-width) var(--col-4-width) var(--col-5-width) var(--col-6-width) var(--col-7-width) var(--col-8-width) var(--col-9-width) var(--col-10-width) var(--col-11-width) var(--col-12-width) var(--col-13-width);
       margin: 0 20px;
     }
 
@@ -243,7 +237,7 @@
     .bubble-main {
       display: grid;
       grid-template-columns:
-        var(--col-1-width) var(--col-2-width) var(--col-3-width) var(--col-4-width) var(--col-5-width) var(--col-6-width) var(--col-7-width) var(--col-8-width) var(--col-9-width) var(--col-10-width) var(--col-11-width) var(--col-12-width) var(--col-13-width) var(--col-14-width) var(--col-15-width) var(--col-16-width) var(--col-17-width) var(--col-18-width) var(--col-19-width);
+        var(--col-1-width) var(--col-2-width) var(--col-3-width) var(--col-4-width) var(--col-5-width) var(--col-6-width) var(--col-7-width) var(--col-8-width) var(--col-9-width) var(--col-10-width) var(--col-11-width) var(--col-12-width) var(--col-13-width);
       align-items: center;
       gap: 0;
       position: relative;
@@ -470,6 +464,58 @@
         flex-direction: column;
       }
     }
+
+    .metric-header {
+      line-height: 1.1;
+    }
+
+    .metric-label {
+      font-size: 0.6rem;
+      opacity: 0.55;
+    }
+
+    /* default: Avg a bit bolder everywhere, even before sorting */
+    .metric-header .metric-label[data-role="avg"] {
+      font-weight: 600;
+      opacity: 0.85;
+    }
+
+    /* when this label is the *sorting* key */
+    .metric-label.phase-active {
+      color: #facc15;
+      opacity: 1;
+      font-weight: 700;
+    }
+
+    /* to show which header is currently selected for sorting */
+    .header-main span.sortable.active-column {
+      color: #e5e7eb;
+    }
+
+    .metric-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .metric-row {
+      font-size: 0.72rem;
+      line-height: 1.05;
+      opacity: 0.65;
+    }
+
+    /* default: Average row is slightly stronger in every metric stack */
+    .metric-row[data-role="avg"] {
+      font-weight: 600;
+      opacity: 0.9;
+    }
+
+    /* the metric row actually used for sorting */
+    .metric-row.phase-active {
+      color: #fef9c3;
+      font-weight: 700;
+      opacity: 1;
+    }
   </style>
 </head>
 
@@ -483,35 +529,51 @@
         <table>
           <thead>
             <tr>
-              <th colspan="19" class="header-cell-wrapper">
+              <th colspan="13" class="header-cell-wrapper">
                 <div class="header-main">
                   <span class="sortable" data-col="0">ISO Filename</span>
                   <span class="sortable" data-col="1">Name</span>
                   <span class="sortable" data-col="2">ShortCode</span>
                   <span class="sortable" data-col="3">Version</span>
-                  <span class="sortable" data-col="4">Avg.<br />Bench<br />mark</span>
-                  <span class="sortable" data-col="5">Avg.<br />Motion<br />mark</span>
-                  <span class="sortable" data-col="6">Avg.<br />Jet<br />Stream</span>
-                  <span class="sortable" data-col="7">Avg.<br />Speedo<br />meter</span>
-                  <span class="sortable" data-col="8">Max.<br />Motion<br />mark</span>
-                  <span class="sortable" data-col="9">Max.<br />Jet<br />Stream</span>
-                  <span class="sortable" data-col="10">Max.<br />Speedo<br />meter</span>
-                  <span class="sortable" data-col="11">Min.<br />Motion<br />mark</span>
-                  <span class="sortable" data-col="12">Min.<br />Jet<br />Stream</span>
-                  <span class="sortable" data-col="13">Min.<br />Speedo<br />meter</span>
-                  <span class="sortable" data-col="14">Passmark</span>
-                  <span class="sortable" data-col="15">Used<br />Space</span>
-                  <span class="sortable" data-col="16">ISO Size</span>
-                  <span class="sortable" data-col="17">Last<br />Modified</span>
-                  <span class="sortable" data-col="18">Status</span>
+                  <span class="sortable" data-col="4">Avg<br />Benchmark</span>
+
+                  <!-- Motionmark metric header -->
+                  <span class="sortable metric-header" data-col="5" data-metric="motionmark">
+                    Motion<br />Mark<br /><br />
+                    <span class="metric-label" data-role="max">Max</span><br />
+                    <span class="metric-label" data-role="avg">Avg</span><br />
+                    <span class="metric-label" data-role="min">Min</span>
+                  </span>
+
+                  <!-- Jetstream metric header -->
+                  <span class="sortable metric-header" data-col="6" data-metric="jetstream">
+                    Jet<br />Stream<br /><br />
+                    <span class="metric-label" data-role="max">Max</span><br />
+                    <span class="metric-label" data-role="avg">Avg</span><br />
+                    <span class="metric-label" data-role="min">Min</span>
+                  </span>
+
+                  <!-- Speedometer metric header -->
+                  <span class="sortable metric-header" data-col="7" data-metric="speedometer">
+                    Speedo<br />Meter<br /><br />
+                    <span class="metric-label" data-role="max">Max</span><br />
+                    <span class="metric-label" data-role="avg">Avg</span><br />
+                    <span class="metric-label" data-role="min">Min</span>
+                  </span>
+
+                  <span class="sortable" data-col="8">Passmark</span>
+                  <span class="sortable" data-col="9">Used<br />Space</span>
+                  <span class="sortable" data-col="10">ISO Size</span>
+                  <span class="sortable" data-col="11">Last<br />Modified</span>
+                  <span class="sortable" data-col="12">Status</span>
                 </div>
               </th>
             </tr>
           </thead>
           <tbody id="benchmarks-table">
             <!-- Row 1 -->
-            <!-- tr class="parent-row row-band-1">
-              <td colspan="19">
+            <!--tr class="parent-row row-band-1">
+              <td colspan="13">
                 <div class="bubble-row status-error">
                   <div class="bubble-main">
                     <span class="bubble-cell">Alpha.iso</span>
@@ -519,15 +581,28 @@
                     <span class="bubble-cell">Item 01</span>
                     <span class="bubble-cell">v1.0</span>
                     <span class="bubble-cell">100</span>
-                    <span class="bubble-cell">326</span>
-                    <span class="bubble-cell">180</span>
-                    <span class="bubble-cell">10.07</span>
-                    <span class="bubble-cell">350</span>
-                    <span class="bubble-cell">210</span>
-                    <span class="bubble-cell">12.00</span>
-                    <span class="bubble-cell">301</span>
-                    <span class="bubble-cell">150</span>
-                    <span class="bubble-cell">8.00</span>
+                    <span class="bubble-cell">
+                      <div class="metric-stack" data-metric="motionmark">
+                        <div class="metric-row" data-role="max">350</div>
+                        <div class="metric-row" data-role="avg">326</div>
+                        <div class="metric-row" data-role="min">301</div>
+                      </div>
+                    </span>
+                    <span class="bubble-cell">
+                      <div class="metric-stack" data-metric="jetstream">
+                        <div class="metric-row" data-role="max">210</div>
+                        <div class="metric-row" data-role="avg">180</div>
+                        <div class="metric-row" data-role="min">150</div>
+                      </div>
+                    </span>
+                    <span class="bubble-cell">
+                      <div class="metric-stack" data-metric="speedometer">
+                        <div class="metric-row" data-role="max">12.00</div>
+                        <div class="metric-row" data-role="avg">10.07</div>
+                        <div class="metric-row" data-role="min">8.00</div>
+                      </div>
+                    </span>
+
                     <span class="bubble-cell">345</span>
                     <span class="bubble-cell">20.12 GB</span>
                     <span class="bubble-cell">4.7 GB</span>
@@ -540,90 +615,13 @@
                     </span>
                   </div>
                   <div class="bubble-extra">
-                    <div class="child-columns">
-                      <div class="child-col">
-                        <div class="child-col-heading">&nbsp;&nbsp;Motionmark Data&nbsp;&nbsp;</div>
-                        <div class="child-col-grid">
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                          <div class="sub-cell">&nbsp;</div>
-                        </div>
-                      </div>
-                      <div class="child-col">
-                        <div class="child-col-heading">&nbsp;&nbsp;Jetstream Data&nbsp;&nbsp;</div>
-                        <div class="child-col-grid">
-                          <div class="sub-cell">178.49</div>
-                          <div class="sub-cell">177.22</div>
-                          <div class="sub-cell">175.15</div>
-                          <div class="sub-cell">176.17</div>
-                          <div class="sub-cell">175.75</div>
-                          <div class="sub-cell">179.57</div>
-                          <div class="sub-cell">177.69</div>
-                          <div class="sub-cell">178.29</div>
-                          <div class="sub-cell">178.18</div>
-                          <div class="sub-cell">175.90</div>
-                          <div class="sub-cell">178.30</div>
-                          <div class="sub-cell">175.36</div>
-                          <div class="sub-cell">178.68</div>
-                          <div class="sub-cell">176.06</div>
-                          <div class="sub-cell">175.21</div>
-                          <div class="sub-cell">173.99</div>
-                          <div class="sub-cell">178.51</div>
-                          <div class="sub-cell">178.63</div>
-                          <div class="sub-cell">179.08</div>
-                          <div class="sub-cell">177.25</div>
-                        </div>
-                      </div>
-                      <div class="child-col">
-                        <div class="child-col-heading">&nbsp;&nbsp;Speedometer Data&nbsp;&nbsp;</div>
-                        <div class="child-col-grid">
-                          <div class="sub-cell">11.60</div>
-                          <div class="sub-cell">11.70</div>
-                          <div class="sub-cell">11.60</div>
-                          <div class="sub-cell">11.60</div>
-                          <div class="sub-cell">11.70</div>
-                          <div class="sub-cell">11.60</div>
-                          <div class="sub-cell">11.50</div>
-                          <div class="sub-cell">11.50</div>
-                          <div class="sub-cell">11.80</div>
-                          <div class="sub-cell">11.60</div>
-                          <div class="sub-cell">11.60</div>
-                          <div class="sub-cell">11.80</div>
-                          <div class="sub-cell">11.60</div>
-                          <div class="sub-cell">11.50</div>
-                          <div class="sub-cell">11.60</div>
-                          <div class="sub-cell">11.70</div>
-                          <div class="sub-cell">11.60</div>
-                          <div class="sub-cell">11.70</div>
-                          <div class="sub-cell">11.50</div>
-                          <div class="sub-cell">11.50</div>
-                        </div>
-                      </div>
-                    </div>
                   </div>
                 </div>
               </td>
-            </tr -->
+            </tr-->
             <!-- Row 2 -->
             <!-- tr class="parent-row row-band-2">
-              <td colspan="19">
+              <td colspan="13">
                 <div class="bubble-row status-warning">
                   <div class="bubble-main">
                     <span class="bubble-cell">Bravo.iso</span>
@@ -651,7 +649,7 @@
             </tr -->
             <!-- Row 3 -->
             <!-- tr class="parent-row row-band-3">
-              <td colspan="19">
+              <td colspan="13">
                 <div class="bubble-row status-success">
                   <div class="bubble-main">
                     <span class="bubble-cell">Charlie.iso</span>
@@ -718,7 +716,7 @@
             const tr = document.createElement("tr");
 
             const rowBandClass = "row-band-" + ((index % 3) + 1);
-            const statusText = row.status || "Unknown";
+            const statusText = row.status || "";
             const bubbleStatusClass = statusClass(statusText);
 
             const motionValues =
@@ -750,61 +748,76 @@
 
             tr.className = `parent-row ${rowBandClass}`;
             tr.innerHTML = `
-            <td colspan="19">
-              <div class="bubble-row ${bubbleStatusClass}">
-                <div class="bubble-main">
-                  <!-- 19 columns, same order as THEAD -->
-                  <span class="bubble-cell">${safe(row.iso_file_name)}</span>          <!-- 0 ISO Filename -->
-                  <span class="bubble-cell">${safe(row.name)}</span>                   <!-- 1 Name -->
-                  <span class="bubble-cell">${safe(row.version_shortcode)}</span>      <!-- 2 ShortCode -->
-                  <span class="bubble-cell">${safe(row.version)}</span>                <!-- 3 Version -->
-                  <span class="bubble-cell">${safe(row.benchmark_avg)}</span>          <!-- 4 Avg Benchmark -->
-                  <span class="bubble-cell">${toInt(row.motionmark?.average)}</span>    <!-- 5 Avg Motionmark -->
-                  <span class="bubble-cell">${toInt(row.jetstream?.average)}</span>     <!-- 6 Avg JetStream -->
-                  <span class="bubble-cell">${safe(row.speedometer?.average)}</span>   <!-- 7 Avg Speedometer -->
-                  <span class="bubble-cell">${toInt(row.motionmark?.highest)}</span>    <!-- 8 Max Motionmark -->
-                  <span class="bubble-cell">${toInt(row.jetstream?.highest)}</span>     <!-- 9 Max JetStream -->
-                  <span class="bubble-cell">${safe(row.speedometer?.highest)}</span>   <!-- 10 Max Speedometer -->
-                  <span class="bubble-cell">${toInt(row.motionmark?.lowest)}</span>     <!-- 11 Min Motionmark -->
-                  <span class="bubble-cell">${toInt(row.jetstream?.lowest)}</span>      <!-- 12 Min JetStream -->
-                  <span class="bubble-cell">${safe(row.speedometer?.lowest)}</span>    <!-- 13 Min Speedometer -->
-                  <span class="bubble-cell">${safe(row.passmark)}</span>               <!-- 14 Passmark -->
-                  <span class="bubble-cell">${safe(row.used_space)}</span>             <!-- 15 Used Space -->
-                  <span class="bubble-cell">${safe(row.iso_file_size)}</span>          <!-- 16 ISO Size -->
-                  <span class="bubble-cell">${safe(row.iso_file_lastmodified)}</span>  <!-- 17 Last Modified -->
-                  <span class="bubble-cell">                                           <!-- 18 Status -->
-                    <span class="status-pill">
-                      <span class="status-dot"></span>
-                      <span class="status-text">${safe(statusText)}</span>
-                    </span>
-                  </span>
-                </div>
+              <td colspan="13">
+                <div class="bubble-row ${bubbleStatusClass}">
+                  <div class="bubble-main">
+                    <span class="bubble-cell">${safe(row.iso_file_name)}</span>
+                    <span class="bubble-cell">${safe(row.name)}</span>
+                    <span class="bubble-cell">${safe(row.version_shortcode)}</span>
+                    <span class="bubble-cell">${safe(row.version)}</span>
+                    <span class="bubble-cell">${safe(row.benchmark_avg)}</span>
 
-                <div class="bubble-extra">
-                  <div class="child-columns">
-                    <div class="child-col">
-                      <div class="child-col-heading">&nbsp;&nbsp;Motionmark Data&nbsp;&nbsp;</div>
-                      <div class="child-col-grid">
-                        ${motionGridHtml}
+                    <span class="bubble-cell">
+                      <div class="metric-stack" data-metric="motionmark">
+                        <div class="metric-row" data-role="max">${toInt(row.motionmark?.highest)}</div>
+                        <div class="metric-row" data-role="avg">${toInt(row.motionmark?.average)}</div>
+                        <div class="metric-row" data-role="min">${toInt(row.motionmark?.lowest)}</div>
                       </div>
-                    </div>
-                    <div class="child-col">
-                      <div class="child-col-heading">&nbsp;&nbsp;Jetstream Data&nbsp;&nbsp;</div>
-                      <div class="child-col-grid">
-                        ${jetGridHtml}
+                    </span>
+
+                    <span class="bubble-cell">
+                      <div class="metric-stack" data-metric="jetstream">
+                        <div class="metric-row" data-role="max">${toInt(row.jetstream?.highest)}</div>
+                        <div class="metric-row" data-role="avg">${toInt(row.jetstream?.average)}</div>
+                        <div class="metric-row" data-role="min">${toInt(row.jetstream?.lowest)}</div>
                       </div>
-                    </div>
-                    <div class="child-col">
-                      <div class="child-col-heading">&nbsp;&nbsp;Speedometer Data&nbsp;&nbsp;</div>
-                      <div class="child-col-grid">
-                        ${speedGridHtml}
+                    </span>
+
+                    <span class="bubble-cell">
+                      <div class="metric-stack" data-metric="speedometer">
+                        <div class="metric-row" data-role="max">${safe(row.speedometer?.highest)}</div>
+                        <div class="metric-row" data-role="avg">${safe(row.speedometer?.average)}</div>
+                        <div class="metric-row" data-role="min">${safe(row.speedometer?.lowest)}</div>
+                      </div>
+                    </span>
+
+                    <span class="bubble-cell">${safe(row.passmark)}</span>
+                    <span class="bubble-cell">${safe(row.used_space)}</span>
+                    <span class="bubble-cell">${safe(row.iso_file_size)}</span>
+                    <span class="bubble-cell">${safe(row.iso_file_lastmodified)}</span>
+                    <span class="bubble-cell">
+                      <span class="status-pill">
+                        <span class="status-dot"></span>
+                        <span class="status-text">${safe(statusText)}</span>
+                      </span>
+                    </span>
+                  </div>
+
+                  <div class="bubble-extra">
+                    <div class="child-columns">
+                      <div class="child-col">
+                        <div class="child-col-heading">&nbsp;&nbsp;Motionmark Data&nbsp;&nbsp;</div>
+                        <div class="child-col-grid">
+                          ${motionGridHtml}
+                        </div>
+                      </div>
+                      <div class="child-col">
+                        <div class="child-col-heading">&nbsp;&nbsp;Jetstream Data&nbsp;&nbsp;</div>
+                        <div class="child-col-grid">
+                          ${jetGridHtml}
+                        </div>
+                      </div>
+                      <div class="child-col">
+                        <div class="child-col-heading">&nbsp;&nbsp;Speedometer Data&nbsp;&nbsp;</div>
+                        <div class="child-col-grid">
+                          ${speedGridHtml}
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </td>
-          `;
+              </td>
+            `;
 
             tbody.appendChild(tr);
           });
@@ -837,74 +850,158 @@
       });
 
       // -----------------------------
-      // 3) SORTING
+      // 3) SORTING (click Max/Avg/Min + arrows)
       // -----------------------------
-      let currentSort = {
-        index: null,
-        direction: "asc",
+      let sortState = {
+        colIndex: null,      // which column
+        direction: "asc",    // "asc" | "desc"
+        phase: "avg",        // "max" | "avg" | "min" (for metric columns)
       };
 
-      function getCellText(row, colIndex) {
-        const cells = row.querySelectorAll(".bubble-main .bubble-cell");
-        const cell = cells[colIndex];
-        return cell ? cell.textContent.trim() : "";
-      }
+      const metricColumns = new Set([5, 6, 7]); // Motionmark, Jetstream, Speedometer
 
-      function sortByColumn(colIndex) {
-        const rows = Array.from(tbody.querySelectorAll("tr.parent-row"));
+      function getCellValue(row, colIndex, phase) {
+        const cell = row.querySelectorAll(".bubble-main .bubble-cell")[colIndex];
+        if (!cell) return "";
 
-        // Toggle direction
-        if (currentSort.index === colIndex) {
-          currentSort.direction =
-            currentSort.direction === "asc" ? "desc" : "asc";
-        } else {
-          currentSort.index = colIndex;
-          currentSort.direction = "asc";
+        if (metricColumns.has(colIndex) && phase) {
+          const metricRow = cell.querySelector(`.metric-row[data-role="${phase}"]`);
+          return metricRow ? metricRow.textContent.trim() : "";
         }
 
-        // Reset header classes
-        headerSpans.forEach((span) => {
-          span.classList.remove("sorted-asc", "sorted-desc");
+        return cell.textContent.trim();
+      }
+
+      function numericOrTextCompare(aVal, bVal) {
+        const aNum = parseFloat(aVal);
+        const bNum = parseFloat(bVal);
+
+        if (!isNaN(aNum) && !isNaN(bNum)) {
+          if (aNum < bNum) return -1;
+          if (aNum > bNum) return 1;
+          return 0;
+        }
+
+        return aVal.localeCompare(bVal, undefined, {
+          numeric: true,
+          sensitivity: "base",
         });
-        const activeHeader = document.querySelector(
+      }
+
+      function clearSortStyles() {
+        headerSpans.forEach((span) => {
+          span.classList.remove("sorted-asc", "sorted-desc", "active-column");
+        });
+
+        document
+          .querySelectorAll(".metric-label.phase-active, .metric-row.phase-active")
+          .forEach((el) => el.classList.remove("phase-active"));
+      }
+
+      function applyPhaseHighlights(colIndex, phase) {
+        if (!metricColumns.has(colIndex) || !phase) return;
+
+        const header = document.querySelector(
           `.header-main span.sortable[data-col="${colIndex}"]`
         );
-        if (activeHeader) {
-          activeHeader.classList.add(
-            currentSort.direction === "asc" ? "sorted-asc" : "sorted-desc"
+        if (header) {
+          const label = header.querySelector(`.metric-label[data-role="${phase}"]`);
+          if (label) label.classList.add("phase-active");
+        }
+
+        const rows = tbody.querySelectorAll("tr.parent-row");
+        rows.forEach((row) => {
+          const cell = row.querySelectorAll(".bubble-main .bubble-cell")[colIndex];
+          if (!cell) return;
+          const metricRow = cell.querySelector(`.metric-row[data-role="${phase}"]`);
+          if (metricRow) metricRow.classList.add("phase-active");
+        });
+      }
+
+      function doSort() {
+        const colIndex = sortState.colIndex;
+        if (colIndex == null) return;
+
+        const rows = Array.from(tbody.querySelectorAll("tr.parent-row"));
+        const phase = metricColumns.has(colIndex) ? sortState.phase : null;
+
+        rows.sort((a, b) => {
+          const aVal = getCellValue(a, colIndex, phase);
+          const bVal = getCellValue(b, colIndex, phase);
+
+          let cmp = numericOrTextCompare(aVal, bVal);
+          return sortState.direction === "asc" ? cmp : -cmp;
+        });
+
+        rows.forEach((row, idx) => {
+          row.classList.remove("row-band-1", "row-band-2", "row-band-3");
+          row.classList.add(`row-band-${(idx % 3) + 1}`);
+          tbody.appendChild(row);
+        });
+
+        clearSortStyles();
+
+        const header = document.querySelector(
+          `.header-main span.sortable[data-col="${colIndex}"]`
+        );
+        if (header) {
+          header.classList.add("active-column");
+          header.classList.add(
+            sortState.direction === "asc" ? "sorted-asc" : "sorted-desc"
           );
         }
 
-        // Sort rows
-        rows.sort((a, b) => {
-          const aText = getCellText(a, colIndex);
-          const bText = getCellText(b, colIndex);
-
-          let cmp = aText.localeCompare(bText, undefined, {
-            numeric: true,
-            sensitivity: "base",
-          });
-
-          return currentSort.direction === "asc" ? cmp : -cmp;
-        });
-
-        // Re-append rows and reassign band classes
-        rows.forEach((row, idx) => {
-          row.classList.remove("row-band-1", "row-band-2", "row-band-3");
-          const band = (idx % 3) + 1;
-          row.classList.add(`row-band-${band}`);
-          tbody.appendChild(row);
-        });
+        if (phase) applyPhaseHighlights(colIndex, phase);
       }
 
-      // Header click handlers
+      // Header click handling
       headerSpans.forEach((span) => {
         span.addEventListener("click", (e) => {
-          e.stopPropagation(); // don't trigger row expand
+          e.stopPropagation();
+
           const colIndex = parseInt(span.dataset.col, 10);
-          if (!Number.isNaN(colIndex)) {
-            sortByColumn(colIndex);
+          if (Number.isNaN(colIndex)) return;
+
+          const isMetric = metricColumns.has(colIndex);
+          const clickedLabel = e.target.closest(".metric-label");
+
+          // --- METRIC LABEL CLICK (Max / Avg / Min) ---
+          if (isMetric && clickedLabel) {
+            const newPhase = clickedLabel.dataset.role; // "max" | "avg" | "min"
+
+            if (
+              sortState.colIndex === colIndex &&
+              sortState.phase === newPhase
+            ) {
+              // Same column + same phase: toggle direction
+              sortState.direction =
+                sortState.direction === "asc" ? "desc" : "asc";
+            } else {
+              // New column OR different phase
+              if (sortState.colIndex !== colIndex) {
+                sortState.colIndex = colIndex;
+                sortState.direction = "asc"; // default when switching column
+              }
+              sortState.phase = newPhase;
+            }
+
+            doSort();
+            return;
           }
+
+          // --- HEADER / ARROW CLICK (▲ / ▼ area) ---
+          if (sortState.colIndex === colIndex) {
+            // Same column: toggle direction
+            sortState.direction =
+              sortState.direction === "asc" ? "desc" : "asc";
+          } else {
+            // New column selected
+            sortState.colIndex = colIndex;
+            sortState.direction = "asc";
+            sortState.phase = isMetric ? "avg" : null; // default to Avg on metrics
+          }
+
+          doSort();
         });
       });
 
