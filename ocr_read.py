@@ -357,8 +357,6 @@ def ocr_reader(debug=False, target_folder_name=None, benchmark_type=None):
                 os.unlink(os.path.join(CROPPED_DIR, f))
             except Exception as e:
                 logging.warning(f"Failed to delete {f}: {e}")
-
-    if not debug and os.path.isdir(CROPPED_DIR):
         try:
             os.rmdir(CROPPED_DIR)
         except Exception as e:
