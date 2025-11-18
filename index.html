@@ -480,13 +480,6 @@
       opacity: 0.85;
     }
 
-    /* when this label is the *sorting* key */
-    .metric-label.phase-active {
-      color: #facc15;
-      opacity: 1;
-      font-weight: 700;
-    }
-
     /* to show which header is currently selected for sorting */
     .header-main span.sortable.active-column {
       color: #e5e7eb;
@@ -504,17 +497,10 @@
       opacity: 0.65;
     }
 
-    /* default: Average row is slightly stronger in every metric stack */
-    .metric-row[data-role="avg"] {
-      font-weight: 600;
-      opacity: 0.9;
-    }
-
-    /* the metric row actually used for sorting */
-    .metric-row.phase-active {
-      color: #fef9c3;
-      font-weight: 700;
+    .metric-label.phase-active {
+      color: #facc15;
       opacity: 1;
+      font-weight: 700;
     }
   </style>
 </head>
@@ -582,6 +568,53 @@
     document.addEventListener("DOMContentLoaded", () => {
       const tbody = document.getElementById("benchmarks-table");
       const headerSpans = document.querySelectorAll(".header-main span.sortable");
+      const metricColumns = new Set([5, 6, 7]); // Motionmark, Jetstream, Speedometer
+
+      // Store which phase is visible/used for each metric column (default: avg)
+      const metricPhaseByCol = {
+        5: "avg",
+        6: "avg",
+        7: "avg",
+      };
+
+      function updateMetricDisplay() {
+        // 1) Update which metric row is visible in each metric column
+        metricColumns.forEach((colIndex) => {
+          const phase = metricPhaseByCol[colIndex];
+          const rows = tbody.querySelectorAll("tr.parent-row");
+          rows.forEach((row) => {
+            const cell = row.querySelectorAll(".bubble-main .bubble-cell")[colIndex];
+            if (!cell) return;
+            const metricRows = cell.querySelectorAll(".metric-row");
+            metricRows.forEach((m) => {
+              if (m.dataset.role === phase) {
+                m.style.display = "block";
+              } else {
+                m.style.display = "none";
+              }
+            });
+          });
+        });
+
+        // 2) Highlight the selected Max/Avg/Min in the header
+        // Clear existing header highlights
+        document
+          .querySelectorAll(".metric-label.phase-active")
+          .forEach((lbl) => lbl.classList.remove("phase-active"));
+
+        // Apply highlight based on metricPhaseByCol
+        metricColumns.forEach((colIndex) => {
+          const phase = metricPhaseByCol[colIndex];
+          const header = document.querySelector(
+            `.header-main span.sortable[data-col="${colIndex}"]`
+          );
+          if (!header) return;
+          const label = header.querySelector(`.metric-label[data-role="${phase}"]`);
+          if (label) {
+            label.classList.add("phase-active");
+          }
+        });
+      }
 
       // Helpers
       const safe = (v) =>
@@ -716,6 +749,7 @@
 
             tbody.appendChild(tr);
           });
+          updateMetricDisplay();
         } catch (err) {
           console.error("Failed to load benchmarks JSON:", err);
         }
@@ -748,12 +782,9 @@
       // 3) SORTING (click Max/Avg/Min + arrows)
       // -----------------------------
       let sortState = {
-        colIndex: null,      // which column
-        direction: "asc",    // "asc" | "desc"
-        phase: "avg",        // "max" | "avg" | "min" (for metric columns)
+        colIndex: null,   // which column
+        direction: "asc", // "asc" | "desc"
       };
-
-      const metricColumns = new Set([5, 6, 7]); // Motionmark, Jetstream, Speedometer
 
       function getCellValue(row, colIndex, phase) {
         const cell = row.querySelectorAll(".bubble-main .bubble-cell")[colIndex];
@@ -787,30 +818,6 @@
         headerSpans.forEach((span) => {
           span.classList.remove("sorted-asc", "sorted-desc", "active-column");
         });
-
-        document
-          .querySelectorAll(".metric-label.phase-active, .metric-row.phase-active")
-          .forEach((el) => el.classList.remove("phase-active"));
-      }
-
-      function applyPhaseHighlights(colIndex, phase) {
-        if (!metricColumns.has(colIndex) || !phase) return;
-
-        const header = document.querySelector(
-          `.header-main span.sortable[data-col="${colIndex}"]`
-        );
-        if (header) {
-          const label = header.querySelector(`.metric-label[data-role="${phase}"]`);
-          if (label) label.classList.add("phase-active");
-        }
-
-        const rows = tbody.querySelectorAll("tr.parent-row");
-        rows.forEach((row) => {
-          const cell = row.querySelectorAll(".bubble-main .bubble-cell")[colIndex];
-          if (!cell) return;
-          const metricRow = cell.querySelector(`.metric-row[data-role="${phase}"]`);
-          if (metricRow) metricRow.classList.add("phase-active");
-        });
       }
 
       function doSort() {
@@ -818,7 +825,7 @@
         if (colIndex == null) return;
 
         const rows = Array.from(tbody.querySelectorAll("tr.parent-row"));
-        const phase = metricColumns.has(colIndex) ? sortState.phase : null;
+        const phase = metricColumns.has(colIndex) ? metricPhaseByCol[colIndex] : null;
 
         rows.sort((a, b) => {
           const aVal = getCellValue(a, colIndex, phase);
@@ -846,7 +853,8 @@
           );
         }
 
-        if (phase) applyPhaseHighlights(colIndex, phase);
+        // Ensure only selected Min/Avg/Max are visible
+        updateMetricDisplay();
       }
 
       // Header click handling
@@ -866,7 +874,7 @@
 
             if (
               sortState.colIndex === colIndex &&
-              sortState.phase === newPhase
+              metricPhaseByCol[colIndex] === newPhase
             ) {
               // Same column + same phase: toggle direction
               sortState.direction =
@@ -877,7 +885,7 @@
                 sortState.colIndex = colIndex;
                 sortState.direction = "asc"; // default when switching column
               }
-              sortState.phase = newPhase;
+              metricPhaseByCol[colIndex] = newPhase; // store visible/sort phase for this column
             }
 
             doSort();
@@ -893,7 +901,7 @@
             // New column selected
             sortState.colIndex = colIndex;
             sortState.direction = "asc";
-            sortState.phase = isMetric ? "avg" : null; // default to Avg on metrics
+            // No need to touch metricPhaseByCol here: it already has defaults ("avg")
           }
 
           doSort();
