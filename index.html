@@ -547,7 +547,13 @@
                     <span class="metric-label" data-role="min">Min</span>
                   </span>
 
-                  <span class="sortable" data-col="8">Passmark</span>
+                  <span class="sortable metric-header" data-col="8" data-metric="passmark">
+                    Passmark<br /><br />
+                    <span class="metric-label" data-role="main">Main</span><br />
+                    <span class="metric-label" data-role="cpu">CPU</span><br />
+                    <span class="metric-label" data-role="2d">2D</span><br />
+                    <span class="metric-label" data-role="mem">Memory</span>
+                  </span>
                   <span class="sortable" data-col="9">Used<br />Space</span>
                   <span class="sortable" data-col="10">ISO Size</span>
                   <span class="sortable" data-col="11">Last<br />Modified</span>
@@ -568,13 +574,14 @@
     document.addEventListener("DOMContentLoaded", () => {
       const tbody = document.getElementById("benchmarks-table");
       const headerSpans = document.querySelectorAll(".header-main span.sortable");
-      const metricColumns = new Set([5, 6, 7]); // Motionmark, Jetstream, Speedometer
+      const metricColumns = new Set([5, 6, 7, 8]); // Motionmark, Jetstream, Speedometer, Passmark
 
       // Store which phase is visible/used for each metric column (default: avg)
       const metricPhaseByCol = {
         5: "avg",
         6: "avg",
         7: "avg",
+        8: "main",
       };
 
       function updateMetricDisplay() {
@@ -629,6 +636,19 @@
         return isNaN(num) ? safe(v) : Math.floor(num); // keep integer part only
       };
 
+      const toNumber = (v) => {
+        if (v === null || v === undefined) return NaN;
+        // handles plain numbers or strings like "631.972 @60fps 6.05%"
+        return parseFloat(String(v).trim());
+      };
+
+      const normalize = (value, min, max) => {
+        const num = toNumber(value);
+        if (isNaN(num)) return 0;
+        if (max === min) return 100; // avoid divide-by-zero if all values are same
+        return ((num - min) / (max - min)) * 100;
+      };
+
       const extractNumeric = (v) => parseFloat(v) || 0;
       const sortWithExtraction = (arr) =>
         arr.filter((v) => v).sort((a, b) => extractNumeric(a) - extractNumeric(b));
@@ -639,6 +659,36 @@
         try {
           const response = await fetch("data_benchmarks.json");
           const data = await response.json();
+
+          // ---- Scan data to define min/max scale for each metric ----
+          let minPass = Infinity, maxPass = -Infinity;
+          let minMotion = Infinity, maxMotion = -Infinity;
+          let minJet = Infinity, maxJet = -Infinity;
+          let minSpeed = Infinity, maxSpeed = -Infinity;
+
+          data.forEach((row) => {
+            const pass = toNumber(row.passmark?.main);
+            const motion = toNumber(row.motionmark?.average);
+            const jet = toNumber(row.jetstream?.average);
+            const speed = toNumber(row.speedometer?.average);
+
+            if (!isNaN(pass)) {
+              if (pass < minPass) minPass = pass;
+              if (pass > maxPass) maxPass = pass;
+            }
+            if (!isNaN(motion)) {
+              if (motion < minMotion) minMotion = motion;
+              if (motion > maxMotion) maxMotion = motion;
+            }
+            if (!isNaN(jet)) {
+              if (jet < minJet) minJet = jet;
+              if (jet > maxJet) maxJet = jet;
+            }
+            if (!isNaN(speed)) {
+              if (speed < minSpeed) minSpeed = speed;
+              if (speed > maxSpeed) maxSpeed = speed;
+            }
+          });
 
           data.forEach((row, index) => {
             const tr = document.createElement("tr");
@@ -673,6 +723,25 @@
               .map((v) => `<div class="sub-cell">${safe(v)}</div>`)
               .join("");
 
+            // ---- Compute 0–100 Avg Benchmark score for this row ----
+            const passRaw = row.passmark?.main;
+            const motionRaw = row.motionmark?.average;
+            const jetRaw = row.jetstream?.average;
+            const speedRaw = row.speedometer?.average;
+
+            const passNorm = normalize(passRaw, minPass, maxPass);
+            const motionNorm = normalize(motionRaw, minMotion, maxMotion);
+            const jetNorm = normalize(jetRaw, minJet, maxJet);
+            const speedNorm = normalize(speedRaw, minSpeed, maxSpeed);
+
+            // 40% Passmark main, 20% each for the others
+            const weightedScore =
+              0.40 * passNorm +
+              0.20 * motionNorm +
+              0.20 * jetNorm +
+              0.20 * speedNorm;
+
+            const avgBenchmarkScore = Math.round(weightedScore); // integer 0–100
 
             tr.className = `parent-row ${rowBandClass}`;
             tr.innerHTML = `
@@ -683,7 +752,7 @@
                     <span class="bubble-cell">${safe(row.name)}</span>
                     <span class="bubble-cell">${safe(row.version_shortcode)}</span>
                     <span class="bubble-cell">${safe(row.version)}</span>
-                    <span class="bubble-cell">${safe(row.benchmark_avg)}</span>
+                    <span class="bubble-cell">${safe(avgBenchmarkScore)}</span>
 
                     <span class="bubble-cell">
                       <div class="metric-stack" data-metric="motionmark">
@@ -709,7 +778,15 @@
                       </div>
                     </span>
 
-                    <span class="bubble-cell">${safe(row.passmark)}</span>
+                    <span class="bubble-cell">
+                      <div class="metric-stack" data-metric="passmark">
+                        <div class="metric-row" data-role="main">${safe(row.passmark?.main)}</div>
+                        <div class="metric-row" data-role="cpu">${safe(row.passmark?.cpu)}</div>
+                        <div class="metric-row" data-role="2d">${safe(row.passmark?.["2d"])}</div>
+                        <div class="metric-row" data-role="mem">${safe(row.passmark?.memory)}</div>
+                      </div>
+                    </span>
+
                     <span class="bubble-cell">${safe(row.used_space)}</span>
                     <span class="bubble-cell">${safe(row.iso_file_size)}</span>
                     <span class="bubble-cell">${safe(row.iso_file_lastmodified)}</span>
