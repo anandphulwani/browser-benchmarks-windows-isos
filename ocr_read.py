@@ -167,12 +167,12 @@ motionmark_roi_configurations = {
 passmark_roi_configurations = {
     # Default ROI if folder not explicitly defined
     'default': [
-        {'type': 'rectangle', 'box': (262, 246, 228, 51)},
-        {'type': 'rectangle', 'box': (562, 216, 77, 15)},
-        {'type': 'rectangle', 'box': (562, 276, 77, 15)},
-        {'type': 'rectangle', 'box': (562, 336, 77, 15)},
-        {'type': 'rectangle', 'box': (562, 396, 77, 15)},
-        {'type': 'rectangle', 'box': (562, 456, 77, 15)},
+        {'type': 'rectangle', 'box': (262, 246, 490, 297)},
+        {'type': 'rectangle', 'box': (562, 216, 639, 231)},
+        {'type': 'rectangle', 'box': (562, 276, 639, 291)},
+        {'type': 'rectangle', 'box': (562, 336, 639, 351)},
+        {'type': 'rectangle', 'box': (562, 396, 639, 411)},
+        {'type': 'rectangle', 'box': (562, 456, 639, 471)},
     ]
 }
 
@@ -216,8 +216,8 @@ def process_image(img, roi_list, filename_base, benchmark_type, use_threshold_re
         try:
             if roi['type'] == 'rectangle':
                 # Apply offsets to rectangle box
-                x, y, w, h = roi['box']
-                adjusted_box = (x + x_offset, y + y_offset, x + w + x_offset, y + h + y_offset)
+                x1, y1, x2, y2 = roi['box']
+                adjusted_box = (x1 + x_offset, y1 + y_offset, x2 + x_offset, y2 + y_offset)
                 
                 if use_threshold_rectangles:
                     # MotionMark behavior
@@ -320,7 +320,6 @@ def ocr_reader(debug=False, target_folder_name=None, benchmark_type=None):
 
             roi_list = roi_configurations.get(folder_name, roi_configurations['default'])
 
-            
             for filename in filenames:
                 if filename.lower().endswith(image_extensions):
                     image_path = os.path.join(dirpath, filename)
@@ -342,7 +341,7 @@ def ocr_reader(debug=False, target_folder_name=None, benchmark_type=None):
                             extracted_values.append(text)
                     except Exception as e:
                         logging.error(f"Failed to process image {image_path}: {e}")
-                print("")
+            print("")
             logging.info(f"Extracted Texts for {folder_name}: {', '.join(extracted_values)}")
 
             # Store results in JSON-serializable structure
