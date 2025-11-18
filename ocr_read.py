@@ -330,12 +330,10 @@ def ocr_reader(debug=False, target_folder_name=None, benchmark_type=None):
                             if this_type == "passmark":
                                 pair = find_grey_white_pair(img, length=597)
                                 if pair:
-                                    x0, y_grey, x1, y_white = pair # Found grey/white pair: grey at y=192, white at y=193, x range [113, 709] (width 597) # we want 113, 193
+                                    x0, y_grey, x1, y_white = pair
                                     offset_x = x0 - 113
                                     offset_y = y_white - 193
                                     offsets = [offset_x, offset_y]
-                                    # print(f"Found grey/white pair: grey at y={y_grey}, white at y={y_white}, "
-                                    #     f"x range [{x0}, {x1}] (width {x1 - x0 + 1})")
                                 else:
                                     print(f"No matching grey/white line pair found, for folder: {folder_name} and type: {this_type}")
                                     sys.exit(1)
