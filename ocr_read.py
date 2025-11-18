@@ -21,6 +21,81 @@ def crop_hexagon(img, hexagon_points, save_path):
     hex_cropped.save(save_path)
     return save_path
 
+def colors_close(c, target, tol=8):
+    """Return True if RGB color c is within tol of target."""
+    return all(abs(c[i] - target[i]) <= tol for i in range(3))
+
+def find_color_runs(img, target_color, tol=8):
+    """
+    For each row, find contiguous runs of pixels that are close to target_color.
+    Returns {y: [(x_start, x_end_inclusive), ...], ...}
+    """
+    img = img.convert("RGB")
+    w, h = img.size
+    px = img.load()
+
+    runs_by_row = {}
+
+    for y in range(h):
+        x = 0
+        row_runs = []
+        while x < w:
+            # start of a possible run
+            if colors_close(px[x, y], target_color, tol):
+                start = x
+                x += 1
+                while x < w and colors_close(px[x, y], target_color, tol):
+                    x += 1
+                end = x - 1
+                row_runs.append((start, end))
+            else:
+                x += 1
+
+        if row_runs:
+            runs_by_row[y] = row_runs
+
+    return runs_by_row
+
+def find_grey_white_pair(
+    img,
+    grey_color=(64, 64, 64),   # adjust if needed
+    white_color=(255, 255, 255),  # adjust if needed
+    length=597,
+    tol_grey=8,
+    tol_white=8
+):
+    """
+    Find one grey horizontal line that has a white horizontal line directly
+    under it, with at least `length` overlapping pixels.
+
+    Returns (x_start, y_grey, x_end, y_white) or None if not found.
+    """
+    img = img.convert("RGB")
+    w, h = img.size
+
+    grey_runs = find_color_runs(img, grey_color, tol=tol_grey)
+    white_runs = find_color_runs(img, white_color, tol=tol_white)
+
+    for y_grey, runs in grey_runs.items():
+        y_white = y_grey + 1
+        if y_white >= h or y_white not in white_runs:
+            continue
+
+        white_row_runs = white_runs[y_white]
+
+        for gx0, gx1 in runs:
+            for wx0, wx1 in white_row_runs:
+                # overlap of the two runs
+                overlap_start = max(gx0, wx0)
+                overlap_end   = min(gx1, wx1)
+                if overlap_end >= overlap_start:
+                    overlap_len = overlap_end - overlap_start + 1
+                    if overlap_len >= length:
+                        # found a pair with sufficient overlapping width
+                        return overlap_start, y_grey, overlap_start + length - 1, y_white
+
+    return None
+
 # === Configuration ===
 OCR_EXECUTABLE = 'Capture2Text_CLI.exe'
 THRESHOLD = 128
@@ -88,6 +163,19 @@ motionmark_roi_configurations = {
     ]
 }
 
+# 04. ocr_read_passmark.py
+passmark_roi_configurations = {
+    # Default ROI if folder not explicitly defined
+    'default': [
+        {'type': 'rectangle', 'box': (262, 246, 228, 51)},
+        {'type': 'rectangle', 'box': (562, 216, 77, 15)},
+        {'type': 'rectangle', 'box': (562, 276, 77, 15)},
+        {'type': 'rectangle', 'box': (562, 336, 77, 15)},
+        {'type': 'rectangle', 'box': (562, 396, 77, 15)},
+        {'type': 'rectangle', 'box': (562, 456, 77, 15)},
+    ]
+}
+
 # Settings per screenshots folder, to keep original behavior of each script
 screenshot_settings = {
     # 01. ocr_read_jetstream.py
@@ -105,6 +193,10 @@ screenshot_settings = {
         'roi_configurations': motionmark_roi_configurations,
         'use_threshold_rectangles': True,   # grayscale + threshold
     },
+    'Screenshots_Passmark': {
+        'roi_configurations': passmark_roi_configurations,
+        'use_threshold_rectangles': False,
+    },
 }
 
 # Map screenshot folder base name -> logical type name
@@ -112,30 +204,40 @@ SCREENSHOT_TYPE_MAP = {
     'Screenshots_JetStream': 'jetstream',
     'Screenshots_SpeedoMeter': 'speedometer',
     'Screenshots_MotionMark': 'motionmark',
+    'Screenshots_Passmark': 'passmark',
 }
 
-
-def process_image(img, roi_list, filename_base, benchmark_type, use_threshold_rectangles=False):
+def process_image(img, roi_list, filename_base, benchmark_type, use_threshold_rectangles=False, offsets=[0, 0]):
+    x_offset, y_offset = offsets
     concatenated_text = ''
+    
     for idx, roi in enumerate(roi_list, start=1):
         cropped_path = os.path.join(CROPPED_DIR, f"cropped_{filename_base}_{idx}.png")
         try:
             if roi['type'] == 'rectangle':
+                # Apply offsets to rectangle box
+                x, y, w, h = roi['box']
+                adjusted_box = (x + x_offset, y + y_offset, x + w + x_offset, y + h + y_offset)
+                
                 if use_threshold_rectangles:
                     # MotionMark behavior
-                    roi_img = img.crop(roi['box']).convert('L')
+                    roi_img = img.crop(adjusted_box).convert('L')
                     roi_bw = roi_img.point(lambda x: 255 if x > THRESHOLD else 0)
                     roi_bw.save(cropped_path)
                 else:
                     # JetStream & Speedometer behavior
-                    roi_img = img.crop(roi['box'])
+                    roi_img = img.crop(adjusted_box)
                     roi_img.save(cropped_path)
             elif roi['type'] == 'hexagon':
-                crop_hexagon(img, roi['points'], cropped_path)
+                # Apply offsets to hexagon points
+                adjusted_points = [
+                    (x + x_offset, y + y_offset) for (x, y) in roi['points']
+                ]
+                crop_hexagon(img, adjusted_points, cropped_path)
             else:
                 logging.warning(f"Unknown ROI type: {roi['type']}")
                 continue
-
+            
             # Run OCR
             result = subprocess.run(
                 [OCR_EXECUTABLE, '-i', cropped_path],
@@ -166,6 +268,8 @@ def process_image(img, roi_list, filename_base, benchmark_type, use_threshold_re
         regex_to_match = r"^([\d.]+)\s+@(\d+)fps\s+([\d.]+)%$"
     elif benchmark_type == "speedometer":
         regex_to_match = r"^([\d]+(?:\.\d+)?)$"
+    elif benchmark_type == "passmark":
+        regex_to_match = r"^([\d\w\s\.\/]+)$"
 
     match = re.search(regex_to_match, concatenated_text)
     if not match:
@@ -191,13 +295,16 @@ def ocr_reader(debug=False, target_folder_name=None, benchmark_type=None):
     aggregated_results = {
         "jetstream": [],
         "motionmark": [],
-        "speedometer": []
+        "speedometer": [],
+        "passmark": []
     }
 
     for dirpath, dirnames, filenames in os.walk(ROOT_DIR):
         base = os.path.basename(dirpath)
         if base in screenshot_settings:
             this_type = SCREENSHOT_TYPE_MAP.get(base)
+            folder_name = os.path.basename(os.path.dirname(dirpath))
+            extracted_values = []
 
             # If a specific benchmark type is requested, skip others
             if benchmark_type and this_type != benchmark_type:
@@ -207,26 +314,37 @@ def ocr_reader(debug=False, target_folder_name=None, benchmark_type=None):
             roi_configurations = settings['roi_configurations']
             use_threshold_rectangles = settings['use_threshold_rectangles']
 
-            folder_name = os.path.basename(os.path.dirname(dirpath))
-
             # If a specific folder name is requested, skip others
             if target_folder_name and folder_name != target_folder_name:
                 continue
 
             roi_list = roi_configurations.get(folder_name, roi_configurations['default'])
 
-            extracted_values = []
+            
             for filename in filenames:
                 if filename.lower().endswith(image_extensions):
                     image_path = os.path.join(dirpath, filename)
                     try:
                         with Image.open(image_path) as img:
+                            offsets = [0, 0]
+                            if this_type == "passmark":
+                                pair = find_grey_white_pair(img, length=597)
+                                if pair:
+                                    x0, y_grey, x1, y_white = pair # Found grey/white pair: grey at y=192, white at y=193, x range [113, 709] (width 597) # we want 113, 193
+                                    offset_x = x0 - 113
+                                    offset_y = y_white - 193
+                                    offsets = [offset_x, offset_y]
+                                    # print(f"Found grey/white pair: grey at y={y_grey}, white at y={y_white}, "
+                                    #     f"x range [{x0}, {x1}] (width {x1 - x0 + 1})")
+                                else:
+                                    print(f"No matching grey/white line pair found, for folder: {folder_name} and type: {this_type}")
+                                    sys.exit(1)
                             filename_base = os.path.splitext(filename)[0]
-                            text = process_image(img, roi_list, filename_base, benchmark_type, use_threshold_rectangles)
+                            text = process_image(img, roi_list, filename_base, benchmark_type, use_threshold_rectangles, offsets)
                             extracted_values.append(text)
                     except Exception as e:
                         logging.error(f"Failed to process image {image_path}: {e}")
-            print("")
+                print("")
             logging.info(f"Extracted Texts for {folder_name}: {', '.join(extracted_values)}")
 
             # Store results in JSON-serializable structure
@@ -266,7 +384,7 @@ if __name__ == "__main__":
     )
     parser.add_argument(
         '--type',
-        choices=['motionmark', 'speedometer', 'jetstream'],
+        choices=['motionmark', 'speedometer', 'jetstream', 'passmark'],
         help='Limit processing to this benchmark type.'
     )
     args = parser.parse_args()
