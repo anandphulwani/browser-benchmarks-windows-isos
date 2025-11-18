@@ -111,6 +111,7 @@ def update_entry_for_bench(
 
     # 04(c). Latest file is newer -> recompute the 20 values
     values = get_values_for_folder(os.path.basename(iso_folder), bench_key)
+    bench["latest"] = latest_str
     if bench_key == "passmark":
         values = values[0].split(" ")
         if len(values) != 6:
@@ -133,5 +134,4 @@ def update_entry_for_bench(
 
         bench["values"] = values
         recompute_benchmark_type_avg(entry)
-    bench["latest"] = latest_str
     entry["status"] = ""
