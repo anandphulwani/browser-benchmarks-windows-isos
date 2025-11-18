@@ -94,7 +94,14 @@ def get_iso_entry_for_name(data: List[Dict[str, Any]], iso_name: str) -> Dict[st
         "iso_download_link": "",
         "comments": "",
         "benchmark_avg": "",
-        "passmark": "",
+        "passmark":  {
+            "main": "",
+            "cpu": "",
+            "3d": "",
+            "2d": "",
+            "memory": "",
+            "disk": ""
+        },
         "motionmark": {
             "latest": "",
             "average": "",
@@ -127,8 +134,12 @@ def get_bench_dict(entry: Dict[str, Any], bench_key: str) -> Dict[str, Any]:
     """
     bench = entry.get(bench_key)
     if not isinstance(bench, dict):
-        bench = {"latest": "", "values": []}
+        if bench_key != "passmark":
+            bench = {"latest": "", "values": []}
+        else:
+            bench = {"latest": ""}
         entry[bench_key] = bench
     bench.setdefault("latest", "")
-    bench.setdefault("values", [])
+    if bench_key != "passmark":
+        bench.setdefault("values", [])
     return bench

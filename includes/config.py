@@ -13,6 +13,7 @@ BENCH_CONFIG = {
     "Screenshots_JetStream": "jetstream",
     "Screenshots_MotionMark": "motionmark",
     "Screenshots_SpeedoMeter": "speedometer",
+    "Screenshots_Passmark": "passmark",
 }
 
 def ensure_paths():

@@ -14,7 +14,7 @@ from ocr_read import ocr_reader
 
 # --------- PLUG YOUR 20-ITEM LOGIC HERE ------------------------------------
 
-def get_20_values_for_folder(folder_path: str, bench_key: str) -> List[float]:
+def get_values_for_folder(folder_path: str, bench_key: str) -> List[float]:
     """
     It should:
       - look at the given folder_path (Screenshots_* folder)
@@ -110,15 +110,28 @@ def update_entry_for_bench(
         return
 
     # 04(c). Latest file is newer -> recompute the 20 values
-    values = get_20_values_for_folder(os.path.basename(iso_folder), bench_key)
-    if len(values) != 20:
-        raise ValueError(
-            f"get_20_values_for_folder must return 20 items, got {len(values)} "
-            f"for {bench_key} in {iso_folder}"
-        )
+    values = get_values_for_folder(os.path.basename(iso_folder), bench_key)
+    if bench_key == "passmark":
+        values = values[0].split(" ")
+        if len(values) != 6:
+            raise ValueError(
+                f"get_values_for_folder must return 6 items, got {len(values)} "
+                f"for {bench_key} in {iso_folder}"
+            )
+        bench["main"] = values[0]
+        bench["cpu"] = values[1]
+        bench["2d"] = values[2]
+        bench["3d"] = values[3]
+        bench["memory"] = values[4]
+        bench["disk"] = values[5]
+    else:
+        if len(values) != 20:
+            raise ValueError(
+                f"get_values_for_folder must return 20 items, got {len(values)} "
+                f"for {bench_key} in {iso_folder}"
+            )
 
-    bench["values"] = values
+        bench["values"] = values
+        recompute_benchmark_type_avg(entry)
     bench["latest"] = latest_str
-
-    recompute_benchmark_type_avg(entry)
     entry["status"] = ""
