@@ -13,7 +13,7 @@ Browser Benchmarks and Passmark of various Windows 10/11 ISOs
 | 8 | Christmas.Magic.10.Pro.iso | | | |
 | 9 | Christmas2022LTSC.iso | | | |
 | 10 | Clean OS 10 (32 Bit) CompactLite.iso | | | |
-| 11 | CureOS V1.iso | | | |
+| 11 | CureOS V1.iso | | https://crustywindo.ws/Category:Bootlegs_based_on_Windows_10](https://crustywindo.ws/collection/Windows%2010/CureOS%20V1.iso | |
 | 12 | Gamers Edition Windows 10 Pro 21H1 [19043.1237].iso | | | |
 | 13 | Gandalf'sWin10PEx64RS7-20H1.ISO | | | |
 | 14 | Independence10.iso | | | |
