@@ -29,34 +29,34 @@ Browser Benchmarks and Passmark of various Windows 10/11 ISOs
 | 24 | WIN10OnePunchManEdition.iso | | | |
 | 25 | WINDOWS 10 PRO 2009 HAPPY NEW YEAR 2021 19042.662 X64.iso | | | |
 | 26 | WINDOWS 10 PRO BLUE EDITION 1909 (18363.815) FR X64 (DREAM TEAM CUSTOM OS).iso | | | |
-| 27 | WINDOWS 10 PRO SCORPIO V2 EDITION 1909 BUILD (18363.753) Fr x64.iso | | | |
-| 28 | Win10.x64.MicroPE.iso | | | |
-| 29 | Win10Pro1903YuGiOh.iso | | | |
+| 27 | WINDOWS 10 PRO SCORPIO V2 EDITION 1909 BUILD (18363.753) Fr x64.iso | | https://crustywindo.ws/collection/Windows%2010/WINDOWS%2010%20PRO%20SCORPIO%20V2%20EDITION%201909%20BUILD%20%2818363.753%29%20Fr%20x64.iso | |
+| 28 | Win10.x64.MicroPE.iso | | https://archive.org/download/windowsbootlegs/Win10.x64.MicroPE.iso | |
+| 29 | Win10Pro1903YuGiOh.iso | | https://archive.org/download/windowsbootlegs/Win10Pro1903YuGiOh.iso | |
 | 30 | Windows 10 Airlock Premium v3 2018 Permantly Activated.iso | | https://crustywindo.ws/collection/Windows%2010/Windows%2010%20Airlock%20Premium%20v3%202018%20Permantly%20Activated.iso | |
 | 31 | Windows 10 Android M Edition X64 2015.iso | | https://crustywindo.ws/collection/Windows%2010/Windows%2010%20Android%20M%20Edition%20X64%202015.iso | |
-| 32 | Windows 10 Dota Edition X64 2015 - Freeware Sys.iso | | | |
+| 32 | Windows 10 Dota Edition X64 2015 - Freeware Sys.iso | | https://crustywindo.ws/collection/Windows%2010/Windows%2010%20Dota%20Edition%20X64%202015%20-%20Freeware%20Sys.iso | |
 | 33 | Windows 10 Gamer Edition - X64 - X86 - 2015 - DiLshad Sys.iso | | https://crustywindo.ws/collection/Windows%2010/Windows%2010%20Gamer%20Edition%20-%20X64%20-%20X86%20-%202015%20-%20DiLshad%20Sys.iso | |
-| 34 | Windows 10 Lite.iso | | | |
-| 35 | Windows 10 PRO DARK X64.iso | | | |
-| 36 | Windows 10 Steampunk (21H2) 10.0.19044.1806-x64.iso | | | |
-| 37 | Windows 10 Turbo Edition X64 2015 - Freeware Sys.iso | | | |
-| 38 | Windows SV Pro v1-Legacy.iso | | | |
-| 39 | Windows.10.Zero.Extreme.Edition.2019.iso | | | |
-| 40 | Windows_10_Black_19045.1889_22H2_x64_Super_Slim.iso | | | |
-| 41 | Windows_10_Dragonball_Super_Edition_2018.iso | | | |
+| 34 | Windows 10 Lite.iso | | https://crustywindo.ws/collection/Windows%2010/Windows%2010%20Lite.iso | |
+| 35 | Windows 10 PRO DARK X64.iso | | https://crustywindo.ws/collection/Windows%2010/Windows%2010%20PRO%20DARK%20X64.iso | |
+| 36 | Windows 10 Steampunk (21H2) 10.0.19044.1806-x64.iso | | https://crustywindo.ws/collection/Windows%2010/Windows%2010%20Steampunk%20%2821H2%29%2010.0.19044.1806-x64.iso | |
+| 37 | Windows 10 Turbo Edition X64 2015 - Freeware Sys.iso | | https://crustywindo.ws/collection/Windows%2010%2FWindows%2010%20Turbo%20Edition%20X64%202015%20-%20Freeware%20Sys.iso | |
+| 38 | Windows SV Pro v1-Legacy.iso | | https://crustywindo.ws/collection/Windows%2010/Windows%20SV%20Pro%20v1-Legacy.iso | |
+| 39 | Windows.10.Zero.Extreme.Edition.2019.iso | | https://crustywindo.ws/collection/Windows%2010/Windows.10.Zero.Extreme.Edition.2019.iso | |
+| 40 | Windows_10_Black_19045.1889_22H2_x64_Super_Slim.iso | | https://crustywindo.ws/collection/Windows%2010/Windows_10_Black_19045.1889_22H2_x64_Super_Slim.iso | |
+| 41 | Windows_10_Dragonball_Super_Edition_2018.iso | | https://crustywindo.ws/collection/Windows%2010/Windows_10_Dragonball_Super_Edition_2018.iso | |
 | 42 | Windows_10_Pro_GamerEdition_x64_En-US_Pre_activated.iso | | | |
 | 43 | win10rog.iso | | | |
-| 44 | Eleven Extreme 2023.iso | | | |
-| 45 | Win10 Dynamic Pro 2023 x64.iso | | | |
-| 46 | Windows 10 Acer Edition X64.iso | | | |
-| 47 | Windows 10 Aviation Edition X64.iso | | | |
-| 48 | Windows 10 Canada Edition.iso | | | |
-| 49 | Windows 10 Dark Flower Edition X64.iso | | | |
+| 44 | Eleven Extreme 2023.iso | | https://crustywindo.ws/collection/Community/Eleven%20Extreme%202023.iso | |
+| 45 | Win10 Dynamic Pro 2023 x64.iso | | https://crustywindo.ws/collection/Community/Win10%20Dynamic%20Pro%202023%20x64.iso | |
+| 46 | Windows 10 Acer Edition X64.iso | | https://crustywindo.ws/collection/Community/Windows%2010%20Acer%20Edition%20X64.iso | |
+| 47 | Windows 10 Aviation Edition X64.iso | | https://crustywindo.ws/collection/Community/Windows%2010%20Aviation%20Edition%20X64.iso | |
+| 48 | Windows 10 Canada Edition.iso | | https://crustywindo.ws/collection/Community/Windows%2010%20Canada%20Edition.iso | |
+| 49 | Windows 10 Dark Flower Edition X64.iso | | https://crustywindo.ws/collection/Community/Windows%2010%20Dark%20Flower%20Edition%20X64.iso | |
 | 50 | Windows 10 Mac Ultra.iso | | | |
 | 51 | Windows 10 NVIDIA.iso | | | |
 | 52 | Windows 10 Professional Gamer 2022.iso | | | |
-| 53 | Windows 10 Ubuntu Edition X64.iso | | | |
-| 54 | Windows 11 Acrylic Edition.iso | | | |
+| 53 | Windows 10 Ubuntu Edition X64.iso | | https://crustywindo.ws/collection/Community/Windows%2010%20Ubuntu%20Edition%20X64.iso | |
+| 54 | Windows 11 Acrylic Edition.iso | | https://crustywindo.ws/collection/Community/Windows%2011%20Acrylic%20Edition.iso | |
 | 55 | Windows 7 Extreme Dark.iso | | | |
 | 56 | Windows 7 Metro Edition X64.iso | | | |
 | 57 | Windows 7 Night Edition X64.iso | | | |
