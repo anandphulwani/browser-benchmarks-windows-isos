@@ -32,10 +32,10 @@ Browser Benchmarks and Passmark of various Windows 10/11 ISOs
 | 27 | WINDOWS 10 PRO SCORPIO V2 EDITION 1909 BUILD (18363.753) Fr x64.iso | | | |
 | 28 | Win10.x64.MicroPE.iso | | | |
 | 29 | Win10Pro1903YuGiOh.iso | | | |
-| 30 | Windows 10 Airlock Premium v3 2018 Permantly Activated.iso | | | |
-| 31 | Windows 10 Android M Edition X64 2015.iso | | | |
+| 30 | Windows 10 Airlock Premium v3 2018 Permantly Activated.iso | | https://crustywindo.ws/collection/Windows%2010/Windows%2010%20Airlock%20Premium%20v3%202018%20Permantly%20Activated.iso | |
+| 31 | Windows 10 Android M Edition X64 2015.iso | | https://crustywindo.ws/collection/Windows%2010/Windows%2010%20Android%20M%20Edition%20X64%202015.iso | |
 | 32 | Windows 10 Dota Edition X64 2015 - Freeware Sys.iso | | | |
-| 33 | Windows 10 Gamer Edition - X64 - X86 - 2015 - DiLshad Sys.iso | | | |
+| 33 | Windows 10 Gamer Edition - X64 - X86 - 2015 - DiLshad Sys.iso | | https://crustywindo.ws/collection/Windows%2010/Windows%2010%20Gamer%20Edition%20-%20X64%20-%20X86%20-%202015%20-%20DiLshad%20Sys.iso | |
 | 34 | Windows 10 Lite.iso | | | |
 | 35 | Windows 10 PRO DARK X64.iso | | | |
 | 36 | Windows 10 Steampunk (21H2) 10.0.19044.1806-x64.iso | | | |
