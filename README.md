@@ -5,27 +5,27 @@ Browser Benchmarks and Passmark of various Windows 10/11 ISOs
 |------------|-------|----------|--------------|--------|
 | 1 | 10 Joker 2015.iso | | https://crustywindo.ws/collection/Windows%2010/10%20Joker%202015.iso | |
 | 2 | 10 Ultimate 3D Edition 2015.iso | | https://archive.org/download/windowsbootlegs/10%20Ultimate%203D%20Edition%202015.iso | |
-| 3 | 18 x64 Luxury.iso | | | |
+| 3 | 18 x64 Luxury.iso | | https://crustywindo.ws/collection/Windows%2010/18%20x64%20Luxury.iso | |
 | 4 | ANDROID M - SET DATE TO 08-22-2015 OR IT WONT BOOT | | | |
-| 5 | Adorable Anonymous Hacker windows 10 X64 Pro incl Office 2019.iso | | | |
-| 6 | Assassin's Windows 10 X64 Pro incl Office 2019.iso | | | |
-| 7 | Bazinga!.10.LTSC.EN-US.x64.iso | | | |
-| 8 | Christmas.Magic.10.Pro.iso | | | |
-| 9 | Christmas2022LTSC.iso | | | |
-| 10 | Clean OS 10 (32 Bit) CompactLite.iso | | | |
+| 5 | Adorable Anonymous Hacker windows 10 X64 Pro incl Office 2019.iso | | https://crustywindo.ws/collection/Windows%2010/Adorable%20Anonymous%20Hacker%20windows%2010%20X64%20Pro%20incl%20Office%202019.iso | |
+| 6 | Assassin's Windows 10 X64 Pro incl Office 2019.iso | | https://crustywindo.ws/collection/Windows%2010/Assassin%27s%20Windows%2010%20X64%20Pro%20incl%20Office%202019.iso | |
+| 7 | Bazinga!.10.LTSC.EN-US.x64.iso | | https://crustywindo.ws/collection/Windows%2010/Bazinga%21.10.LTSC.EN-US.x64.iso | |
+| 8 | Christmas.Magic.10.Pro.iso | | https://crustywindo.ws/collection/Windows%2010/Christmas.Magic.10.Pro.iso | |
+| 9 | Christmas2022LTSC.iso | | https://crustywindo.ws/collection/Windows%2010/Christmas2022LTSC.iso | | 
+| 10 | Clean OS 10 (32 Bit) CompactLite.iso | | https://crustywindo.ws/collection/Windows%2010/Clean%20OS%2010%20%2832%20Bit%29%20CompactLite.iso | |
 | 11 | CureOS V1.iso | | https://crustywindo.ws/collection/Windows%2010/CureOS%20V1.iso | |
-| 12 | Gamers Edition Windows 10 Pro 21H1 [19043.1237].iso | | | |
-| 13 | Gandalf'sWin10PEx64RS7-20H1.ISO | | | |
-| 14 | Independence10.iso | | | |
-| 15 | JuliaOS_final.iso | | | |
-| 16 | Phoenix LiteOS 10 Pro Gamer (18363.1977).iso | | | |
-| 17 | Phoenix LiteOS 10 Pro Gamer (19044.1415) By FBConan.iso | | | |
+| 12 | Gamers Edition Windows 10 Pro 21H1 [19043.1237].iso | | https://crustywindo.ws/collection/Windows%2010/Gamers%20Edition%20Windows%2010%20Pro%2021H1%20%5B19043.1237%5D.iso | |
+| 13 | Gandalf'sWin10PEx64RS7-20H1.ISO | | https://crustywindo.ws/collection/Windows%2010/Gandalf%27sWin10PEx64RS7-20H1.ISO | |
+| 14 | Independence10.iso | | https://crustywindo.ws/collection/Windows%2010/Independence10.iso | |
+| 15 | JuliaOS_final.iso | | https://crustywindo.ws/collection/Windows%2010/JuliaOS_final.iso | |
+| 16 | Phoenix LiteOS 10 Pro Gamer (18363.1977).iso | | https://archive.org/download/windowsbootlegs/Phoenix%20LiteOS%2010%20Pro%20Gamer%20%2818363.1977%29.iso | |
+| 17 | Phoenix LiteOS 10 Pro Gamer (19044.1415) By FBConan.iso | | https://archive.org/download/windowsbootlegs/Phoenix%20LiteOS%2010%20Pro%20Gamer%20%2819044.1415%29%20By%20FBConan.iso | |
 | 18 | Phoenix LiteOS 10 Pro Gamer (19044.1415).iso | | | |
-| 19 | Porcelain OS.iso | | | |
-| 20 | Power10.iso | | | |
-| 21 | Super Windows Longhorn-C Build 2.iso | | | |
-| 22 | W10AlE2019.iso | | | |
-| 23 | WIN10.PRO.21H1.GAMING.LITE.2021.X64.EN-US.iso | | | |
+| 19 | Porcelain OS.iso | | https://crustywindo.ws/collection/Windows%2010/Porcelain%20OS.iso | |
+| 20 | Power10.iso | | https://crustywindo.ws/collection/Windows%2010/Power10.iso | |
+| 21 | Super Windows Longhorn-C Build 2.iso | | https://crustywindo.ws/collection/Windows%2010/Super%20Windows%20Longhorn-C%20Build%202.iso | |
+| 22 | W10AlE2019.iso | | https://crustywindo.ws/collection/Windows%2010/W10AlE2019.iso | |
+| 23 | WIN10.PRO.21H1.GAMING.LITE.2021.X64.EN-US.iso | | https://crustywindo.ws/collection/Windows%2010/WIN10.PRO.21H1.GAMING.LITE.2021.X64.EN-US.iso | |
 | 24 | WIN10OnePunchManEdition.iso | | | |
 | 25 | WINDOWS 10 PRO 2009 HAPPY NEW YEAR 2021 19042.662 X64.iso | | | |
 | 26 | WINDOWS 10 PRO BLUE EDITION 1909 (18363.815) FR X64 (DREAM TEAM CUSTOM OS).iso | | | |
