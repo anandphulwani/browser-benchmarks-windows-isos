@@ -21,19 +21,19 @@ Browser Benchmarks and Passmark of various Windows 10/11 ISOs
 | A16 | JuliaOS_final.iso | | https://crustywindo.ws/collection/Windows%2010/JuliaOS_final.iso | |
 | A17 | Phoenix LiteOS 10 Pro Gamer (18363.1977).iso | | https://archive.org/download/windowsbootlegs/Phoenix%20LiteOS%2010%20Pro%20Gamer%20%2818363.1977%29.iso | |
 | A18 | Phoenix LiteOS 10 Pro Gamer (19044.1415) By FBConan.iso | | https://archive.org/download/windowsbootlegs/Phoenix%20LiteOS%2010%20Pro%20Gamer%20%2819044.1415%29%20By%20FBConan.iso | |
-| A19 | Phoenix LiteOS 10 Pro Gamer (19044.1415).iso | | | |
+| A19 | Phoenix LiteOS 10 Pro Gamer (19044.1415).iso | | https://archive.org/download/phoeni-1_202302/PHOENI~1.ISO | |
 | A20 | Porcelain OS.iso | | https://crustywindo.ws/collection/Windows%2010/Porcelain%20OS.iso | |
 | A21 | Power10.iso | | https://crustywindo.ws/collection/Windows%2010/Power10.iso | |
-| A22 | Sigma OS 3.0 M6.iso | | | |
+| A22 | Sigma OS 3.0 M6.iso | | https://crustywindo.ws/collection/Betas/Sigma%20OS%203.0%20M6.iso | |
 | A23 | Super Windows Longhorn-C Build 2.iso | | https://crustywindo.ws/collection/Windows%2010/Super%20Windows%20Longhorn-C%20Build%202.iso | |
 | A24 | W10AlE2019.iso | | https://crustywindo.ws/collection/Windows%2010/W10AlE2019.iso | |
-| A25 | Whistler.ver.5.1.2531.English.iso | | | |
+| A25 | Whistler.ver.5.1.2531.English.iso | | https://crustywindo.ws/collection/Betas/Whistler.ver.5.1.2531.English.iso | |
 | A26 | Win10 Dynamic Pro 2023 x64.iso | | https://crustywindo.ws/collection/Community/Win10%20Dynamic%20Pro%202023%20x64.iso | |
 | A27 | WIN10.PRO.21H1.GAMING.LITE.2021.X64.EN-US.iso | | https://crustywindo.ws/collection/Windows%2010/WIN10.PRO.21H1.GAMING.LITE.2021.X64.EN-US.iso | |
 | A28 | Win10.x64.MicroPE.iso | | https://archive.org/download/windowsbootlegs/Win10.x64.MicroPE.iso | |
-| A29 | WIN10OnePunchManEdition.iso | | | |
+| A29 | WIN10OnePunchManEdition.iso | | https://crustywindo.ws/collection/Windows%2010/WIN10OnePunchManEdition.iso | |
 | A30 | Win10Pro1903YuGiOh.iso | | https://archive.org/download/windowsbootlegs/Win10Pro1903YuGiOh.iso | |
-| A31 | win10rog.iso | | | |
+| A31 | win10rog.iso | | https://crustywindo.ws/collection/Windows%2010/win10rog.iso | |
 | A32 | winblows 7 frostnite.iso | | | |
 | A33 | Windows 10 Acer Edition X64.iso | | https://crustywindo.ws/collection/Community/Windows%2010%20Acer%20Edition%20X64.iso | |
 | A34 | Windows 10 Airlock Premium v3 2018 Permantly Activated.iso | | https://crustywindo.ws/collection/Windows%2010/Windows%2010%20Airlock%20Premium%20v3%202018%20Permantly%20Activated.iso | |
@@ -69,6 +69,6 @@ Browser Benchmarks and Passmark of various Windows 10/11 ISOs
 | A64 | Windows.10.Zero.Extreme.Edition.2019.iso | | https://crustywindo.ws/collection/Windows%2010/Windows.10.Zero.Extreme.Edition.2019.iso | |
 | A65 | Windows_10_Black_19045.1889_22H2_x64_Super_Slim.iso | | https://crustywindo.ws/collection/Windows%2010/Windows_10_Black_19045.1889_22H2_x64_Super_Slim.iso | |
 | A66 | Windows_10_Dragonball_Super_Edition_2018.iso | | https://crustywindo.ws/collection/Windows%2010/Windows_10_Dragonball_Super_Edition_2018.iso | |
-| A67 | Windows_10_Pro_GamerEdition_x64_En-US_Pre_activated.iso | | | |
+| A67 | Windows_10_Pro_GamerEdition_x64_En-US_Pre_activated.iso | | https://crustywindo.ws/collection/Windows%2010/Windows_10_Pro_GamerEdition_x64_En-US_Pre_activated.iso | |
 
 <img src="table.svg" width="1000" alt="Styled table" />
