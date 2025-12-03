@@ -44,8 +44,8 @@ Browser Benchmarks and Passmark of various Windows 10/11 ISOs
 | A39 | Windows 10 Dota Edition X64 2015 - Freeware Sys.iso | | https://crustywindo.ws/collection/Windows%2010/Windows%2010%20Dota%20Edition%20X64%202015%20-%20Freeware%20Sys.iso | |
 | A40 | Windows 10 Gamer Edition - X64 - X86 - 2015 - DiLshad Sys.iso | | https://crustywindo.ws/collection/Windows%2010/Windows%2010%20Gamer%20Edition%20-%20X64%20-%20X86%20-%202015%20-%20DiLshad%20Sys.iso | |
 | A41 | Windows 10 Lite.iso | | https://crustywindo.ws/collection/Windows%2010/Windows%2010%20Lite.iso | |
-| A42 | Windows 10 Mac Ultra.iso | https://crustywindo.ws/collection/Community/Windows%2010%20Mac%20Ultra.iso | | |
-| A43 | Windows 10 NVIDIA.iso | https://crustywindo.ws/collection/Community/Windows%2010%20NVIDIA.iso | | |
+| A42 | Windows 10 Mac Ultra.iso | | https://crustywindo.ws/collection/Community/Windows%2010%20Mac%20Ultra.iso | |
+| A43 | Windows 10 NVIDIA.iso | | https://crustywindo.ws/collection/Community/Windows%2010%20NVIDIA.iso | |
 | A44 | WINDOWS 10 PRO 2009 HAPPY NEW YEAR 2021 19042.662 X64.iso | | | |
 | A45 | WINDOWS 10 PRO BLUE EDITION 1909 (18363.815) FR X64 (DREAM TEAM CUSTOM OS).iso | | | |
 | A46 | Windows 10 PRO DARK X64.iso | | https://crustywindo.ws/collection/Windows%2010/Windows%2010%20PRO%20DARK%20X64.iso | |
