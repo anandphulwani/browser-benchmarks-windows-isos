@@ -16,7 +16,7 @@ Browser Benchmarks and Passmark of various Windows 10/11 ISOs
 | A11 | Eleven Extreme 2023.iso | | https://crustywindo.ws/collection/Community/Eleven%20Extreme%202023.iso | |
 | A12 | Gamers Edition Windows 10 Pro 21H1 [19043.1237].iso | | https://crustywindo.ws/collection/Windows%2010/Gamers%20Edition%20Windows%2010%20Pro%2021H1%20%5B19043.1237%5D.iso | |
 | A13 | Gandalf'sWin10PEx64RS7-20H1.ISO | | https://crustywindo.ws/collection/Windows%2010/Gandalf%27sWin10PEx64RS7-20H1.ISO | |
-| A14 | HKBoot | | | |
+| A14 | HKBoot | | https://crustywindo.ws/collection/Windows%2010/HKBoot_2017_ChiaSeTuTam.Com.ISO | |
 | A15 | Independence10.iso | | https://crustywindo.ws/collection/Windows%2010/Independence10.iso | |
 | A16 | JuliaOS_final.iso | | https://crustywindo.ws/collection/Windows%2010/JuliaOS_final.iso | |
 | A17 | Phoenix LiteOS 10 Pro Gamer (18363.1977).iso | | https://archive.org/download/windowsbootlegs/Phoenix%20LiteOS%2010%20Pro%20Gamer%20%2818363.1977%29.iso | |
@@ -34,7 +34,7 @@ Browser Benchmarks and Passmark of various Windows 10/11 ISOs
 | A29 | WIN10OnePunchManEdition.iso | | https://crustywindo.ws/collection/Windows%2010/WIN10OnePunchManEdition.iso | |
 | A30 | Win10Pro1903YuGiOh.iso | | https://archive.org/download/windowsbootlegs/Win10Pro1903YuGiOh.iso | |
 | A31 | win10rog.iso | | https://crustywindo.ws/collection/Windows%2010/win10rog.iso | |
-| A32 | winblows 7 frostnite.iso | | | |
+| A32 | winblows 7 frostnite.iso | | https://crustywindo.ws/collection/Community/winblows%207%20frostnite.iso | |
 | A33 | Windows 10 Acer Edition X64.iso | | https://crustywindo.ws/collection/Community/Windows%2010%20Acer%20Edition%20X64.iso | |
 | A34 | Windows 10 Airlock Premium v3 2018 Permantly Activated.iso | | https://crustywindo.ws/collection/Windows%2010/Windows%2010%20Airlock%20Premium%20v3%202018%20Permantly%20Activated.iso | |
 | A35 | Windows 10 Android M Edition X64 2015.iso (SET DATE TO 08-22-2015 OR IT WONT BOO) | | https://crustywindo.ws/collection/Windows%2010/Windows%2010%20Android%20M%20Edition%20X64%202015.iso | |
@@ -46,8 +46,8 @@ Browser Benchmarks and Passmark of various Windows 10/11 ISOs
 | A41 | Windows 10 Lite.iso | | https://crustywindo.ws/collection/Windows%2010/Windows%2010%20Lite.iso | |
 | A42 | Windows 10 Mac Ultra.iso | | https://crustywindo.ws/collection/Community/Windows%2010%20Mac%20Ultra.iso | |
 | A43 | Windows 10 NVIDIA.iso | | https://crustywindo.ws/collection/Community/Windows%2010%20NVIDIA.iso | |
-| A44 | WINDOWS 10 PRO 2009 HAPPY NEW YEAR 2021 19042.662 X64.iso | | | |
-| A45 | WINDOWS 10 PRO BLUE EDITION 1909 (18363.815) FR X64 (DREAM TEAM CUSTOM OS).iso | | | |
+| A44 | WINDOWS 10 PRO 2009 HAPPY NEW YEAR 2021 19042.662 X64.iso | | https://crustywindo.ws/collection/Windows%2010/WINDOWS%2010%20PRO%20BLUE%20EDITION%201909%20%2818363.815%29%20FR%20X64%20%28DREAM%20TEAM%20CUSTOM%20OS%29.iso | |
+| A45 | WINDOWS 10 PRO BLUE EDITION 1909 (18363.815) FR X64 (DREAM TEAM CUSTOM OS).iso | | https://crustywindo.ws/collection/Windows%2010/WINDOWS%2010%20PRO%202009%20HAPPY%20NEW%20YEAR%202021%2019042.662%20X64.iso | |
 | A46 | Windows 10 PRO DARK X64.iso | | https://crustywindo.ws/collection/Windows%2010/Windows%2010%20PRO%20DARK%20X64.iso | |
 | A47 | WINDOWS 10 PRO SCORPIO V2 EDITION 1909 BUILD (18363.753) Fr x64.iso | | https://crustywindo.ws/collection/Windows%2010/WINDOWS%2010%20PRO%20SCORPIO%20V2%20EDITION%201909%20BUILD%20%2818363.753%29%20Fr%20x64.iso | |
 | A48 | Windows 10 Professional Gamer 2022.iso | | https://crustywindo.ws/collection/Community/Windows%2010%20Professional%20Gamer%202022.iso | |
@@ -63,9 +63,9 @@ Browser Benchmarks and Passmark of various Windows 10/11 ISOs
 | A58 | Windows 8.1 Blue.iso | | https://crustywindo.ws/collection/Community/Windows%207X%20ModMaker89.iso | |
 | A59 | Windows 8.1 Canada Edition x64.iso | | https://crustywindo.ws/collection/Community/Windows%207X%20ModMaker89.iso | |
 | A60 | Windows 8.1 Ultimate AMD64.iso | | https://crustywindo.ws/collection/Community/Windows%208.1%20Ultimate%20AMD64.iso | |
-| A61 | Windows Longhorn Reloaded (32 Bits).ISO | | | |
+| A61 | Windows Longhorn Reloaded (32 Bits).ISO | | https://crustywindo.ws/collection/Betas/Windows_Longhorn_R2_4074.iso | |
 | A62 | Windows SV Pro v1-Legacy.iso | | https://crustywindo.ws/collection/Windows%2010/Windows%20SV%20Pro%20v1-Legacy.iso | |
-| A63 | Windows Svr 2012 Ultimate.iso | | | |
+| A63 | Windows Svr 2012 Ultimate.iso | | https://crustywindo.ws/collection/Community/Windows%20Svr%202012%20Ultimate.iso | |
 | A64 | Windows.10.Zero.Extreme.Edition.2019.iso | | https://crustywindo.ws/collection/Windows%2010/Windows.10.Zero.Extreme.Edition.2019.iso | |
 | A65 | Windows_10_Black_19045.1889_22H2_x64_Super_Slim.iso | | https://crustywindo.ws/collection/Windows%2010/Windows_10_Black_19045.1889_22H2_x64_Super_Slim.iso | |
 | A66 | Windows_10_Dragonball_Super_Edition_2018.iso | | https://crustywindo.ws/collection/Windows%2010/Windows_10_Dragonball_Super_Edition_2018.iso | |
