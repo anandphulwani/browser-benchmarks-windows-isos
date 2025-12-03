@@ -3,15 +3,15 @@ Browser Benchmarks and Passmark of various Windows 10/11 ISOs
 
 | Serial No. | Name | ISO Name | Download URL | Status |
 |------------|-------|----------|--------------|--------|
-| A1 | 010 Joker 2015.iso | | https://crustywindo.ws/collection/Windows%2010/10%20Joker%202015.iso | |
-| A2 | 010 Ultimate 3D Edition 2015.iso | | https://archive.org/download/windowsbootlegs/10%20Ultimate%203D%20Edition%202015.iso | |
-| A3 | 018 x64 Luxury.iso | | https://crustywindo.ws/collection/Windows%2010/18%20x64%20Luxury.iso | |
-| A4 | 0Adorable Anonymous Hacker windows 10 X64 Pro incl Office 2019.iso | | https://crustywindo.ws/collection/Windows%2010/Adorable%20Anonymous%20Hacker%20windows%2010%20X64%20Pro%20incl%20Office%202019.iso | |
-| A5 | 0ANDROID M - SET DATE TO 08-22-2015 OR IT WONT BOOT | | | |
-| A6 | 0Assassin's Windows 10 X64 Pro incl Office 2019.iso | | https://crustywindo.ws/collection/Windows%2010/Assassin%27s%20Windows%2010%20X64%20Pro%20incl%20Office%202019.iso | |
-| A7 | 0Bazinga!.10.LTSC.EN-US.x64.iso | | https://crustywindo.ws/collection/Windows%2010/Bazinga%21.10.LTSC.EN-US.x64.iso | |
-| A8 | 0Christmas.Magic.10.Pro.iso | | https://crustywindo.ws/collection/Windows%2010/Christmas.Magic.10.Pro.iso | |
-| A9 | 0Christmas2022LTSC.iso | | https://crustywindo.ws/collection/Windows%2010/Christmas2022LTSC.iso | |
+| A01 | 10 Joker 2015.iso | | https://crustywindo.ws/collection/Windows%2010/10%20Joker%202015.iso | |
+| A02 | 10 Ultimate 3D Edition 2015.iso | | https://archive.org/download/windowsbootlegs/10%20Ultimate%203D%20Edition%202015.iso | |
+| A03 | 18 x64 Luxury.iso | | https://crustywindo.ws/collection/Windows%2010/18%20x64%20Luxury.iso | |
+| A04 | Adorable Anonymous Hacker windows 10 X64 Pro incl Office 2019.iso | | https://crustywindo.ws/collection/Windows%2010/Adorable%20Anonymous%20Hacker%20windows%2010%20X64%20Pro%20incl%20Office%202019.iso | |
+| A05 | ANDROID M - SET DATE TO 08-22-2015 OR IT WONT BOOT | | | |
+| A06 | Assassin's Windows 10 X64 Pro incl Office 2019.iso | | https://crustywindo.ws/collection/Windows%2010/Assassin%27s%20Windows%2010%20X64%20Pro%20incl%20Office%202019.iso | |
+| A07 | Bazinga!.10.LTSC.EN-US.x64.iso | | https://crustywindo.ws/collection/Windows%2010/Bazinga%21.10.LTSC.EN-US.x64.iso | |
+| A08 | Christmas.Magic.10.Pro.iso | | https://crustywindo.ws/collection/Windows%2010/Christmas.Magic.10.Pro.iso | |
+| A09 | Christmas2022LTSC.iso | | https://crustywindo.ws/collection/Windows%2010/Christmas2022LTSC.iso | |
 | A10 | Clean OS 10 (32 Bit) CompactLite.iso | | https://crustywindo.ws/collection/Windows%2010/Clean%20OS%2010%20%2832%20Bit%29%20CompactLite.iso | |
 | A11 | CureOS V1.iso | | https://crustywindo.ws/collection/Windows%2010/CureOS%20V1.iso | |
 | A12 | Eleven Extreme 2023.iso | | https://crustywindo.ws/collection/Community/Eleven%20Extreme%202023.iso | |
