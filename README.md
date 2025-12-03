@@ -44,25 +44,25 @@ Browser Benchmarks and Passmark of various Windows 10/11 ISOs
 | A39 | Windows 10 Dota Edition X64 2015 - Freeware Sys.iso | | https://crustywindo.ws/collection/Windows%2010/Windows%2010%20Dota%20Edition%20X64%202015%20-%20Freeware%20Sys.iso | |
 | A40 | Windows 10 Gamer Edition - X64 - X86 - 2015 - DiLshad Sys.iso | | https://crustywindo.ws/collection/Windows%2010/Windows%2010%20Gamer%20Edition%20-%20X64%20-%20X86%20-%202015%20-%20DiLshad%20Sys.iso | |
 | A41 | Windows 10 Lite.iso | | https://crustywindo.ws/collection/Windows%2010/Windows%2010%20Lite.iso | |
-| A42 | Windows 10 Mac Ultra.iso | | | |
-| A43 | Windows 10 NVIDIA.iso | | | |
+| A42 | Windows 10 Mac Ultra.iso | https://crustywindo.ws/collection/Community/Windows%2010%20Mac%20Ultra.iso | | |
+| A43 | Windows 10 NVIDIA.iso | https://crustywindo.ws/collection/Community/Windows%2010%20NVIDIA.iso | | |
 | A44 | WINDOWS 10 PRO 2009 HAPPY NEW YEAR 2021 19042.662 X64.iso | | | |
 | A45 | WINDOWS 10 PRO BLUE EDITION 1909 (18363.815) FR X64 (DREAM TEAM CUSTOM OS).iso | | | |
 | A46 | Windows 10 PRO DARK X64.iso | | https://crustywindo.ws/collection/Windows%2010/Windows%2010%20PRO%20DARK%20X64.iso | |
 | A47 | WINDOWS 10 PRO SCORPIO V2 EDITION 1909 BUILD (18363.753) Fr x64.iso | | https://crustywindo.ws/collection/Windows%2010/WINDOWS%2010%20PRO%20SCORPIO%20V2%20EDITION%201909%20BUILD%20%2818363.753%29%20Fr%20x64.iso | |
-| A48 | Windows 10 Professional Gamer 2022.iso | | | |
+| A48 | Windows 10 Professional Gamer 2022.iso | | https://crustywindo.ws/collection/Community/Windows%2010%20Professional%20Gamer%202022.iso | |
 | A49 | Windows 10 Steampunk (21H2) 10.0.19044.1806-x64.iso | | https://crustywindo.ws/collection/Windows%2010/Windows%2010%20Steampunk%20%2821H2%29%2010.0.19044.1806-x64.iso | |
 | A50 | Windows 10 Turbo Edition X64 2015 - Freeware Sys.iso | | https://crustywindo.ws/collection/Windows%2010%2FWindows%2010%20Turbo%20Edition%20X64%202015%20-%20Freeware%20Sys.iso | |
 | A51 | Windows 10 Ubuntu Edition X64.iso | | https://crustywindo.ws/collection/Community/Windows%2010%20Ubuntu%20Edition%20X64.iso | |
 | A52 | Windows 11 Acrylic Edition.iso | | https://crustywindo.ws/collection/Community/Windows%2011%20Acrylic%20Edition.iso | |
-| A53 | Windows 7 Extreme Dark.iso | | | |
-| A54 | Windows 7 Metro Edition X64.iso | | | |
-| A55 | Windows 7 Night Edition X64.iso | | | |
-| A56 | Windows 7X ModMaker89.iso | | | |
-| A57 | Windows 8.1 Aviation Edition X64 TeamOS.iso | | | |
-| A58 | Windows 8.1 Blue.iso | | | |
-| A59 | Windows 8.1 Canada Edition x64.iso | | | |
-| A60 | Windows 8.1 Ultimate AMD64.iso | | | |
+| A53 | Windows 7 Extreme Dark.iso | | https://crustywindo.ws/collection/Community/Windows%207%20Extreme%20Dark.iso | |
+| A54 | Windows 7 Metro Edition X64.iso | | https://crustywindo.ws/collection/Community/Windows%207%20Metro%20Edition%20X64.iso | |
+| A55 | Windows 7 Night Edition X64.iso | | https://crustywindo.ws/collection/Community/Windows%207%20Night%20Edition%20X64.iso | |
+| A56 | Windows 7X ModMaker89.iso | | https://crustywindo.ws/collection/Community/Windows%207X%20ModMaker89.iso | |
+| A57 | Windows 8.1 Aviation Edition X64 TeamOS.iso | | https://crustywindo.ws/collection/Community/Windows%208.1%20Aviation%20Edition%20X64%20TeamOS.iso | |
+| A58 | Windows 8.1 Blue.iso | | https://crustywindo.ws/collection/Community/Windows%207X%20ModMaker89.iso | |
+| A59 | Windows 8.1 Canada Edition x64.iso | | https://crustywindo.ws/collection/Community/Windows%207X%20ModMaker89.iso | |
+| A60 | Windows 8.1 Ultimate AMD64.iso | | https://crustywindo.ws/collection/Community/Windows%208.1%20Ultimate%20AMD64.iso | |
 | A61 | Windows Longhorn Reloaded (32 Bits).ISO | | | |
 | A62 | Windows SV Pro v1-Legacy.iso | | https://crustywindo.ws/collection/Windows%2010/Windows%20SV%20Pro%20v1-Legacy.iso | |
 | A63 | Windows Svr 2012 Ultimate.iso | | | |
